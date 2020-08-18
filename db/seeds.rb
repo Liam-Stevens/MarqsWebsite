@@ -9,7 +9,7 @@
 # Seeding in courses
 require 'csv'
 
-csv_text = File.read(Rails.root.join('lib','seeds','CM_CRSE_CAT_ECMS-6383074.csv'))
+csv_text = File.read(Rails.root.join('lib','seeds','Course_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 
 Course.delete_all
