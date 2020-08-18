@@ -29,6 +29,7 @@ csv.each do |row|
     c.course_id = row["Course_ID"]
     c.eff_date = row["Eff_Date"]
     c.short_title = row["Short_Title"]
+    c.subject = row["Subject"]
     c.long_title = row["Long_Title"]
     c.descr = row["Descr"]
     c.save!
