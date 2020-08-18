@@ -11,12 +11,18 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %> 
 <%
 =end%>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <%= stylesheet_link_tag 'materialize' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= stylesheet_link_tag 'materialize' %>
   </head>
 
   <body>
+    <nav>
+      <div class="nav-wrapper cyan darken-3">
+        <a href="#" class="brand-logo left">Marqs</a>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
       <%= yield %>
     </div>
