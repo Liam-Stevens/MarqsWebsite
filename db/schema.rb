@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_024624) do
+ActiveRecord::Schema.define(version: 2020_08_18_054057) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "title"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_08_18_024624) do
     t.text "descr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "subject"
   end
 
 end
