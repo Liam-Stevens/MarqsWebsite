@@ -12,13 +12,41 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib','seeds','CM_CRSE_CAT_ECMS-6383074.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 
+Course.delete_all
+
+max = 300
+cur = 0
+
+course_id = []
+
 csv.each do |row|
+    if (cur >= max)
+        break
+    end
+    course_id.push(row["Course_ID"])
+    cur += 1
     c = Course.new
     c.course_id = row["Course_ID"]
     c.eff_date = row["Eff_Date"]
     c.short_title = row["Short_Title"]
     c.long_title = row["Long_Title"]
     c.descr = row["Descr"]
-    c.save
+    c.save!
 end
 
+# Seeding in Assignments
+csv_text = File.read(Rails.root.join('lib','seeds','Assignment_Data.csv'))
+csv = CSV.parse(csv_text, :headers => true)
+Assignment.delete_all
+cur = 0
+
+csv.each do |row|
+    a = Assignment.new
+    a.course_id = course_id[cur%max]
+    cur += 1
+    a.title = row["title"]
+    a.due_date = row["due_date"]
+    a.weighting = row["weighting"]
+    a.max_points = row["points"]
+    a.save!
+end
