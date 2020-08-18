@@ -5,6 +5,7 @@ class CreateCourses < ActiveRecord::Migration[5.2]
       t.string :short_title
       t.string :long_title
       t.text :descr
+      t.timestamps
     end
   end
 end

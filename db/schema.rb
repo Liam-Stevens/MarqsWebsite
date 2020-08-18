@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_015820) do
+ActiveRecord::Schema.define(version: 2020_08_18_021420) do
 
   create_table "courses", primary_key: "course_id", force: :cascade do |t|
     t.date "eff_date"
     t.string "short_title"
     t.string "long_title"
     t.text "descr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
