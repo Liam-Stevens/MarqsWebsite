@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_021420) do
+ActiveRecord::Schema.define(version: 2020_08_18_023456) do
+
+  create_table "assignments", force: :cascade do |t|
+    t.string "title"
+    t.date "due_date"
+    t.float "weighting"
+    t.integer "max_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "courses", primary_key: "course_id", force: :cascade do |t|
     t.date "eff_date"
