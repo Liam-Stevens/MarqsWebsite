@@ -1,0 +1,23 @@
+<h2> <%= @course.long_title %> </h2>
+
+<table>
+    <thead>
+        <tr>
+            <th> Assignments </th>
+            <th> Due Date </th>
+            <th> Weighting </th>
+            <th> Marks </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @assignments.each do |assignment| %>
+            <tr>
+                <td> <%= assignment.title %> </td>
+                <td> <%= assignment.due_date %> </td>
+                <td> <%= (assignment.weighting*100).to_i %> % </td>
+                <td> <%= assignment.max_points %> </td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>
