@@ -12,7 +12,7 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib','seeds','Course_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 
-Course.delete_all
+# Course.delete_all
 
 max = 300
 cur = 0
@@ -50,4 +50,17 @@ csv.each do |row|
     a.weighting = row["weighting"]
     a.max_points = row["points"]
     a.save!
+end
+
+# Seeding in Markers
+csv_text = File.read(Rails.root.join('lib','seeds','Marker_Data.csv'))
+csv = CSV.parse(csv_text, :headers => true)
+
+csv.each do |row|
+    m = Marker.new
+    m.courses = Course.order('RANDOM()').first(3)
+    m.uni_id = row["uni_id"]
+    m.name = row["name"]
+    m.email = row["email"]
+    m.save!
 end
