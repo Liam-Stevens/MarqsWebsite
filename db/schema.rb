@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_045221) do
+ActiveRecord::Schema.define(version: 2020_08_20_025949) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "title"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2020_08_19_045221) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "subject"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer "assignment_id"
+    t.integer "grade"
+    t.date "submitted_date"
+    t.text "feedback"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_submissions_on_assignment_id"
   end
 
 end
