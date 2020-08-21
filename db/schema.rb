@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_054057) do
+ActiveRecord::Schema.define(version: 2020_08_20_025949) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "title"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2020_08_18_054057) do
     t.integer "course_id"
   end
 
+  create_table "course_members", force: :cascade do |t|
+    t.string "role"
+    t.integer "marker_id"
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_members_on_course_id"
+    t.index ["marker_id"], name: "index_course_members_on_marker_id"
+  end
+
   create_table "courses", primary_key: "course_id", force: :cascade do |t|
     t.date "eff_date"
     t.string "short_title"
@@ -30,6 +40,24 @@ ActiveRecord::Schema.define(version: 2020_08_18_054057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "subject"
+  end
+
+  create_table "markers", force: :cascade do |t|
+    t.string "uni_id"
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer "assignment_id"
+    t.integer "grade"
+    t.date "submitted_date"
+    t.text "feedback"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_submissions_on_assignment_id"
   end
 
 end
