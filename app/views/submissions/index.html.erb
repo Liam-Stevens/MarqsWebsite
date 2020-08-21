@@ -1,0 +1,21 @@
+<h3> <%= @assignment.title %> </h3>
+<h5> <%= "#{@submissions.count} submissions" %> </h5>
+
+<table class="striped">
+    <thead>
+        <tr style="">
+            <th> <i class="material-icons">assignment</i>    Student ID </th>
+            <th> <i class="material-icons">access_time</i>     Submitted </th>
+            <th> <i class="material-icons">assessment</i>     Mark </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @submissions.each do |submission| %>
+            <tr>
+                <td> a1234567 </td>
+                <td> <%= submission.submitted_date %> </td>
+                <td> <%= submission.grade %> </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
