@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # Nest submissions within assignments
+  # e.g. /assignment/1234/submission/22
+  shallow do
+    resources :assignments do
+      resources :submissions
+    end
+  end
+
+  resources :courses
+  resources :markers
+  resources :student
 end

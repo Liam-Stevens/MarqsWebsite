@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Group3</title>
+    <title>Marqs - Group3</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
+    <%
+=begin%>
+ 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %> 
+<%
+=end%>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= stylesheet_link_tag 'materialize' %>
   </head>
 
   <body>
-    <%= yield %>
+    <nav>
+      <div class="nav-wrapper cyan darken-3">
+        <a href="#" class="brand-logo left">Marqs</a>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag 'materialize' %>
   </body>
 </html>
