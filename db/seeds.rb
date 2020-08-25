@@ -99,3 +99,23 @@ csv.each do |row|
     s.submitted_date = "1/1/2000"
     s.save!
 end
+
+# Seed in some submissions for random assignments
+# (note that the random seed is set to hopefully get repeated behaviour)
+srand(42)
+assignments = Assignment.all
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'Submission_Data.csv'))
+csv = CSV.parse(csv_text, :headers => true)
+
+csv.each do |row|
+    # Get a 'random' assignment
+    idx = rand(assignments.count)
+    assignment = assignments[idx]
+
+    # Create submission and save
+    s = Submission.new
+    s.assignment_id = assignment.id
+    s.grade = row["grade"]
+    s.submitted_date = row["submitted_date"]
+    s.save!
+end
