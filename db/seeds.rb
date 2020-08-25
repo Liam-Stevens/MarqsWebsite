@@ -119,3 +119,24 @@ csv.each do |row|
     s.submitted_date = row["submitted_date"]
     s.save!
 end
+
+# Seed in comments for random submissions
+markers = Marker.all
+submissions = Submission.all
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'Comment_Data.csv'))
+csv = CSV.parse(csv_text, :headers => true)
+
+csv.each do |row|
+    # Pick a 'random' marker and submission
+    idx = rand(markers.count)
+    marker = markers[idx]
+    idx = rand(submissions.count)
+    submission = submissions[idx]
+
+    # Create a comment object using the randomly picked values
+    c = Comment.new
+    c.marker_id = marker.id
+    c.submission_id = submission.id
+    c.content = row["content"]
+    c.save!
+end
