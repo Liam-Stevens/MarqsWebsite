@@ -12,7 +12,7 @@
     <tbody>
         <% @submissions.each do |submission| %>
             <tr>
-                <td> a1234567 </td>
+                <td> <%= link_to "a1234567", submission_submission_path(submission) %> </td>
                 <td> <%= submission.submitted_date %> </td>
                 <td> <%= submission.grade %> </td>
             </tr>

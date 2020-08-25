@@ -1,4 +1,4 @@
 class Comment < ApplicationRecord
     belongs_to :submission
-    has_one :marker
+    belongs_to :marker
 end

@@ -1,0 +1,19 @@
+<h3> <%= @assignment.title %> </h3>
+<h5> <%= "a1234567's submission" %> </h5>
+
+<table class="striped">
+    <thead>
+        <tr style="">
+            <th> <i class="material-icons">chat</i>    Comment </th>
+            <th> <i class="material-icons">account_box</i>     Marker </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @comments.each do |comment| %>
+            <tr>
+                <td> <%= comment.content %> </td>
+                <td> <%= "a"+comment.marker.uni_id %> </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -12,5 +12,11 @@ class SubmissionsController < ApplicationController
         # Get the object with the given id
         id = params[:id]
         @submission = Submission.find(id)
+
+        # Get the submission's assignment
+        @assignment = @submission.assignment
+
+        # Get a list of the submission's comments
+        @comments = @submission.comments
     end
 end
