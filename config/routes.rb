@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   resources :courses
   resources :markers
-  resources :student
+  resources :students
+  
 end

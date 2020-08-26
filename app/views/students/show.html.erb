@@ -1,0 +1,17 @@
+<h3> <%= @studentName %> </h3>
+
+<table class="striped">
+    <thead>
+        <tr style="">
+            <th> <i class="material-icons">assignment</i>   Courses </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @courses.each do |course| %>
+            <tr>
+                <td> <%= course.long_title %> </td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>
