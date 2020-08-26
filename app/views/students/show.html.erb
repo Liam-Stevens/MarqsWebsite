@@ -10,8 +10,19 @@
         <% @courses.each do |course| %>
             <tr>
                 <td> <%= course.long_title %> </td>
+                
             </tr>
         <% end %>
+
+        <% @assignments.each do |assignment| %>
+            <tr>
+                <td> <%= assignment.title %> </td>
+                
+            </tr>
+        <% end %>
+
+
+
     </tbody>
 
 </table>

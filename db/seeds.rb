@@ -14,7 +14,7 @@ csv = CSV.parse(csv_text, :headers => true)
 
 # Course.delete_all
 
-max = 10
+max = 300
 cur = 0
 
 course_id = []

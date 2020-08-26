@@ -10,7 +10,7 @@ class StudentsController < ApplicationController
     @student = Student.find(id)
     @studentName = @student.first_name + " " + @student.last_name
     @courses = @student.courses
-    @submissions = @courses[0].assignments
+    @assignments = @courses[0].assignments
     end
-      
+
 end
