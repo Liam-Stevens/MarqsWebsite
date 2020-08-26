@@ -6,7 +6,7 @@ class LoginController < ApplicationController
 
     if Student.exists?(student_id: session[:id])
       redirect_to "/students/"+session[:id]
-    elsif Marker.exists?(uni_id: session[:id])
+    elsif Marker.exists?(marker_id: session[:id])
       redirect_to "/markers/"+session[:id]
     else
       @failure = "Not a valid ID"
