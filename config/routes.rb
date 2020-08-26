@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Nest submissions within assignments
   # e.g. /assignment/1234/submission/22
-  root :index
+  root 'login#index'
 
   shallow do
     resources :assignments do
