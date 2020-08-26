@@ -5,7 +5,7 @@ class SubmissionsController < ApplicationController
         @assignment = Assignment.find(assignment_id)
         
         # List out students 
-        @students = Course.find(@assignment.course_id).students
+        @submissions = @assignment.submissions
     end
 
     def show

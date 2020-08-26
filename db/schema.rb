@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_26_014204) do
+ActiveRecord::Schema.define(version: 2020_08_26_024836) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "title"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_08_26_014204) do
     t.text "feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "student_id"
     t.index ["assignment_id"], name: "index_submissions_on_assignment_id"
   end
 
