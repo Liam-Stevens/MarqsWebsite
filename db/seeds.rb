@@ -59,9 +59,9 @@ csv = CSV.parse(csv_text, :headers => true)
 csv.each do |row|
     m = Marker.new
     m.courses = Course.order('RANDOM()').first(3)
-    m.uni_id = row["uni_id"]
-    m.name = row["name"]
-    m.email = row["email"]
+    m.marker_id = row["id"]
+    m.first_name = row["first_name"]
+    m.last_name = row["last_name"]
     m.save!
 end
 
