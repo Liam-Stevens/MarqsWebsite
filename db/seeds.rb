@@ -98,4 +98,32 @@ csv.each do |row|
     s.grade = row["Mark"]
     s.submitted_date = "1/1/2000"
     s.save!
+
+    # Seeding in Students
+    csv_text = File.read(Rails.root.join('lib','seeds','Students_Data.csv'))
+    csv = CSV.parse(csv_text, :headers => true)
+    Student.delete_all
+
+    csv.each do |row|
+        a = Student.new
+        a.student_id = row["id"]
+        a.first_name = row["first_name"]
+        a.last_name = row["last_name"]
+        a.save!
+    end
+end
+
+
+# Joining Students to Courses
+students = Student.all
+courses = Course.all
+
+cur = 0
+
+students.each do |student|
+    4.times do
+        student.courses << courses[cur % courses.size]
+        cur += 1
+    end        
+    student.save!
 end
