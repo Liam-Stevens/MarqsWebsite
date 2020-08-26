@@ -12,5 +12,6 @@ class SubmissionsController < ApplicationController
         # Get the object with the given id
         id = params[:id]
         @submission = Submission.find(id)
+        @students = Student.all
     end
 end
