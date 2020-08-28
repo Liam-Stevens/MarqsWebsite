@@ -151,7 +151,6 @@ csv.each do |row|
     submission = submissions[idx]
 
     # Create a comment object using the randomly picked values
-    puts "#{marker.id}"
     c = Comment.new
     c.marker_id = marker.id
     c.submission_id = submission.id
