@@ -1,10 +1,13 @@
 <h3> <%= @assignment.title %> </h3>
-<h5> <%= "#{@submissions.count} submissions" %> </h5>
+
+<%# Link button to logon page %>
+<button type="button">Import Marks</button>
 
 <table class="striped">
     <thead>
         <tr style="">
             <th> <i class="material-icons">assignment</i>    Student ID </th>
+
             <th> <i class="material-icons">access_time</i>     Submitted </th>
             <th> <i class="material-icons">assessment</i>     Mark </th>
         </tr>
@@ -12,9 +15,10 @@
     <tbody>
         <% @submissions.each do |submission| %>
             <tr>
-                <td> <%= link_to "a1234567", submission_submission_path(submission) %> </td>
+                <td> <a href="<%= student_url(submission.student_id) %>"><%= submission.student_id %> </a> </td>
                 <td> <%= submission.submitted_date %> </td>
                 <td> <%= submission.grade %> </td>
+                <td> <a href="<%= submission_url(submission) %>"> View Submission</a> </td>
             </tr>
         <% end %>
     </tbody>

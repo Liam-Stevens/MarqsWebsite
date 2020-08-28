@@ -12,7 +12,7 @@
         <% @comments.each do |comment| %>
             <tr>
                 <td> <%= comment.content %> </td>
-                <td> <%= "a"+comment.marker.uni_id %> </td>
+                <td> <%= "a#{comment.marker.id}" %> </td>
             </tr>
         <% end %>
     </tbody>

@@ -3,8 +3,8 @@ class SubmissionsController < ApplicationController
         # Get the id of the assignment we're viewing and get the object
         assignment_id = params[:assignment_id]
         @assignment = Assignment.find(assignment_id)
-
-        # Get a list of the assignment's submissions
+        
+        # List out students 
         @submissions = @assignment.submissions
     end
 
