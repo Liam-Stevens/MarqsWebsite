@@ -1,0 +1,6 @@
+<h3>Login</h3>
+<%= form_with(url: "/login", method: "get") do %>
+  <%= @failure %>
+  <%= text_field_tag(:id, nil, placeholder: "1234567", value: session[:id]) %>
+  <%= submit_tag("Login", class: "btn") %>
+<% end %>
