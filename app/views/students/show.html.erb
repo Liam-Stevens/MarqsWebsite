@@ -1,4 +1,4 @@
-<h3> <%= @marker.first_name %> </h3>
+<h3> <%= @studentName %> </h3>
 <button class="btn" onclick="location.href='/login/show'">Logout</button>
 <table class="striped">
     <thead>
@@ -10,8 +10,10 @@
         <% @courses.each do |course| %>
             <tr>
                 <td> <%= course.long_title %> </td>
+                
             </tr>
         <% end %>
+
     </tbody>
 
 </table>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # Nest submissions within assignments
   # e.g. /assignment/1234/submission/22
+  root 'login#index'
+
   shallow do
     resources :assignments do
       resources :submissions
@@ -9,5 +11,9 @@ Rails.application.routes.draw do
 
   resources :courses
   resources :markers
-  resources :student
+  resources :login
+  resources :students do
+    get "course"
+end
+  
 end

@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_08_26_024836) do
     t.integer "course_id"
   end
 
-  create_table "course_members", force: :cascade do |t|
+  create_table "course_members", id: false, force: :cascade do |t|
     t.string "role"
     t.integer "marker_id"
     t.integer "course_id", null: false
@@ -49,10 +49,9 @@ ActiveRecord::Schema.define(version: 2020_08_26_024836) do
     t.index ["student_id"], name: "index_courses_students_on_student_id"
   end
 
-  create_table "markers", force: :cascade do |t|
-    t.string "uni_id"
-    t.string "name"
-    t.string "email"
+  create_table "markers", primary_key: "marker_id", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
