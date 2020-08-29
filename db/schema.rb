@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2020_08_26_024836) do
     t.integer "course_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "submission_id"
+    t.integer "marker_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marker_id"], name: "index_comments_on_marker_id"
+    t.index ["submission_id"], name: "index_comments_on_submission_id"
+  end
+
   create_table "course_members", id: false, force: :cascade do |t|
     t.string "role"
     t.integer "marker_id"
@@ -67,7 +77,6 @@ ActiveRecord::Schema.define(version: 2020_08_26_024836) do
     t.integer "assignment_id"
     t.integer "grade"
     t.date "submitted_date"
-    t.text "feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "student_id"

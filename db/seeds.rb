@@ -59,7 +59,7 @@ students.each do |student|
     4.times do
         student.courses << courses[cur % courses.size]
         cur += 1
-    end        
+    end
     student.save!
 end
 
@@ -111,8 +111,52 @@ csv.each do |row|
     m.save!
 end
 
+# Seed in some submissions for random assignments
+# (note that the random seed is set to hopefully get repeated behaviour)
+puts "Seeding in Submissions"
+srand(42)
+students = Student.all
+assignments = Assignment.all
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'Submission_Data.csv'))
+csv = CSV.parse(csv_text, :headers => true)
 
+csv.each do |row|
+    # Get a 'random' assignment
+    idx = rand(assignments.count)
+    assignment = assignments[idx]
+    idx = rand(students.count)
+    student = students[idx]
 
+    # Create submission and save
+    s = Submission.new
+    s.student_id = student.id
+    s.assignment_id = assignment.id
+    s.grade = row["grade"]
+    s.submitted_date = row["submitted_date"]
+    s.save!
+end
+
+# Seed in comments for random submissions
+puts "Seeding in Submission Comments"
+markers = Marker.all
+submissions = Submission.all
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'Comment_Data.csv'))
+csv = CSV.parse(csv_text, :headers => true)
+
+csv.each do |row|
+    # Pick a 'random' marker and submission
+    idx = rand(markers.count)
+    marker = markers[idx]
+    idx = rand(submissions.count)
+    submission = submissions[idx]
+
+    # Create a comment object using the randomly picked values
+    c = Comment.new
+    c.marker_id = marker.id
+    c.submission_id = submission.id
+    c.content = row["content"]
+    c.save!
+end
 
 # puts "Seed in some web submissions"
 # csv_text = File.read(Rails.root.join('lib', 'seeds', 'WebSubmission_Data_All.csv'))
