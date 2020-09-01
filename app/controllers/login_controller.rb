@@ -1,23 +1,28 @@
 class LoginController < ApplicationController
-  def index
-    if params[:id] != nil
-      session[:id] = params[:id]
+    def index
+        # Set session ID if passed in parameters
+        if params[:id] != nil
+            session[:id] = params[:id]
+        end
+
+        # Redirect to page based on ID
+        id = session[:id]
+        if Student.exists?(student_id: id)
+            redirect_to student_path(id)
+
+        elsif Marker.exists?(marker_id: id)
+            redirect_to marker_path(id)
+
+        # Otherwise indicate not found
+        else
+            @failure = "Invalid ID entered"
+        end
     end
 
-    if Student.exists?(student_id: session[:id])
-      redirect_to "/students/"+session[:id]
-    elsif Marker.exists?(marker_id: session[:id])
-      redirect_to "/markers/"+session[:id]
-    else
-      @failure = "Not a valid ID"
+    # 'Logout' and redirect to home page
+    def show
+        session.clear
+        redirect_to root_path
     end
-
-  end
-
-  def show
-    session.clear
-    redirect_to "/login"
-  end
-
 end
 

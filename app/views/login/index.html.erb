@@ -1,6 +1,18 @@
-<h3>Login</h3>
-<%= form_with(url: "/login", method: "get") do %>
-  <%= @failure %>
-  <%= text_field_tag(:id, nil, placeholder: "1234567", value: session[:id]) %>
-  <%= submit_tag("Login", class: "btn") %>
+<%# Headings %>
+<h3>Welcome!</h3>
+<h6 style="margin-bottom: 30px">Please login with your credentials:</h6>
+
+<%# Main form %>
+<%= form_with(url: "/login", method: :get) do %>
+    <%# Error message set by controller %>
+    <p class="red-text text-darken-2" style="margin: 0 0 20px 0"><%= @failure %></p>
+
+    <%# Student/Marker ID input %>
+    <div class="input-field">
+      <%= label_tag(:id, "Student/Marker ID") %>
+      <%= text_field_tag(:id, nil, value: session[:id], class: "validate") %>
+    </div>
+
+    <%# Submit button %>
+    <%= submit_tag("Login", class: "pink lighten-1 btn") %>
 <% end %>
