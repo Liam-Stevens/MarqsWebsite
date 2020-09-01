@@ -1,6 +1,6 @@
-<h3> Add new comment to <%= @studentName %>'s submission</h3>
+<h3> Add new comment to <%= @student.full_name %>'s submission</h3>
 
-<%= form_with(url: submission_comments_path, id: "comment-form", method: "post") do |form| %>
-  <%= text_field :text, required: true %>
+<%= form_with(url: submission_comments_path, id: "comment-form") do %>
+  <%= text_field_tag :text, nil, placeholder: "Comment", required: true %>
   <%= submit_tag 'Add Comment' %>
 <% end %>
