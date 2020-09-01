@@ -1,4 +1,7 @@
 class LoginController < ApplicationController
+    # Don't check if logged in on the home page
+    skip_before_action :redirect_to_root
+
     def index
         # Set session ID if passed in parameters
         if params[:id] != nil
@@ -15,6 +18,7 @@ class LoginController < ApplicationController
 
         # Otherwise indicate not found
         else
+            session.clear
             @failure = "Invalid ID entered"
         end
     end

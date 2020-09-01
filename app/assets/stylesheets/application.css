@@ -17,6 +17,13 @@
     font-family: "Raleway";
 }
 
+.center-vertical {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    line-height: normal;
+}
+
 .heading-style {
     font-family: "Nunito";
     color: #ff7242 !important;

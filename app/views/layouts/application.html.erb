@@ -20,7 +20,22 @@
         <%# Navbar %>
         <nav>
             <div class="nav-wrapper white">
+                <%# Name (home link) %>
                 <%= link_to("Marqs", root_path, class: "brand-logo heading-style left", style: "margin-left: 30px") %>
+
+                <%# Account section (only shown if logged in)%>
+                <% if @logged_in %>
+                    <div class="right" style="height: 100%; max-height: 100%; padding: 10px 30px 10px 0">
+                        <%# Image %>
+                        <%= image_tag("account_placeholder.png", alt: "Account image", class: "right", style: "height: 100%")%>
+
+                        <%# Name + logout %>
+                        <div class="center-vertical right" style="margin-right: 10px; padding: 0">
+                            <p style="font-family: Nunito; font-size: 1.1em; color: black; margin: 0;"><%= @logged_in_user.full_name%></p>
+                            <p style="font-size: 0.9em; margin: 0 0 0 auto;"><%= link_to("Logout", "/login/show", class: "pink-text") %></p>
+                        </div>
+                    </div>
+                <% end %>
             </div>
         </nav>
 
