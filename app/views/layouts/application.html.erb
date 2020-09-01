@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Marqs - Group3</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    
-    <%
-=begin%>
- 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %> 
-<%
-=end%>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <%= stylesheet_link_tag 'materialize' %>
-  </head>
+    <head>
+        <title>Marqs - Australia's Leading Grading System</title>
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
 
-  <body>
-    <nav>
-      <div class="nav-wrapper cyan darken-3">
-        <a href="#" class="brand-logo left">Marqs</a>
-        </ul>
-      </div>
-    </nav>
-    <div class="container">
-      <%= yield %>
-    </div>
-    <%= javascript_include_tag 'materialize' %>
-  </body>
+        <%# Load fonts from Google %>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Raleway&display=swap" rel="stylesheet">
+
+        <%# Load application-specific CSS %>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+        <%# Load Materalize CSS %>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <%= stylesheet_link_tag 'materialize' %>
+    </head>
+
+    <body style="background-color: rgb(237, 237, 239)">
+        <%# Navbar %>
+        <nav>
+            <div class="nav-wrapper white">
+                <%= link_to("Marqs", root_path, class: "brand-logo heading-style left", style: "margin-left: 30px") %>
+            </div>
+        </nav>
+
+        <%# Container for other .erb's to fill %>
+        <div class="container">
+            <%= yield %>
+        </div>
+
+        <%# Materialize's JS %>
+        <%= javascript_include_tag 'materialize' %>
+    </body>
 </html>

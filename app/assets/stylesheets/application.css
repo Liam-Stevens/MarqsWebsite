@@ -13,6 +13,14 @@
  *= require_tree .
  *= require_self
  */
+* {
+    font-family: "Raleway";
+}
+
+.heading-style {
+    font-family: "Nunito";
+    color: #ff7242 !important;
+}
 
 th {
     vertical-align: middle;

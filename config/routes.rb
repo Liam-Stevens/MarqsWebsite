@@ -8,12 +8,12 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'login#index'
+  root 'homepage#index'
   resources :courses
   resources :markers
   resources :login
   resources :students do
     get "course"
-end
+  end
 
 end
