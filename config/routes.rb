@@ -8,6 +8,15 @@ Rails.application.routes.draw do
     end
   end
 
+  # Nest comments within submissions
+  # e.g. /submission/1234/comments   -> list all comments for submission
+  # e.g. /comments/22                -> list specific comment
+  shallow do
+    resources :submissions do
+      resources :comments, shallow: true
+    end
+  end
+
   root 'login#index'
   resources :courses
   resources :markers

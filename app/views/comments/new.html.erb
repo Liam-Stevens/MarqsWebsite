@@ -1,24 +1,6 @@
-<h3> <%= @course.long_title %> </h3>
-<h5> <%= @course.subject + " " + @course.course_id.to_s %> </h5>
+<h3> Add new comment to <%= @studentName %>'s submission</h3>
 
-<table class="striped">
-    <thead>
-        <tr style="">
-            <th> <i class="material-icons">assignment</i>   Assignments </th>
-            <th> <i class="material-icons">access_time</i>    Due Date </th>
-            <th> <i class="material-icons">pie_chart</i>     Weighting </th>
-            <th> <i class="material-icons">assessment</i>     Marks </th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @assignments.each do |assignment| %>
-            <tr>
-                <td> <%= link_to assignment.title, assignment_submissions_path(assignment) %> </td>
-                <td> <%= assignment.due_date %> </td>
-                <td> <%= (assignment.weighting*100).to_i %> % </td>
-                <td> <%= assignment.max_points %> </td>
-            </tr>
-        <% end %>
-    </tbody>
-
-</table>
+<%= form_with(url: submission_comments_path, id: "comment-form", method: "post") do |form| %>
+  <%= text_field :text, required: true %>
+  <%= submit_tag 'Add Comment' %>
+<% end %>
