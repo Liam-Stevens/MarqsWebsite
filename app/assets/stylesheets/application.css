@@ -17,11 +17,19 @@
     font-family: "Raleway";
 }
 
+.box-pad {
+    margin: 1.4em;
+}
+
 .center-vertical {
     display: flex;
     flex-direction: column;
     height: 100%;
     line-height: normal;
+}
+
+.grey-box {
+    border: solid lightgrey 1px;
 }
 
 .heading-style {
