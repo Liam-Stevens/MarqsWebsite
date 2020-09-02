@@ -1,12 +1,11 @@
 class MarkersController < ApplicationController
-
     def index
         @courses = Course.all
     end
 
     def show
+        # Get list of courses for marker
         id = params[:id]
-        @marker = Marker.find(id)
-        @courses = @marker.courses
+        @courses = Marker.find(id).courses
     end
 end
