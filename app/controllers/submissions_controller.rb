@@ -47,19 +47,20 @@ class SubmissionsController < ApplicationController
     end
 
     def import
-        puts params[:grades].inspect
+        # Error if not a CSV file
         if(params[:grades] == nil || !params[:grades].path.match(".*.csv$"))
             flash[:notice] = "select CSV file" 
             redirect_back(fallback_location: root_path)
             return
         end
 
+        # Read in CSV file and encode with utf-8
         uploaded_file = params[:grades]
         text = File.read(uploaded_file.path, :encoding => 'utf-8')
         csv = CSV.parse(text, :headers => true)
-
         headers = csv.headers
 
+        # Error if file headers are incorrect
         if(headers == nil || headers != ["student_id", "fix_final_mark", "feedback_mark", "comments"])
             flash[:notice] = "please set headers to student_id, fix_final_mark, feedback_mark, comments" 
             redirect_back(fallback_location: root_path)
@@ -70,8 +71,11 @@ class SubmissionsController < ApplicationController
         max_mark = assignment.max_points
         submissions = assignment.submissions
         
+        # Setting students grades to imported grades
         csv.each do |row|
             submission = submissions.where(student_id: row["student_id"]).first
+
+            # Error if student is not found 
             if(submission == nil) 
                 if(flash[:notice] == nil)
                     flash[:notice] = ""
@@ -79,11 +83,13 @@ class SubmissionsController < ApplicationController
                 flash[:notice] +=  "Error: student not found: " + row["student_id"]+ "    "
                 next
             end
-            if(row["fix_final_mark"].to_i > max_mark) 
+   
+            # Error if marks are out of bounds
+            if(row["fix_final_mark"].to_i > max_mark || row["fix_final_mark"].to_i < 0) 
                 if(flash[:notice] == nil)
                     flash[:notice] = ""
                 end
-                flash[:notice] +=  "Error: student mark too high: " + row["student_id"]+ "    "
+                flash[:notice] +=  "Error: student mark are out of bounds: " + row["student_id"]+ "    "
                 next
             end
             submission.grade = row["fix_final_mark"]
