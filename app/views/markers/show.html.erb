@@ -9,7 +9,7 @@
     <tbody>
         <% @courses.each do |course| %>
             <tr>
-                <td> <%= course.long_title %> </td>
+                <td> <%= link_to course.long_title, marker_course_path(@marker.id, course) %> </td>
             </tr>
         <% end %>
     </tbody>
