@@ -1,28 +1,108 @@
-<h3> <%= @course.long_title %> </h3>
-<h5> <%= @course.subject + " " + @course.course_id.to_s %> </h5>
+<%# Course name + 'subject' %>
+<h3 style="margin-bottom: 0"><%= @course.long_title %></h3>
+<h5 class="grey-text text-darken-2" style="margin-top: 5px"><%= @course.subject + " " + @course.course_id.to_s %></h5>
 
-<table class="striped">
+<%# Calculations %>
+<h5 style="margin-top: 30px">Summary</h5>
+<div class="row" style="width: 100%">
+    <%# Current Grade %>
+    <div class="col s6">
+        <div class="grey-box">
+            <div class="valign-wrapper box-pad">
+                <i class="material-icons">donut_large</i>
+                <h6 style="margin-left: 10px">Current Grade</h6>
+                <h6 style="margin-left: auto"><b>52 P</b></h6>
+            </div>
+        </div>
+    </div>
+
+    <%# Remaining Assignments %>
+    <div class="col s6">
+        <div class="grey-box">
+            <div class="valign-wrapper box-pad">
+                <i class="material-icons">assignment</i>
+                <h6 style="margin-left: 10px">Assignments Left</h6>
+                <h6 style="margin-left: auto"><b>1</b></h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%# Table listing any assignments/components that are graded %>
+<h5 style="margin-top: 30px">Assignments</h5>
+<table>
     <thead>
-        <tr style="">
-            <th> <i class="material-icons">assignment</i>   Assignments </th>
-            <th> <i class="material-icons">access_time</i>    Due Date </th>
-            <th> <i class="material-icons">pie_chart</i>     Weighting </th>
-            <th> <i class="material-icons">assessment</i>     Marks </th>
+        <tr>
+            <%# Assignment Name %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">assignment</i>
+                    <span style="margin-left: 10px">Assignment Name</span>
+                </div>
+            </th>
+
+            <%# Due Date %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">access_time</i>
+                    <span style="margin-left: 10px">Due Date</span>
+                </div>
+            </th>
+
+            <%# Weighting %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">pie_chart</i>
+                    <span style="margin-left: 10px">Weighting</span>
+                </div>
+            </th>
+
+            <%# Mark %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">assessment</i>
+                    <span style="margin-left: 10px">Mark</span>
+                </div>
+            </th>
+
+            <%# Details button %>
+            <th>
+            </th>
         </tr>
     </thead>
+
     <tbody>
         <% @assignments.each do |assignment| %>
             <tr>
-                <% if @is_marker %>
-                  <%# Routes to where a marker will marks all assignments %>
-                  <td> <%= link_to assignment.title, marker_course_assignment_submissions_path(@person, @course, assignment) %> </td>
-                <% else %>
-                <td> <%= link_to assignment.title, student_course_assignment_submission_path(@person, @course, assignment) %> </td>
-                <% end %>
+                <%# Assignment Name %>
+                <td>
+                    <h6><%= assignment.title %></h6>
+                </td>
 
-                <td> <%= assignment.due_date %> </td>
-                <td> <%= (assignment.weighting*100).to_i %> % </td>
-                <td> <%= assignment.max_points %> </td>
+                <%# Due Date %>
+                <td>
+                    <h6><%= assignment.due_date %></h6>
+                </td>
+
+                <%# Weighting %>
+                <td>
+                    <h6><%= (assignment.weighting*100).round.to_s + "%" %></h6>
+                </td>
+
+                <%# Marks %>
+                <td>
+                    <h6><%= assignment.max_points %></h6>
+                </td>
+
+                <%# Details button %>
+                <td>
+                    <% if @is_marker %>
+                        <%# Routes to where a marker will marks all assignments %>
+                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), marker_course_assignment_submissions_path(@person, @course, assignment)) %>
+                    <% else %>
+                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), student_course_assignment_submission_path(@person, @course, assignment)) %>
+                    <% end %>
+                </td>
             </tr>
         <% end %>
     </tbody>

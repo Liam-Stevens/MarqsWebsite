@@ -1,0 +1,11 @@
+<%# Heading and login button %>
+<h2 class="center-align heading-style">Marqs</h2>
+<h6 class="center-align" style="padding-bottom: 40px"><i>Australia's leading grading platform</i></h6>
+<div class="center-align" style="padding-bottom: 20px">
+    <%= link_to(button_tag("Login", class: "pink lighten-1 waves-effect waves-light btn"), login_index_path) %>
+</div>
+
+<%# Display image underneath and fit width %>
+<div style="display: flex; flex-direction: column">
+    <%= image_tag("homepage_image.png", alt: "Background image", style: "flex-grow: 1; max-width: 100%") %>
+</div>

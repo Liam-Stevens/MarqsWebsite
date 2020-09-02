@@ -1,17 +1,50 @@
-<h3> <%= @markerName %> </h3>
-<button class="btn" onclick="location.href='/login/show'">Logout</button>
-<table class="striped">
+<h3> Your Dashboard </h3>
+
+<%# Table of courses marker is assigned to %>
+<h5>Assigned Courses</h5>
+<table>
     <thead>
-        <tr style="">
-            <th> <i class="material-icons">assignment</i>   Courses </th>
+        <tr>
+            <%# Course Name %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">assignment</i>
+                    <span style="margin-left: 10px">Course Name</span>
+                </div>
+            </th>
+
+            <%# Number of Students %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">supervisor_account</i>
+                    <span style="margin-left: 10px">Students Enrolled</span>
+                </div>
+            </th>
+
+            <%# View button %>
+            <th>
+            </th>
         </tr>
     </thead>
+
     <tbody>
         <% @courses.each do |course| %>
             <tr>
-                <td> <%= link_to course.long_title, marker_course_path(@marker, course) %> </td>
+                <%# Course name %>
+                <td>
+                    <h6><%= course.long_title %></h6>
+                </td>
+
+                <%# Student count %>
+                <td>
+                    <h6><%= course.students.count %></h6>
+                </td>
+
+                <%# View button %>
+                <td class="right">
+                    <%= link_to(button_tag("View", class: "grey darken-2 waves-effect waves-light btn"), marker_course_path(@logged_in_user, course)) %>
+                </td>
             </tr>
         <% end %>
     </tbody>
-
 </table>

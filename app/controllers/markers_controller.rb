@@ -1,14 +1,12 @@
 class MarkersController < ApplicationController
-
     def show
-        #Redirect for wrong URI
+        # Redirect for wrong URI
         if session[:id] != params[:id]
-            redirect_to "/login"
+            redirect_to login_path
         end
 
+        # Get list of courses for marker
         id = session[:id]
-        @marker = Marker.find(id)
-        @markerName = @marker.first_name + " " + @marker.last_name
-        @courses = @marker.courses
+        @courses = Marker.find(id).courses
     end
 end
