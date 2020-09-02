@@ -15,9 +15,9 @@
             <tr>
                 <% if @is_marker %>
                   <%# Routes to where a marker will marks all assignments %>
-                  <td> <%= link_to assignment.title, marker_course_path(@person.id, @course.id) %> </td>
+                  <td> <%= link_to assignment.title, marker_course_assignment_submissions_path(@person, @course, assignment) %> </td>
                 <% else %>
-                <td> <%= link_to assignment.title, student_course_assignment_submission_path(@person.id, @course.id, assignment) %> </td>
+                <td> <%= link_to assignment.title, student_course_assignment_submission_path(@person, @course, assignment) %> </td>
                 <% end %>
 
                 <td> <%= assignment.due_date %> </td>

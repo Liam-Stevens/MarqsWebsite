@@ -1,4 +1,4 @@
-<h3> <%= @marker.first_name %> </h3>
+<h3> <%= @markerName %> </h3>
 <button class="btn" onclick="location.href='/login/show'">Logout</button>
 <table class="striped">
     <thead>
@@ -9,7 +9,7 @@
     <tbody>
         <% @courses.each do |course| %>
             <tr>
-                <td> <%= link_to course.long_title, marker_course_path(@marker.id, course) %> </td>
+                <td> <%= link_to course.long_title, marker_course_path(@marker, course) %> </td>
             </tr>
         <% end %>
     </tbody>
