@@ -20,6 +20,9 @@ class SubmissionsController < ApplicationController
         id = params[:id]
         @submission = Submission.find(id)
 
+        # Get the student
+        @student = @submission.student
+                
         # Get the submission's assignment
         @assignment = @submission.assignment
 

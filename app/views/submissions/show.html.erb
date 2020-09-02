@@ -1,5 +1,5 @@
 <h3> <%= @assignment.title %> </h3>
-<h5> <%= "a1234567's submission" %> </h5>
+<h5> <%= "a" + @student.student_id.to_s + "'s submission" %> </h5>
 
 <p>Current grade: <%= (@submission.grade==nil || @assignment.max_points==nil) ? "N/A" : @submission.grade.to_s + '/' + @assignment.max_points.to_s %></p>
 
