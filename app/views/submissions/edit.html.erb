@@ -1,0 +1,7 @@
+<h2> <%= @student.id %> Submission </h2>
+<%= form_tag( submission_path(@submission) , method: :put) do |f| %>
+    <%= label :submission, :grade, 'Grade' %>
+    <%= text_field :submission, 'grade' %>
+
+    <%= submit_tag 'Update Submission' %>
+<% end %>

@@ -1,6 +1,10 @@
 require 'csv'
 
 class SubmissionsController < ApplicationController
+    def submission_params
+        params.require(:submission).permit(:id, :assignment_id, :grade, :submitted_date)
+    end
+
     def index
         # Get the id of the assignment we're viewing and get the object
         assignment_id = params[:assignment_id]
@@ -8,6 +12,7 @@ class SubmissionsController < ApplicationController
         
         # List out students 
         @submissions = @assignment.submissions
+
     end
 
     def show
@@ -20,6 +25,25 @@ class SubmissionsController < ApplicationController
 
         # Get a list of the submission's comments
         @comments = @submission.comments
+    end
+
+    def edit
+        # Get the submission
+        id = params[:id]
+        @submission = Submission.find(id)
+
+        # Get the submission's assignment
+        @assignment = @submission.assignment
+
+        # Get the student
+        @student = @submission.student
+    end
+
+    def update
+        @submission = Submission.find params[:id]
+        @submission.update_attributes!(submission_params)
+        flash[:notice] = "#{@submission.student_id}'s submission was updated"
+        redirect_to submission_path(@submission)
     end
 
     def import
