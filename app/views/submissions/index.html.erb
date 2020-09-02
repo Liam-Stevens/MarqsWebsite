@@ -1,13 +1,15 @@
 <h3> <%= @assignment.title %> </h3>
 
-<%# Link button to logon page %>
-<button type="button">Import Marks</button>
+<%# import marks button %>
+<%= form_with(url: {action: :import}, multipart: true) do %>
+  <%= file_field_tag 'grades' %>
+  <%= submit_tag 'Import Marks'%>
+<% end %>
 
 <table class="striped">
     <thead>
         <tr style="">
             <th> <i class="material-icons">assignment</i>    Student ID </th>
-
             <th> <i class="material-icons">access_time</i>     Submitted </th>
             <th> <i class="material-icons">assessment</i>     Mark </th>
         </tr>

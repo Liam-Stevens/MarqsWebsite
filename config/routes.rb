@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   shallow do
     resources :assignments do
       resources :submissions, shallow: true
+      post '/submissions/import' , to: 'submissions#import'
     end
   end
 
@@ -14,6 +15,6 @@ Rails.application.routes.draw do
   resources :login
   resources :students do
     get "course"
-end
+  end
 
 end
