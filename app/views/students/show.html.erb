@@ -12,7 +12,7 @@
         <%# Need to limit to the enrolled courses %>
         <% @courses.each do |course| %>
             <tr>
-                <td> <%= link_to course.long_title, student_course_path(@student, course) %> </td>
+                <td> <%= link_to course.long_title, student_course_path(@student.id, course) %> </td>
                 <%# Fetch student grade information here %>
                 <td>Sample Course Grade</td>
             </tr>

@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   end
   
   root 'login#index'
+<<<<<<< HEAD
   # resources :courses
+=======
+>>>>>>> sessions
   resources :login
   
   resources :students do
@@ -20,6 +23,8 @@ Rails.application.routes.draw do
     end
   end
       
-  resources :markers
+  resources :markers do
+    resources :courses
+  end
 
 end

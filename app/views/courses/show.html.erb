@@ -13,7 +13,13 @@
     <tbody>
         <% @assignments.each do |assignment| %>
             <tr>
-                <td> <%= link_to assignment.title, student_course_assignment_submission_path(@student, @course, assignment) %> </td>
+                <% if @is_marker %>
+                  <%# Routes to where a marker will marks all assignments %>
+                  <td> <%= link_to assignment.title, marker_course_path(@person.id, @course.id) %> </td>
+                <% else %>
+                <td> <%= link_to assignment.title, student_course_assignment_submission_path(@person.id, @course.id, assignment) %> </td>
+                <% end %>
+
                 <td> <%= assignment.due_date %> </td>
                 <td> <%= (assignment.weighting*100).to_i %> % </td>
                 <td> <%= assignment.max_points %> </td>
