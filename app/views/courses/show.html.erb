@@ -13,7 +13,7 @@
     <tbody>
         <% @assignments.each do |assignment| %>
             <tr>
-                <td> <%= link_to assignment.title, student_course_assignment_submission_path(student_url, course_url, assignment) %> </td>
+                <td> <%= link_to assignment.title, student_course_assignment_submission_path(@student, @course, assignment) %> </td>
                 <td> <%= assignment.due_date %> </td>
                 <td> <%= (assignment.weighting*100).to_i %> % </td>
                 <td> <%= assignment.max_points %> </td>

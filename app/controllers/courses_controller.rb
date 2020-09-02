@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
 
     def show
-        id = params[:id]
-        @course = Course.find(id)
+        @student = Student.find(params[:student_id])
+        @course = Course.find(params[:id])
         @assignments = @course.assignments
     end
 

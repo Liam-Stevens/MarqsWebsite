@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
   
   root 'login#index'
-  resources :courses
+  # resources :courses
   resources :login
   
   resources :students do
