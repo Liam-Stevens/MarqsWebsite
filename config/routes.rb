@@ -7,13 +7,19 @@ Rails.application.routes.draw do
       resources :submissions, shallow: true
     end
   end
-
+  
   root 'login#index'
   resources :courses
-  resources :markers
   resources :login
+  
   resources :students do
-    get "course"
-end
+    resources :courses do 
+      resources :assignments do
+        resources :submissions
+      end
+    end
+  end
+      
+  resources :markers
 
 end

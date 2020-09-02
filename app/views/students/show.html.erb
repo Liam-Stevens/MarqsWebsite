@@ -1,19 +1,21 @@
 <h3> <%= @studentName %> </h3>
 <button class="btn" onclick="location.href='/login/show'">Logout</button>
+
 <table class="striped">
     <thead>
         <tr style="">
-            <th> <i class="material-icons">assignment</i>   Courses </th>
+            <th>Course Name</th>
+            <th>Course Grade</th>
         </tr>
     </thead>
     <tbody>
+        <%# Need to limit to the enrolled courses %>
         <% @courses.each do |course| %>
             <tr>
-                <td> <%= course.long_title %> </td>
-                
+                <td> <%= link_to course.long_title, student_course_path(student_url, course) %> </td>
+                <%# Fetch student grade information here %>
+                <td>Sample Course Grade</td>
             </tr>
         <% end %>
-
     </tbody>
-
 </table>
