@@ -5,6 +5,7 @@
 <div>
     <h5 style="display: inline"> <%= "a#{@submission.student_id}'s Submission" %> </h5>
     <h6 style="display: inline" class="right"> <%= "Submitted at: #{@submission.submitted_date}"%> </h6>
+    <p>Current grade: <%= (@submission.grade==nil || @assignment.max_points==nil) ? "N/A" : @submission.grade.to_s + '/' + @assignment.max_points.to_s %></p>
 </div>
 
 <%# Show message if no comments %>
@@ -49,3 +50,4 @@
         </tbody>
     </table>
 <% end %>
+<a href="<%= edit_submission_path(@submission) %>">Edit Grade</a>
