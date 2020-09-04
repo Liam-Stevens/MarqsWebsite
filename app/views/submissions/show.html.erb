@@ -1,6 +1,8 @@
 <h3> <%= @assignment.title %> </h3>
 <h5> <%= "a1234567's submission" %> </h5>
 
+<h7> <%= link_to 'Add new comment', new_submission_comment_path(@submission) %> </h7>
+
 <table class="striped">
     <thead>
         <tr style="">
