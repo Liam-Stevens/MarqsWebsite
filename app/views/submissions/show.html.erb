@@ -1,23 +1,53 @@
+<%# Assignment title %>
 <h3> <%= @assignment.title %> </h3>
-<h5> <%= "a" + @student.student_id.to_s + "'s submission" %> </h5>
 
-<p>Current grade: <%= (@submission.grade==nil || @assignment.max_points==nil) ? "N/A" : @submission.grade.to_s + '/' + @assignment.max_points.to_s %></p>
+<%# Student ID + submission date %>
+<div>
+    <h5 style="display: inline"> <%= "a#{@submission.student_id}'s Submission" %> </h5>
+    <h6 style="display: inline" class="right"> <%= "Submitted at: #{@submission.submitted_date}"%> </h6>
+    <p>Current grade: <%= (@submission.grade==nil || @assignment.max_points==nil) ? "N/A" : @submission.grade.to_s + '/' + @assignment.max_points.to_s %></p>
+</div>
 
-<table class="striped">
-    <thead>
-        <tr style="">
-            <th> <i class="material-icons">chat</i>    Comment </th>
-            <th> <i class="material-icons">account_box</i>     Marker </th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @comments.each do |comment| %>
+<%# Show message if no comments %>
+<% if @comments.empty? %>
+    <div style="text-align: center; margin-top: 20%">
+        <h6><i>No comments have been added to this submission</i></h6>
+    </div>
+
+<%# Only show table if there are comments %>
+<% else %>
+    <table>
+        <thead>
             <tr>
-                <td> <%= comment.content %> </td>
-                <td> <%= "a#{comment.marker.id}" %> </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+                <%# Comment %>
+                <th>
+                    <div class="valign-wrapper">
+                        <i class="material-icons">chat</i>
+                        <span style="margin-left: 10px">Comment</span>
+                    </div>
+                </th>
 
+                <%# Marker ID %>
+                <th>
+                    <div class="valign-wrapper">
+                        <i class="material-icons">account_box</i>
+                        <span style="margin-left: 10px">Marker</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @comments.each do |comment| %>
+                <tr>
+                    <%# Comment %>
+                    <td> <%= comment.content %> </td>
+
+                    <%# Marker ID %>
+                    <td> <%= "a#{comment.marker.id}" %> </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
 <a href="<%= edit_submission_path(@submission) %>">Edit Grade</a>

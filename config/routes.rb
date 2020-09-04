@@ -9,12 +9,22 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'login#index'
-  resources :courses
-  resources :markers
+  root 'homepage#index'
   resources :login
-  resources :students do
-    get "course"
-  end
 
+    resources :students do
+        resources :courses do
+            resources :assignments do
+                resources :submissions
+            end
+        end
+    end
+
+    resources :markers do
+        resources :courses do
+            resources :assignments do
+                resources :submissions, shallow: true
+            end
+        end
+    end
 end

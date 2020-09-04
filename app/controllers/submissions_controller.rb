@@ -9,8 +9,8 @@ class SubmissionsController < ApplicationController
         # Get the id of the assignment we're viewing and get the object
         assignment_id = params[:assignment_id]
         @assignment = Assignment.find(assignment_id)
-        
-        # List out students 
+
+        # List out submissions
         @submissions = @assignment.submissions
 
     end
@@ -18,7 +18,12 @@ class SubmissionsController < ApplicationController
     def show
         # Get the object with the given id
         id = params[:id]
-        @submission = Submission.find(id)
+        @submission = Submission.where(assignment_id: params[:assignment_id], student_id: params[:student_id])[0]
+        if (@submission == nil)
+                @submission = Submission.find(id)
+        end
+
+        @student = @submission.student
 
         # Get the student
         @student = @submission.student
