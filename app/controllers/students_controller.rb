@@ -1,20 +1,12 @@
 class StudentsController < ApplicationController
-
-    def index
-        id = params[:id]
-        @student = Student.find(id)
-    end
-
     def show
-        id = params[:id]
-        @student = Student.find(id)
-        @studentName = @student.first_name + " " + @student.last_name
-        @courses = @student.courses
-        @assignments = @courses[0].assignments
-    end
+        # Redirect for wrong URI
+        if session[:id] != params[:id]
+            redirect_to login_path
+        end
 
-    def course
-        id = params[:id]
-        @student = Student.find(id)
+        # Pass helpful objects
+        @courses = @logged_in_user.courses
+        @assignments = @courses[0].assignments
     end
 end

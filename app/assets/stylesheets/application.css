@@ -13,6 +13,29 @@
  *= require_tree .
  *= require_self
  */
+* {
+    font-family: "Raleway";
+}
+
+.box-pad {
+    margin: 1.4em;
+}
+
+.center-vertical {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    line-height: normal;
+}
+
+.grey-box {
+    border: solid lightgrey 1px;
+}
+
+.heading-style {
+    font-family: "Nunito";
+    color: #ff7242 !important;
+}
 
 th {
     vertical-align: middle;

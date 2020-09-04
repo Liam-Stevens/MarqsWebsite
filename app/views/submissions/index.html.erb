@@ -1,24 +1,79 @@
+<%# Assignment name %>
 <h3> <%= @assignment.title %> </h3>
 
-<%# Link button to logon page %>
-<button type="button">Import Marks</button>
+<%# import marks button %>
+<%= form_with(url: {action: :import}, multipart: true) do %>
+  <%= file_field_tag 'grades' %>
+  <%= submit_tag 'Import Marks', class: "grey darken-2 waves-effect waves-light btn"%>
+<% end %>
 
-<table class="striped">
+<%# Table listing all submissions for an assignment %>
+<h5 style="margin-top: 30px">All Submissions</h5>
+<table>
     <thead>
-        <tr style="">
-            <th> <i class="material-icons">assignment</i>    Student ID </th>
+        <tr>
+            <%# Student ID %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">assignment</i>
+                    <span style="margin-left: 10px">Student ID</span>
+                </div>
+            </th>
 
-            <th> <i class="material-icons">access_time</i>     Submitted </th>
-            <th> <i class="material-icons">assessment</i>     Mark </th>
+            <%# Submission Date %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">access_time</i>
+                    <span style="margin-left: 10px">Submitted</span>
+                </div>
+            </th>
+
+            <%# Mark %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">assessment</i>
+                    <span style="margin-left: 10px">Mark</span>
+                </div>
+            </th>
+
+            <%# View button %>
+            <th>
+            </th>
         </tr>
     </thead>
+
     <tbody>
-        <% @submissions.each do |submission| %>
+        <% @submissions.order("submitted_date DESC").each do |submission| %>
             <tr>
-                <td> <a href="<%= student_url(submission.student_id) %>"><%= submission.student_id %> </a> </td>
-                <td> <%= submission.submitted_date %> </td>
-                <td> <%= submission.grade %> </td>
-                <td> <a href="<%= submission_url(submission) %>"> View Submission</a> </td>
+                <%# Student ID %>
+                <td>
+                    <h6><%= "a#{submission.student_id}" %></h6>
+                </td>
+
+                <%# Submission date %>
+                <td>
+                    <h6><%= submission.submitted_date %></h6>
+                </td>
+
+                <%# Mark received %>
+                <td>
+                    <h6><%= submission.grade %></h6>
+                </td>
+
+                <%# Details button %>
+                <td>
+                    <div class="valign-wrapper">
+                        <div style="margin-left: auto">
+                            <div class="valign-wrapper">
+                            <%# Show comment icon if there are comments%>
+                            <% if !submission.comments.empty? %>
+                                    <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
+                            <% end %>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), submission_path(submission)) %>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         <% end %>
     </tbody>

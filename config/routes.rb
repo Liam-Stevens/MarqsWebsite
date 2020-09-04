@@ -5,24 +5,26 @@ Rails.application.routes.draw do
   shallow do
     resources :assignments do
       resources :submissions, shallow: true
+      post '/submissions/import' , to: 'submissions#import'
     end
   end
 
-  # Nest comments within submissions
-  # e.g. /submission/1234/comments   -> list all comments for submission
-  # e.g. /comments/22                -> list specific comment
-  shallow do
-    resources :submissions do
-      resources :comments, shallow: true
-    end
-  end
-
-  root 'login#index'
-  resources :courses
-  resources :markers
+  root 'homepage#index'
   resources :login
-  resources :students do
-    get "course"
-end
 
+    resources :students do
+        resources :courses do
+            resources :assignments do
+                resources :submissions
+            end
+        end
+    end
+
+    resources :markers do
+        resources :courses do
+            resources :assignments do
+                resources :submissions, shallow: true
+            end
+        end
+    end
 end
