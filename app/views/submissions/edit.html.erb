@@ -1,5 +1,5 @@
 <h2> <%= @student.id %> Submission </h2>
-<%= form_tag( submission_path(@submission) , method: :put) do |f| %>
+<%= form_tag( marker_course_assignment_submission_path(@person, @course, @assignment, @submission) , method: :put) do |f| %>
     <%= label :submission, :grade, 'Grade' %>
     <%= text_field :submission, 'grade' %>
 

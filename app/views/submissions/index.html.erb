@@ -2,7 +2,7 @@
 <h3> <%= @assignment.title %> </h3>
 
 <%# import marks button %>
-<%= form_with(url: {action: :import}, multipart: true) do %>
+<%= form_with(url: marker_course_assignment_submission_import_path(@person, @course, @assignment, -1), multipart: true) do %>
   <%= file_field_tag 'grades' %>
   <%= submit_tag 'Import Marks', class: "grey darken-2 waves-effect waves-light btn"%>
 <% end %>
@@ -69,7 +69,7 @@
                             <% if !submission.comments.empty? %>
                                     <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
                             <% end %>
-                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), submission_path(submission)) %>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), marker_course_assignment_submission_path(@person, @course, @assignment, submission)) %>
                             </div>
                         </div>
                     </div>
