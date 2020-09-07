@@ -26,7 +26,7 @@ class SubmissionsController < ApplicationController
     def show
         # Get the object with the given id
         id = params[:id]
-        @submission = Submission.where(assignment_id: params[:assignment_id], student_id: params[:student_id])[0]
+        @submission = Submission.where(assignment_id: params[:assignment_id], student_id: @logged_in_user.id)[0]
         if (@submission == nil)
                 @submission = Submission.find(id)
         end
@@ -67,7 +67,7 @@ class SubmissionsController < ApplicationController
         @submission.update_attributes!(submission_params)
         flash[:notice] = "#{@submission.student_id}'s submission was updated"
 
-        redirect_to marker_course_assignment_submission_path(session[:id], params[:course_id], params[:assignment_id], @submission)
+        redirect_to course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission)
     end
 
     def import

@@ -10,7 +10,7 @@
 
 <%# Show 'add comment' button if logged in as a marker %>
 <% if session[:marker] == true %>
-    <h7> <%= link_to 'Add new comment', new_marker_course_assignment_submission_comment_path(session[:id], params[:course_id], params[:assignment_id], @submission) %> </h7>
+    <h7> <%= link_to 'Add new comment', new_course_assignment_submission_comment_path(params[:course_id], params[:assignment_id], @submission) %> </h7>
 <% end %>
 
 <%# Show message if no comments %>
@@ -55,4 +55,4 @@
         </tbody>
     </table>
 <% end %>
-<%= link_to("Edit Grade", edit_marker_course_assignment_submission_path(session[:id], params[:course_id], params[:assignment_id], @submission))%>
+<%= link_to("Edit Grade", edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission))%>
