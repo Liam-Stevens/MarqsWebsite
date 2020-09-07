@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
         # Create a comment and assign to submission
         comment = Comment.new
-        comment.marker_id = Marker.all[0].id        # Get first marker for now
+        comment.marker_id = session[:id]
         comment.submission_id = submission.id
         comment.content = params[:text]
         comment.save!

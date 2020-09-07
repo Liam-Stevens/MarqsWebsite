@@ -8,8 +8,12 @@
     <p>Current grade: <%= (@submission.grade==nil || @assignment.max_points==nil) ? "N/A" : @submission.grade.to_s + '/' + @assignment.max_points.to_s %></p>
 </div>
 
+<%# Show 'add comment' button if logged in as a marker %>
+<% if session[:marker] == true %>
+    <h7> <%= link_to 'Add new comment', new_marker_course_assignment_submission_comment_path(session[:id], params[:course_id], params[:assignment_id], @submission) %> </h7>
+<% end %>
+
 <%# Show message if no comments %>
-<h7> <%= link_to 'Add new comment', new_marker_course_assignment_submission_comment_path(session[:id], params[:course_id], params[:assignment_id], @submission) %> </h7>
 <% if @comments.empty? %>
     <div style="text-align: center; margin-top: 20%">
         <h6><i>No comments have been added to this submission</i></h6>
