@@ -11,6 +11,16 @@ module NavigationHelpers
             when /^the home\s?page$/
                 '/'
 
+            when /^the login page$/
+                '/login'
+
+            when /^the home page for "(.*)"$/
+                if (Student.exists?($1))
+                    student_path($1)
+                else
+                    marker_path($1)
+                end
+
 
         # Add more mappings here.
         # Here is an example that pulls values out of the Regexp:

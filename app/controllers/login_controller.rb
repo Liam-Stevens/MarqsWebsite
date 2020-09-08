@@ -20,6 +20,7 @@ class LoginController < ApplicationController
             redirect_to marker_path(id)
 
         elsif session[:logout] == false
+            session[:id] = nil
             @failure = "Not a valid ID"
         end
     end
