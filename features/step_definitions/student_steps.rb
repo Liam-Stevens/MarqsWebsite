@@ -9,3 +9,17 @@ Given('the following students are in the database') do |table|
     end
 end
 
+Given('the following students are assigned to the courses') do |table|
+    # Iterate over each row and assign student to courses
+    table.hashes.each do |row|
+        # Split courses to get IDs
+        ids = row[:courses].split(%r{,\s*})
+
+        # Assign courses
+        s = Student.find(row[:student_id])
+        ids.each do |id|
+            s.courses << Course.find(id)
+        end
+        s.save!
+    end
+end

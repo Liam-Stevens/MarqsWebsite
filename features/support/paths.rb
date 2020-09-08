@@ -21,6 +21,8 @@ module NavigationHelpers
                     marker_path($1)
                 end
 
+            when /^the "(.*)" course page for "(.*)"$/
+                student_course_path($2, $1)
 
         # Add more mappings here.
         # Here is an example that pulls values out of the Regexp:
