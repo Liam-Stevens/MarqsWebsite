@@ -74,12 +74,13 @@ cur = 0
 
 csv.each do |row|
     a = Assignment.new
-    a.course_id = course_id[cur%max]
+    #a.course_id = course_id[cur%max]
+    a.course = Course.find(row["course_id"])
     cur += 1
     a.title = row["title"]
     a.due_date = row["due_date"]
     a.weighting = row["weighting"]
-    a.max_points = row["points"]
+    a.max_points = row["max_marks"]
 
     a.save!
 
