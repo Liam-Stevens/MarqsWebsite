@@ -14,18 +14,18 @@ csv = CSV.parse(csv_text, :headers => true)
 
 # Course.delete_all
 
-max = 10
-cur = 0
+# max = 10
+# cur = 0
 
-course_id = []
+# course_id = []
 
 puts "Seeding in Courses"
 csv.each do |row|
-    if (cur >= max)
-        break
-    end
-    course_id.push(row["Course_ID"])
-    cur += 1
+    # if (cur >= max)
+    #     break
+    # end
+    # course_id.push(row["Course_ID"])
+    # cur += 1
     c = Course.new
     c.course_id = row["Course_ID"]
     c.eff_date = row["Eff_Date"]
@@ -46,22 +46,30 @@ csv.each do |row|
     a.student_id = row["id"]
     a.first_name = row["first_name"]
     a.last_name = row["last_name"]
+
+    course_id = row["courses"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
+    courses = []
+    course_id.each do |course|
+        courses.push(Course.find(course))
+    end
+
+    a.courses = courses
     a.save!
 end
 
-puts "Joining Students to Courses"
-students = Student.all
-courses = Course.all
+# puts "Joining Students to Courses"
+# students = Student.all
+# courses = Course.all
 
-cur = 0
+# cur = 0
 
-students.each do |student|
-    4.times do
-        student.courses << courses[cur % courses.size]
-        cur += 1
-    end
-    student.save!
-end
+# students.each do |student|
+#     4.times do
+#         student.courses << courses[cur % courses.size]
+#         cur += 1
+#     end
+#     student.save!
+# end
 
 
 
@@ -104,7 +112,15 @@ csv = CSV.parse(csv_text, :headers => true)
 
 csv.each do |row|
     m = Marker.new
-    m.courses = Course.order('RANDOM()').first(3)
+
+    course_id = row["courses"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
+    courses = []
+    course_id.each do |course|
+        courses.push(Course.find(course))
+    end
+
+    m.courses = courses
+
     m.marker_id = row["id"]
     m.first_name = row["first_name"]
     m.last_name = row["last_name"]
