@@ -102,20 +102,15 @@ class SubmissionsController < ApplicationController
             # Error if student is not found
             if(submission == nil)
                 if(flash[:notice] == nil)
-                    flash[:notice] = ""
+                    flash[:notice] = "Error Students not found:"
                 end
-                flash[:notice] +=  "Error: student not found: " + row["student_id"]+ "    "
+                flash[:notice] += " " + row["student_id"]
                 next
             end
 
-            # Error if marks are out of bounds
-            if(row["fix_final_mark"].to_i > max_mark || row["fix_final_mark"].to_i < 0)
-                if(flash[:notice] == nil)
-                    flash[:notice] = ""
-                end
-                flash[:notice] +=  "Error: student mark are out of bounds: " + row["student_id"]+ "    "
-                next
-            end
+            # TODO: Error if marks are out of bounds
+            
+
             submission.grade = row["fix_final_mark"]
             submission.save!
         end
