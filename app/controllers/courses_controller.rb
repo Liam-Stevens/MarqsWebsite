@@ -32,11 +32,13 @@ class CoursesController < ApplicationController
         @sum_grade = 0
         @sum_weightings = 0
         @grades.each_with_index do |grade,index|
-            @sum_grade += @grades[index]/@max_grades[index]*@weightings[index]
-            @sum_weightings += @weightings[index]
+            @sum_grade += (@grades[index].to_f/@max_grades[index].to_f)*(@weightings[index]*100)
+            @sum_weightings += @weightings[index]*100
         end
 
-        @current_grade = (@sum_grade/(@sum_weightings))*100
+
+        @current_grade = (@sum_grade/@sum_weightings)*100
+
     end
 
     def show_marker
