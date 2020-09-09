@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     resources :students
     resources :markers
 
-    resources :courses do
+    resources :courses do 
+        get 'marker', to: 'courses#show_marker'
         resources :assignments do
             resources :submissions do
                 post 'import'

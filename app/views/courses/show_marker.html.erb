@@ -2,32 +2,6 @@
 <h3 style="margin-bottom: 0"><%= @course.long_title %></h3>
 <h5 class="grey-text text-darken-2" style="margin-top: 5px"><%= @course.subject + " " + @course.course_id.to_s %></h5>
 
-<%# Calculations %>
-<h5 style="margin-top: 30px">Summary</h5>
-<div class="row" style="width: 100%">
-    <%# Current Grade %>
-    <div class="col s6">
-        <div class="grey-box">
-            <div class="valign-wrapper box-pad">
-                <i class="material-icons">donut_large</i>
-                <h6 style="margin-left: 10px">Current Grade</h6>
-                <h6 style="margin-left: auto"><b><%= @current_grade.floor%>%</b></h6>
-            </div>
-        </div>
-    </div>
-
-    <%# Remaining Assignments %>
-    <div class="col s6">
-        <div class="grey-box">
-            <div class="valign-wrapper box-pad">
-                <i class="material-icons">assignment</i>
-                <h6 style="margin-left: 10px">Assignments Left</h6>
-                <h6 style="margin-left: auto"><b>1</b></h6>
-            </div>
-        </div>
-    </div>
-</div>
-
 <%# Table listing any assignments/components that are graded %>
 <h5 style="margin-top: 30px">Assignments</h5>
 <table>
@@ -91,7 +65,7 @@
 
                 <%# Marks %>
                 <td>
-                    <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
+                    <h6><%= assignment.max_points %></h6>
                 </td>
 
                 <%# Details button %>
