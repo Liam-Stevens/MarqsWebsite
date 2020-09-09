@@ -4,7 +4,7 @@
 <%# Student ID + submission date %>
 <div>
     <h5 style="display: inline"> <%= "a#{@submission.student_id}'s Submission" %> </h5>
-    <h6 style="display: inline" class="right"> <%= "Submitted at: #{@submission.submitted_date}"%> </h6>
+    <h6 style="display: inline" class="right"> <%= "Submitted at: #{(@submission.submitted_date==nil) ? "Not Submitted" : @submission.submitted_date }"%> </h6>
     <p>Current grade: <%= (@submission.grade==nil || @assignment.max_points==nil) ? "N/A" : @submission.grade.to_s + '/' + @assignment.max_points.to_s %></p>
 </div>
 
@@ -55,4 +55,6 @@
         </tbody>
     </table>
 <% end %>
-<%= link_to("Edit Grade", edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission))%>
+<% if @is_marker %>
+  <%= link_to("Edit Grade", edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission))%>
+<% end %>
