@@ -1,40 +1,101 @@
-title,due_date,weighting,points
-Cymopterus rosei (M.E. Jones ex J.M. Coult. & Rose) M.E. Jones,3/01/2017,0.5,60
-Cryptotaenia canadensis (L.) DC.,3/01/2017,0.2,50
-Astragalus brandegeei Porter,5/01/2017,0.6,60
-Heliotropium confertifolium (Torr.) Torr. ex A. Gray,3/01/2017,0.4,90
-Selaginella lepidophylla (Hook. & Grev.) Spring,3/01/2017,0.4,80
-Perityle rupestris (A. Gray) Shinners,3/01/2017,0.2,90
-Chloris canterai Arechav.,4/01/2017,0.4,60
-Berberis ×mentorensis L.M. Ames,5/01/2017,0.3,50
-Cordyline australis (G. Forst.) Endl.,5/01/2017,0.3,60
-Cirsium kamtschaticum Ledeb. ex DC.,3/01/2017,0.4,80
-Camissonia nevadensis (Kellogg) P.H. Raven,5/01/2017,0.3,50
-Juncus squarrosus L.,3/01/2017,0.1,80
-Saccharum officinarum L.,4/01/2017,0.6,90
-Heterotheca villosa (Pursh) Shinners var. ballardii (Rydb.) Semple,4/01/2017,0.5,70
-Symphyotrichum tenuifolium (L.) G.L. Nesom,4/01/2017,0.5,90
-Acrocordia A. Massal.,5/01/2017,0.4,90
-Physcia aipolia (Ehrh. ex Humb.) Furnr. var. alnophila (Vain.) Lynge,4/01/2017,0.4,80
-Wyethia angustifolia (DC.) Nutt.,3/01/2017,0.3,90
-Potentilla ovina Macoun ex J.M. Macoun,5/01/2017,0.2,70
-Psorothamnus fremontii (Torr. ex A. Gray) Barneby,4/01/2017,0.4,80
-Dinebra Jacq.,5/01/2017,0.4,50
-Larix sibirica Ledeb.,5/01/2017,0.2,60
-Poa palustris L.,4/01/2017,0.5,80
-Festuca idahoensis Elmer ssp. roemeri (Pavlick) S. Aiken,4/01/2017,0.5,60
-Erica L.,4/01/2017,0.2,70
-Epiphyllum hookeri (Link & Otto) Haw.,4/01/2017,0.5,50
-Paspalum quadrifarium Lam.,5/01/2017,0.1,90
-Campanula glomerata L.,3/01/2017,0.4,80
-Calicium glaucellum Ach.,5/01/2017,0.5,60
-Arctostaphylos tomentosa (Pursh) Lindl. ssp. subcordata (Eastw.) P.V. Wells,5/01/2017,0.3,50
-Monarda ×medioides Duncan,5/01/2017,0.2,90
-Sphaeralcea digitata (Greene) Rydb. ssp. digitata,5/01/2017,0.6,50
-Paspalum praecox Walter,4/01/2017,0.5,60
-Croton glandulosus L.,4/01/2017,0.3,50
-Tholurna dissimilis (Norman) Norman,4/01/2017,0.4,60
-Saxifraga bryophora A. Gray var. bryophora,3/01/2017,0.5,50
-Triphasia trifolia (Burm. f.) P. Wilson,3/01/2017,0.5,50
-Urochloa piligera (F. Muell. ex Benth.) R. Webster,4/01/2017,0.5,50
-Lappula occidentalis (S. Watson) Greene,4/01/2017,0.5,90
+title,due_date,weighting,max_marks,course_id
+Human Resources Manager,9/21/2019,0.49,4,1064
+Food Chemist,12/12/2019,0.17,51,1064
+Executive Secretary,11/17/2019,0.41,4,1064
+Product Engineer,7/17/2020,0.79,63,1064
+Compensation Analyst,10/25/2019,0.9,62,1064
+Programmer Analyst III,8/15/2020,0.39,72,1068
+Structural Analysis Engineer,11/25/2019,0.49,17,1068
+Information Systems Manager,6/8/2020,0.37,25,1068
+Accountant II,4/1/2020,0.09,42,1068
+Media Manager II,11/18/2019,0.63,52,1068
+Research Nurse,12/29/2019,0.46,57,1106
+Budget/Accounting Analyst II,10/4/2019,0.22,88,1106
+Marketing Manager,9/20/2019,0.75,82,1106
+Software Engineer I,8/26/2020,0.22,99,1106
+Editor,10/10/2019,0.52,45,1106
+Human Resources Manager,2/17/2020,0.58,2,1110
+Systems Administrator IV,1/1/2020,0.86,17,1110
+Account Executive,1/28/2020,0.69,42,1110
+Help Desk Technician,10/1/2019,0.68,2,1110
+Engineer I,7/17/2020,0.63,52,1110
+Analog Circuit Design manager,12/23/2019,0.39,15,1123
+Paralegal,11/26/2019,0.34,46,1123
+Executive Secretary,7/13/2020,0.42,81,1123
+Product Engineer,9/6/2020,0.68,30,1123
+Analyst Programmer,11/27/2019,0.98,18,1123
+Software Engineer III,7/26/2020,0.63,82,1153
+Registered Nurse,9/8/2020,0.29,72,1153
+Teacher,10/11/2019,0.3,53,1153
+Research Associate,12/20/2019,0.89,48,1153
+Operator,8/5/2020,0.12,96,1153
+Civil Engineer,3/13/2020,0.03,31,1175
+Geologist IV,10/23/2019,0.19,79,1175
+Web Designer II,5/8/2020,0.74,68,1175
+Web Designer I,3/11/2020,0.68,95,1175
+Clinical Specialist,4/14/2020,0.93,51,1175
+Help Desk Technician,1/15/2020,0.84,64,1239
+Cost Accountant,2/6/2020,0.7,68,1239
+Accounting Assistant I,3/25/2020,0.8,90,1239
+VP Accounting,12/6/2019,0.26,8,1239
+Project Manager,11/28/2019,0.92,58,1239
+Environmental Tech,12/14/2019,0.56,34,1277
+Social Worker,3/30/2020,0.04,33,1277
+Structural Engineer,10/16/2019,0.33,30,1277
+Systems Administrator I,4/23/2020,0.27,83,1277
+Chief Design Engineer,4/11/2020,0.53,30,1277
+Structural Engineer,11/11/2019,0.69,72,1313
+Financial Advisor,5/23/2020,0.62,27,1313
+Associate Professor,1/10/2020,0.04,52,1313
+Assistant Professor,6/7/2020,0.77,39,1313
+Legal Assistant,4/6/2020,0.79,100,1313
+Internal Auditor,3/14/2020,0.56,27,1346
+Desktop Support Technician,7/27/2020,0.89,24,1346
+VP Accounting,6/2/2020,0.54,17,1346
+Electrical Engineer,1/7/2020,0.59,66,1346
+Software Engineer IV,9/15/2019,0.59,75,1346
+Mechanical Systems Engineer,1/31/2020,0.14,58,1371
+Environmental Specialist,9/7/2020,0.57,61,1371
+Executive Secretary,6/29/2020,0.05,8,1371
+Sales Representative,3/7/2020,0.83,12,1371
+VP Product Management,4/5/2020,0.83,48,1371
+Actuary,1/19/2020,0.79,29,1427
+Account Coordinator,3/10/2020,0.19,20,1427
+Desktop Support Technician,4/28/2020,0.27,76,1427
+Senior Developer,4/25/2020,0.81,25,1427
+Marketing Manager,6/3/2020,0.08,2,1427
+Associate Professor,3/4/2020,0.37,10,1430
+Physical Therapy Assistant,2/20/2020,0.13,67,1430
+Assistant Manager,5/17/2020,0.74,95,1430
+Database Administrator IV,11/25/2019,0.09,10,1430
+Chemical Engineer,7/22/2020,0.33,10,1430
+Mechanical Systems Engineer,4/30/2020,0.28,82,1458
+Software Test Engineer IV,7/4/2020,0.79,7,1458
+VP Accounting,6/20/2020,0.97,51,1458
+Geologist II,9/17/2019,0.86,12,1458
+Internal Auditor,11/10/2019,0.79,74,1458
+Assistant Professor,10/23/2019,0.97,30,1462
+Civil Engineer,6/23/2020,0.35,96,1462
+Geologist III,1/25/2020,0.43,51,1462
+Payment Adjustment Coordinator,6/15/2020,0.85,96,1462
+Information Systems Manager,10/4/2019,0.26,64,1462
+Professor,6/20/2020,0.25,66,1496
+Software Test Engineer II,10/7/2019,0.34,52,1496
+Senior Developer,2/4/2020,0.69,49,1496
+Community Outreach Specialist,9/22/2019,0.87,60,1496
+Nuclear Power Engineer,1/23/2020,0.38,27,1496
+Senior Cost Accountant,9/6/2020,0.27,19,1538
+Web Developer I,11/5/2019,0.4,54,1538
+Account Representative II,5/16/2020,0.89,32,1538
+Speech Pathologist,5/17/2020,0.87,30,1538
+Senior Quality Engineer,1/7/2020,0.83,13,1538
+Recruiting Manager,3/12/2020,0.13,5,1552
+VP Quality Control,9/7/2020,0.03,83,1552
+Web Designer IV,8/20/2020,0.67,9,1552
+VP Product Management,10/18/2019,0.84,83,1552
+Graphic Designer,1/3/2020,0.79,24,1552
+Editor,9/26/2019,0.55,84,1596
+Tax Accountant,12/29/2019,0.87,35,1596
+Editor,10/15/2019,0.67,9,1596
+Structural Analysis Engineer,2/3/2020,0.5,95,1596
+VP Quality Control,1/29/2020,0.48,82,1596
