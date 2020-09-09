@@ -47,7 +47,7 @@ csv.each do |row|
     a.first_name = row["first_name"]
     a.last_name = row["last_name"]
 
-    course_id = row["courses"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
+    course_id = row["course_id"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
     courses = []
     course_id.each do |course|
         courses.push(Course.find(course))
@@ -113,7 +113,7 @@ csv = CSV.parse(csv_text, :headers => true)
 csv.each do |row|
     m = Marker.new
 
-    course_id = row["courses"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
+    course_id = row["course_id"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
     courses = []
     course_id.each do |course|
         courses.push(Course.find(course))
