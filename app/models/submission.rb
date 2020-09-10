@@ -10,9 +10,8 @@ class Submission < ApplicationRecord
     validate :grade_cannot_be_greater_than_max
 
     def grade_cannot_be_greater_than_max 
-        if (!grade.nil? && grade > assignment.max_points) 
+        if (!grade.nil? && !assignment.max_points.nil? && grade > assignment.max_points) 
             errors.add(:grade, student_id.to_s + "'s grade can't be greater than max points: " + assignment.max_points.to_s)
         end
-        
     end
 end
