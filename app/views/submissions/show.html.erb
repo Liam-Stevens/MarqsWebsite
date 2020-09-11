@@ -1,3 +1,5 @@
+<%= javascript_include_tag "application" %>
+
 <%# Assignment title %>
 <h3> <%= @assignment.title %> </h3>
 
@@ -59,6 +61,13 @@
 
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>
+
+                    <%# Remove Comment %>
+                    <td>
+                      <% if session[:marker] == true %>
+                        <%= link_to(button_tag("Remove", class: "grey darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
+                      <% end %>
+                    </td>
                 </tr>
             <% end %>
         </tbody>

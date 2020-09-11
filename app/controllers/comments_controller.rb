@@ -44,4 +44,16 @@ class CommentsController < ApplicationController
 
         @course = Course.find(params[:course_id])
     end
+
+    def destroy
+        @comment = Comment.find(params[:id])
+        @comment.destroy!
+
+        flash[:notice] = "Comment deleted."
+        # Redirect to submission
+        @course = Course.find(params[:course_id])
+        @assignment = Assignment.find(params[:assignment_id])
+        @submission = Submission.find(params[:submission_id])
+        redirect_to course_assignment_submission_path(@course, @assignment, @submission)
+    end
 end
