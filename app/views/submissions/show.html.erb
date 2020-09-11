@@ -50,8 +50,12 @@
                         <span style="margin-left: 10px">Marker</span>
                     </div>
                 </th>
-              <th> <%# adds header for remove buttons %>
-              </th>
+
+                <%# adds header for remove/edit buttons %>
+                <% if session[:marker] == true %>
+                  <th>
+                  </th>
+                <% end %>
             </tr>
         </thead>
 
@@ -64,12 +68,17 @@
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>
 
-                    <%# Remove Comment %>
-                    <td>
-                      <% if session[:marker] == true %>
+                    <% if session[:marker] == true %>
+                      <%# Remove Comment %>
+                      <td class="right">
                         <%= link_to(button_tag("Remove", class: "red darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
-                      <% end %>
-                    </td>
+                      </td>
+
+                      <%# Edit Comment %>
+                      <td class="right">
+                        <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
+                      </td>
+                    <% end %>
                 </tr>
             <% end %>
         </tbody>
