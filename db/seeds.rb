@@ -88,6 +88,7 @@ csv.each do |row|
     a.title = row["title"]
     a.due_date = row["due_date"]
     a.weighting = row["weighting"]
+    # Need to make sure max_points is not zero
     a.max_points = row["max_marks"]
 
     a.save!
