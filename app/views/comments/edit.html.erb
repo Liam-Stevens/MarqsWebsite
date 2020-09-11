@@ -1,0 +1,16 @@
+<%# Headings %>
+<h3 style="margin-bottom: 0"> <%= "Edit comment from a#{@student.id}'s submission" %> </h3>
+<h5 style="margin-bottom: 1.4em"> <%= @assignment.title %> </h5>
+
+<%= form_with(url: comment_path(@comment), id: "comment-form", :method => :put) do %>
+    <%# Comment input %>
+    <div class="input-field">
+        <%= hidden_field_tag 'course_id', params[:course_id] %>
+        <%= hidden_field_tag 'assignment_id', params[:assignment_id] %>
+        <%= hidden_field_tag 'submission_id', params[:submission_id] %>
+        <%= label_tag(:text, "Comment") %>
+        <%= text_field_tag(:text, nil, required: true, class: "validate") %>
+    </div>
+
+    <%= submit_tag("Apply Edit", class: "grey darken-2 btn") %>
+<% end %>

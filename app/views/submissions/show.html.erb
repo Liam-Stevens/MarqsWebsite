@@ -76,7 +76,7 @@
 
                       <%# Edit Comment %>
                       <td class="right">
-                        <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
+                        <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission)) %>
                       </td>
                     <% end %>
                 </tr>
