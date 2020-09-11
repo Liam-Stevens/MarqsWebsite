@@ -1,10 +1,28 @@
 <%# Assignment name %>
 <h3> <%= @assignment.title %> </h3>
 
-<%# import marks button %>
+<%# Import Marks button %>
+<h5 style="margin-top: 30px">Import Marks from CSV</h5>
 <%= form_with(url: course_assignment_submission_import_path(@course, @assignment, -1), multipart: true) do %>
-  <%= file_field_tag 'grades' %>
-  <%= submit_tag 'Import Marks', class: "grey darken-2 waves-effect waves-light btn"%>
+    <div class="input-field">
+        <div class="file-field">
+            <%# File icon/button %>
+            <div class="grey darken-2 btn">
+                <span><i class="material-icons">note_add</i></span>
+                <%= file_field_tag 'grades' %>
+            </div>
+
+            <%# Submit button (I wish I knew why it has to be before the text) %>
+            <div class="input-field">
+                <%= submit_tag 'Import', class: "grey darken-2 btn", style: "float: right; margin-left: 10px" %>
+            </div>
+
+            <%# Text box %>
+            <div class="file-path-wrapper">
+                <%= text_field_tag 'filename', nil, class: 'file-path validate' %>
+            </div>
+        </div>
+    </div>
 <% end %>
 
 <%# Table listing all submissions for an assignment %>

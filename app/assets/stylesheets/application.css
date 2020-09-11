@@ -28,6 +28,14 @@
     line-height: normal;
 }
 
+.flash-wrapper {
+    border: solid #e65100 1px;
+    border-radius: 14px;
+    background-color: #ffeddf;
+    color: #c72e00;
+    display: inline-block;
+}
+
 .grey-box {
     border: solid lightgrey 1px;
 }

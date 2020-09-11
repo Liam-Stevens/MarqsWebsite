@@ -39,15 +39,25 @@
             </div>
         </nav>
 
-        <%# Container for other .erb's to fill %>
-        <p> <%=flash[:notice]%> </p>
         <%# All errors, assumes flash[:errors] is an array of strings %>
         <% if !flash[:errors].nil? %>
             <% flash[:errors].each do |error| %>
                 <%= error %> <br>
             <% end %>
         <% end %>
+
+        <%# Container for other elements %>
         <div class="container">
+            <%# Flash message (show if not empty) %>
+            <% if flash[:notice] %>
+                <div class="center-align" style="margin-top: 2em">
+                    <div class="center-vertical flash-wrapper">
+                        <h6 style="display: inline-block; margin-left: 1em; margin-right: 1em"> <%= flash[:notice] %> </h6>
+                    </div>
+                </div>
+            <% end %>
+
+            <%# Other views go here %>
             <%= yield %>
         </div>
 

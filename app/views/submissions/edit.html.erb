@@ -1,7 +1,15 @@
-<h2> <%= @student.id %> Submission </h2>
-<%= form_tag( course_assignment_submission_path(@course, @assignment, @submission) , method: :put) do |f| %>
-    <%= label :submission, :grade, 'Grade' %>
-    <%= text_field :submission, 'grade' %>
+<%# Headings %>
+<h3 style="margin-bottom: 0"> <%= "Update a#{@student.id}'s grade" %> </h3>
+<h5 style="margin-bottom: 1.4em"> <%= @assignment.title %> </h5>
+<h6 style="margin-bottom: 1.6em"> Please enter the full mark, not a percentage! </h6>
 
-    <%= submit_tag 'Update Grade' %>
+<%# Form to submit comment %>
+<%= form_tag(course_assignment_submission_path(@course, @assignment, @submission), method: :put) do %>
+    <%# Grade input %>
+    <div class="input-field">
+        <%= label_tag("submission[grade]", "New Grade (out of #{@assignment.max_points})") %>
+        <%= text_field_tag("submission[grade]", nil, value: @submission.grade, class: "validate") %>
+    </div>
+
+    <%= submit_tag("Update Grade", class: "grey darken-2 btn") %>
 <% end %>
