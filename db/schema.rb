@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 2020_08_26_024836) do
   end
 
   create_table "course_members", id: false, force: :cascade do |t|
-    t.string "role"
     t.integer "marker_id"
     t.integer "course_id", null: false
     t.datetime "created_at", null: false

@@ -13,14 +13,15 @@ class SubmissionsController < ApplicationController
         # List out submissions
         @submissions = @assignment.submissions
 
+        @course = Course.find(params[:course_id])
         @is_marker = session[:marker]
         if @is_marker == false
-            @person = Student.find(session[:id])
+            redirect_to course_path(@course)
         else
             @person = Marker.find(session[:id])
         end
 
-        @course = Course.find(params[:course_id])
+
     end
 
     def show
