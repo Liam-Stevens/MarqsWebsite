@@ -1,4 +1,5 @@
 require 'csv'
+include Errors 
 
 class SubmissionsController < ApplicationController
     def submission_params
@@ -63,18 +64,27 @@ class SubmissionsController < ApplicationController
         @course = Course.find(params[:course_id])
     end
 
+
+    #Updates grade
     def update
         @submission = Submission.find params[:id]
-        @submission.update_attributes!(submission_params)
-        flash[:notice] = "#{@submission.student_id}'s submission was updated"
+        @submission.grade = submission_params[:grade]
 
-        redirect_to course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission)
+        if @submission.save
+            flash[:notice] = "#{@submission.student_id}'s submission was updated"
+            redirect_to course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission)
+            return
+        else
+            addErrorArray(@submission.errors.messages[:grade])
+            redirect_to edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission)
+            return
+        end
     end
 
     def import
         # Error if not a CSV file
         if(params[:grades] == nil || !params[:grades].path.match(".*.csv$"))
-            flash[:notice] = "select CSV file"
+            addError("select CSV file")
             redirect_back(fallback_location: root_path)
             return
         end
@@ -87,7 +97,7 @@ class SubmissionsController < ApplicationController
 
         # Error if file headers are incorrect
         if(headers == nil || headers != ["student_id", "fix_final_mark", "feedback_mark", "comments"])
-            flash[:notice] = "please set headers to student_id, fix_final_mark, feedback_mark, comments"
+            addError("please set headers to student_id, fix_final_mark, feedback_mark, comments")
             redirect_back(fallback_location: root_path)
             return
         end
@@ -102,24 +112,16 @@ class SubmissionsController < ApplicationController
 
             # Error if student is not found
             if(submission == nil)
-                if(flash[:notice] == nil)
-                    flash[:notice] = ""
-                end
-                flash[:notice] +=  "Error: student not found: " + row["student_id"]+ "    "
+                addError(row["student_id"] + " " + "not found. Did not update")
                 next
             end
 
-            # Error if marks are out of bounds
-            if(row["fix_final_mark"].to_i > max_mark || row["fix_final_mark"].to_i < 0)
-                if(flash[:notice] == nil)
-                    flash[:notice] = ""
-                end
-                flash[:notice] +=  "Error: student mark are out of bounds: " + row["student_id"]+ "    "
-                next
-            end
             submission.grade = row["fix_final_mark"]
-            submission.save!
+            if (!submission.save)
+                addErrorArray(submission.errors.messages[:grade])
+            end
         end
+
         redirect_back(fallback_location: root_path)
     end
 end

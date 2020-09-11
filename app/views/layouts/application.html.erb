@@ -41,6 +41,12 @@
 
         <%# Container for other .erb's to fill %>
         <p> <%=flash[:notice]%> </p>
+        <%# All errors, assumes flash[:errors] is an array of strings %>
+        <% if !flash[:errors].nil? %>
+            <% flash[:errors].each do |error| %>
+                <%= error %> <br>
+            <% end %>
+        <% end %>
         <div class="container">
             <%= yield %>
         </div>

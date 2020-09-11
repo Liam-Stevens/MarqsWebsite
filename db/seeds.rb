@@ -12,7 +12,7 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib','seeds','Course_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 
-# Course.delete_all
+Course.delete_all
 
 # max = 10
 # cur = 0
@@ -111,6 +111,7 @@ end
 puts "Seeding in Markers"
 csv_text = File.read(Rails.root.join('lib','seeds','Marker_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
+Marker.delete_all
 
 csv.each do |row|
     m = Marker.new
@@ -132,6 +133,7 @@ end
 # Seed in some submissions for random assignments
 # (note that the random seed is set to hopefully get repeated behaviour)
 puts "Seeding in Submissions"
+Submission.delete_all
 srand(42)
 students = Student.all
 assignments = Assignment.all
