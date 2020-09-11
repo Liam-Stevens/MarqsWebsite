@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
     # Checks if a user is logged in and redirects to home page if not
     def check_authenticated
-        @logged_in = session[:id] != nil
+        @logged_in = session[:logged_in]
     end
 
     # Passes logged in user to template

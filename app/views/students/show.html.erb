@@ -29,7 +29,7 @@
 
     <tbody>
         <%# Insert a row for each enrolled course %>
-        <% @courses.each do |course| %>
+        <% @courses.each_with_index do |course,index| %>
             <tr>
                 <%# Name %>
                 <td>
@@ -38,7 +38,11 @@
 
                 <%# Current Grade %>
                 <td>
-                    <h6 style="margin: 0"><b>52 P</b></h6>
+                    <% if(@grade_value[index] == "N/A") %>
+                        <h6 style="margin: 0"><b><%= @grade_value[index]%></b></h6>
+                    <% else %>
+                        <h6 style="margin: 0"><b><%= @all_grade[index]%>% <%= @grade_value[index]%></b></h6>
+                    <% end %>
                 </td>
 
                 <%# View Button %>
