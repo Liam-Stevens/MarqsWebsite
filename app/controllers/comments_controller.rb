@@ -54,6 +54,8 @@ class CommentsController < ApplicationController
         assignment_id = params[:assignment_id]
         @assignment = Assignment.find(assignment_id)
 
+        @course = Course.find(params[:course_id])
+
         @comment = Comment.find(params[:id])
     end
 
