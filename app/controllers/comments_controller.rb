@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
         @course = Course.find(params[:course_id])
 
         # Redirect to submission
-        redirect_to marker_course_assignment_submission_path(@person, @course, @assignment, submission)
+        redirect_to course_assignment_submission_path(@course, @assignment, submission)
     end
 
     def new

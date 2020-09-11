@@ -1,7 +1,6 @@
 class CreateCourseMembers < ActiveRecord::Migration[5.2]
   def change
     create_table :course_members, id: false do |t|
-      t.string :role
       t.references :marker, foreign_key: true
       t.references :course_id, references: :courses, null: false
 

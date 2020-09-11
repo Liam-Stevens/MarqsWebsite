@@ -4,7 +4,7 @@
 <h6 style="margin-bottom: 1.6em"> Please enter the full mark, not a percentage! </h6>
 
 <%# Form to submit comment %>
-<%= form_tag(marker_course_assignment_submission_path(@person, @course, @assignment, @submission), method: :put) do %>
+<%= form_tag(course_assignment_submission_path(@course, @assignment, @submission), method: :put) do %>
     <%# Grade input %>
     <div class="input-field">
         <%= label_tag("submission[grade]", "New Grade (out of #{@assignment.max_points})") %>

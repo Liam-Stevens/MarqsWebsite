@@ -13,10 +13,12 @@ class LoginController < ApplicationController
         id = session[:id]
         if Student.exists?(student_id: id)
             session[:marker] = false
+            session[:logged_in] = true
             redirect_to student_path(id)
 
         elsif Marker.exists?(marker_id: id)
             session[:marker] = true
+            session[:logged_in] = true
             redirect_to marker_path(id)
 
         elsif session[:logout] == false
@@ -28,6 +30,7 @@ class LoginController < ApplicationController
     def show
         session.clear
         session[:logout] = true
+        session[:logged_in] = false
         redirect_to root_path
     end
 end
