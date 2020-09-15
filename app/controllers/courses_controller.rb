@@ -19,6 +19,7 @@ class CoursesController < ApplicationController
         @grades = []
         @max_grades = []
         @weightings = []
+        @assignments_left = 0
 
         @assignments.each do |assignment|
             submission = assignment.submissions.find_by(student_id: session[:id])
@@ -26,6 +27,7 @@ class CoursesController < ApplicationController
             if (submission == nil)
                 @grades.append(0)
                 @weightings.append(0)
+                @assignments_left += 1
                 next
             end
             grade = submission.grade
@@ -33,9 +35,6 @@ class CoursesController < ApplicationController
             if(grade != nil)
                 @grades.append(grade)
                 @weightings.append(assignment.weighting)
-            else
-                @grades.append(0)
-                @weightings.append(0)
             end
         end
 
