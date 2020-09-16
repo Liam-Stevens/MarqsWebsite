@@ -14,7 +14,7 @@
                     <% if(@grade_value == "N/A") %>
                         <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
                     <% else %>
-                        <h6 style="margin-left: auto"><b><%= @current_grade%>% <%= @grade_value%></b></h6>
+                        <h6 style="margin-left: auto"><b><%= @current_grade%> <%= @grade_value%></b></h6>
                     <% end %>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="valign-wrapper box-pad">
                 <i class="material-icons">assignment</i>
                 <h6 style="margin-left: 10px">Assignments Left</h6>
-                <h6 style="margin-left: auto"><b>1</b></h6>
+                <h6 style="margin-left: auto"><b><%= @remaining_assignments %></b></h6>
             </div>
         </div>
     </div>
@@ -65,7 +65,15 @@
             <th>
                 <div class="valign-wrapper">
                     <i class="material-icons">assessment</i>
-                    <span style="margin-left: 10px">Max Mark</span>
+                    <span style="margin-left: 10px">Marks</span>
+                </div>
+            </th>
+
+            <%# Status %>
+            <th>
+                <div class="valign-wrapper">
+                  <i class="material-icons">library_add_check</i>
+                  <span style="margin-left: 10px">Status</span>
                 </div>
             </th>
 
@@ -96,6 +104,21 @@
                 <%# Marks %>
                 <td>
                     <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
+                </td>
+
+                <%# Status %>
+                <td>
+                  <% if assignment.submissions.find_by(student_id: session[:id]).grade != nil %>
+                    <i>Graded</i>
+                  <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today >= assignment.due_date %>
+                    <i style="color:Red;">Missing</i>
+                  <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date %>
+                    <i>Not Submitted</i>
+                  <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date != nil && assignment.submissions.find_by(student_id: session[:id]).submitted_date >= assignment.due_date %>
+                    <i style="color:Red;">Late</i>
+                  <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date != nil && assignment.submissions.find_by(student_id: session[:id]).submitted_date < assignment.due_date %>
+                    <i>Pending Mark</i>
+                  <% end %>
                 </td>
 
                 <%# Details button %>

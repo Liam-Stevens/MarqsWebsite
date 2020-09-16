@@ -133,10 +133,8 @@ end
 # Seed in some submissions for random assignments
 # (note that the random seed is set to hopefully get repeated behaviour)
 puts "Seeding in Submissions"
-# Submission.delete_all
 srand(42)
 students = Student.all
-# assignments = Assignment.all
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'Submission_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 

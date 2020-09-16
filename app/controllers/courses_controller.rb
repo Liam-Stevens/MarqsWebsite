@@ -19,6 +19,7 @@ class CoursesController < ApplicationController
         @grades = []
         @max_grades = []
         @weightings = []
+        @remaining_assignments = 0
 
         @assignments.each do |assignment|
             @submission = assignment.submissions.find_by(student_id: session[:id])
@@ -36,6 +37,11 @@ class CoursesController < ApplicationController
             else
                 @grades.append(0)
                 @weightings.append(0)
+            end
+
+            #Assignments Left Counter
+            if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
+                @remaining_assignments = @remaining_assignments + 1
             end
         end
 
