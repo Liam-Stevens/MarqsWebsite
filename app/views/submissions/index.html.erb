@@ -1,5 +1,6 @@
 <%# Assignment name %>
 <h3> <%= @assignment.title %> </h3>
+<h5> Due: <%= @assignment.due_date %></h5>
 
 <%# Import Marks button %>
 <h5 style="margin-top: 30px">Import Marks from CSV</h5>
@@ -70,7 +71,15 @@
 
                 <%# Submission date %>
                 <td>
-                    <h6><%= (submission.submitted_date==nil) ? "Not Submitted" : submission.submitted_date %></h6>
+                  <% if submission.submitted_date == nil && Date.today >= @assignment.due_date %>
+                    <h6 style="color:Red;"><i>Missing</i></h6>
+                  <% elsif submission.submitted_date == nil && Date.today < @assignment.due_date %>
+                    <h6><i>Not Submitted</i></h6>
+                  <% elsif submission.submitted_date != nil && submission.submitted_date >= @assignment.due_date %>
+                    <h6 style="color:Red;"><%= submission.submitted_date %></h6>
+                  <% elsif submission.submitted_date != nil && submission.submitted_date < @assignment.due_date %>
+                    <h6><%= submission.submitted_date %></h6>
+                  <% end %>
                 </td>
 
                 <%# Mark received %>
