@@ -21,14 +21,14 @@ class CoursesController < ApplicationController
         @weightings = []
 
         @assignments.each do |assignment|
-            submission = assignment.submissions.find_by(student_id: session[:id])
+            @submission = assignment.submissions.find_by(student_id: session[:id])
             @max_grades.append(assignment.max_points)
-            if (submission == nil)
+            if (@submission == nil)
                 @grades.append(0)
                 @weightings.append(0)
                 next
             end
-            grade = submission.grade
+            grade = @submission.grade
 
             if(grade != nil)
                 @grades.append(grade)
@@ -73,7 +73,6 @@ class CoursesController < ApplicationController
     def show_marker
         # Get course object for ID
         id = params[:course_id]
-        @is_marker = session[:marker]
         @person = Marker.find(session[:id])
 
         @course = Course.find(id)

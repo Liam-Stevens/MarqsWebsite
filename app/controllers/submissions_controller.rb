@@ -33,9 +33,6 @@ class SubmissionsController < ApplicationController
             @submission = Submission.find(id)
         end
 
-        # Get the student
-        @student = @submission.student
-
         # Get the submission's assignment
         @assignment = @submission.assignment
 
@@ -133,4 +130,5 @@ class SubmissionsController < ApplicationController
 
         redirect_back(fallback_location: root_path)
     end
+
 end

@@ -100,11 +100,8 @@
 
                 <%# Details button %>
                 <td>
-                    <% if @is_marker %>
-                        <%# Routes to where a marker will marks all assignments %>
-                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submissions_path(@course, assignment)) %>
-                    <% elsif assignment.submissions.find_by(student_id: session[:id]) %>
-                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, assignment)) %>
+                    <% if assignment.submissions.find_by(student_id: session[:id]) %>
+                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, assignment, assignment.submissions.find_by(student_id: session[:id]))) %>
                     <% end %>
                 </td>
             </tr>

@@ -5,6 +5,9 @@ class LoginController < ApplicationController
     def index
         # Set session ID if passed in parameters
         if params[:id] != nil
+          if params[:id][0] == 'a'
+            params[:id][0] = ''
+          end
           session[:id] = params[:id]
           session[:logout] = false
         end
@@ -31,7 +34,7 @@ class LoginController < ApplicationController
         session.clear
         session[:logout] = true
         session[:logged_in] = false
-        redirect_to root_path
+        redirect_to login_index_path
     end
 end
 
