@@ -25,6 +25,12 @@ module NavigationHelpers
                 course_id = Assignment.find($1).course_id
                 course_assignment_submissions_path(course_id, $1)
 
+            when /^the submission page for id "(.*)"$/
+                # Get IDs from parents
+                assignment_id = Submission.find($1).assignment_id
+                course_id = Assignment.find(assignment_id).course_id
+                course_assignment_submission_path(course_id, assignment_id, $1)
+
         else
             begin
                 page_name =~ /^the (.*) page$/
