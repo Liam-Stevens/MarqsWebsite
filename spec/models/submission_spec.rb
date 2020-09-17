@@ -36,5 +36,10 @@ RSpec.describe Submission, type: :model do
       submission = create(:submission)
       expect(submission.valid?).to eq(true)
     end
+
+    it "raises an exception if invalid" do
+      submission.grade = -1
+      expect{submission.save!}.to raise_exception
+    end
   end
 end
