@@ -57,9 +57,9 @@ RSpec.describe Assignment, type: :model do
       expect(assignment.valid?).to eq(true)
     end
 
-    it "does not accept a 0 weighting" do
+    it "does accept a 0 weighting" do
       assignment.weighting = 0
-      expect(assignment.valid?).to eq(false)
+      expect(assignment.valid?).to eq(true)
     end
 
     it "does not accept a negative weighting" do
