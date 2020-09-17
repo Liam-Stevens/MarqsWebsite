@@ -20,6 +20,11 @@ module NavigationHelpers
             when /^the marker's course page for "(.*)"$/
                 course_marker_path($1)
 
+            when /^the submissions page for the assignment "(.*)"$/
+                # Get course ID from assignment
+                course_id = Assignment.find($1).course_id
+                course_assignment_submissions_path(course_id, $1)
+
         else
             begin
                 page_name =~ /^the (.*) page$/

@@ -104,7 +104,7 @@ end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
-    page.should have_content(text)
+    expect(page).to have_content(text)
   else
     assert page.has_content?(text)
   end
@@ -114,19 +114,19 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
 
   if page.respond_to? :should
-    page.should have_xpath('//*', :text => regexp)
+    expect(page).to have_xpath('//*', :text => regexp)
   else
     assert page.has_xpath?('//*', :text => regexp)
   end
 end
 
 Then(/^I should see not see the button "([^"]*)"$/) do |btn|
-  page.should_not have_button(btn)
+  expect(page).to_not have_button(btn)
 end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   if page.respond_to? :should
-    page.should have_no_content(text)
+    expect(page).to have_no_content(text)
   else
     assert page.has_no_content?(text)
   end
@@ -136,7 +136,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
 
   if page.respond_to? :should
-    page.should have_no_xpath('//*', :text => regexp)
+    expect(page).to have_no_xpath('//*', :text => regexp)
   else
     assert page.has_no_xpath?('//*', :text => regexp)
   end
@@ -185,7 +185,7 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
       error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
       error_paragraph.should have_content(error_message)
     else
-      page.should have_content("#{field.titlecase} #{error_message}")
+      expect(page).to have_content("#{field.titlecase} #{error_message}")
     end
   else
     if using_formtastic
