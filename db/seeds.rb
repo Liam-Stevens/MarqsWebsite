@@ -12,20 +12,20 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib','seeds','Course_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 
-# Course.delete_all
+Course.delete_all
 
-max = 10
-cur = 0
+# max = 10
+# cur = 0
 
-course_id = []
+# course_id = []
 
 puts "Seeding in Courses"
 csv.each do |row|
-    if (cur >= max)
-        break
-    end
-    course_id.push(row["Course_ID"])
-    cur += 1
+    # if (cur >= max)
+    #     break
+    # end
+    # course_id.push(row["Course_ID"])
+    # cur += 1
     c = Course.new
     c.course_id = row["Course_ID"]
     c.eff_date = row["Eff_Date"]
@@ -46,22 +46,30 @@ csv.each do |row|
     a.student_id = row["id"]
     a.first_name = row["first_name"]
     a.last_name = row["last_name"]
+
+    course_id = row["course_id"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
+    courses = []
+    course_id.each do |course|
+        courses.push(Course.find(course))
+    end
+
+    a.courses = courses
     a.save!
 end
 
-puts "Joining Students to Courses"
-students = Student.all
-courses = Course.all
+# puts "Joining Students to Courses"
+# students = Student.all
+# courses = Course.all
 
-cur = 0
+# cur = 0
 
-students.each do |student|
-    4.times do
-        student.courses << courses[cur % courses.size]
-        cur += 1
-    end
-    student.save!
-end
+# students.each do |student|
+#     4.times do
+#         student.courses << courses[cur % courses.size]
+#         cur += 1
+#     end
+#     student.save!
+# end
 
 
 
@@ -74,12 +82,14 @@ cur = 0
 
 csv.each do |row|
     a = Assignment.new
-    a.course_id = course_id[cur%max]
+    #a.course_id = course_id[cur%max]
+    a.course = Course.find(row["course_id"])
     cur += 1
     a.title = row["title"]
     a.due_date = row["due_date"]
     a.weighting = row["weighting"]
-    a.max_points = row["points"]
+    # Need to make sure max_points is not zero
+    a.max_points = row["max_marks"]
 
     a.save!
 
@@ -101,10 +111,19 @@ end
 puts "Seeding in Markers"
 csv_text = File.read(Rails.root.join('lib','seeds','Marker_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
+Marker.delete_all
 
 csv.each do |row|
     m = Marker.new
-    m.courses = Course.order('RANDOM()').first(3)
+
+    course_id = row["course_id"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
+    courses = []
+    course_id.each do |course|
+        courses.push(Course.find(course))
+    end
+
+    m.courses = courses
+
     m.marker_id = row["id"]
     m.first_name = row["first_name"]
     m.last_name = row["last_name"]
@@ -114,6 +133,7 @@ end
 # Seed in some submissions for random assignments
 # (note that the random seed is set to hopefully get repeated behaviour)
 puts "Seeding in Submissions"
+Submission.delete_all
 srand(42)
 students = Student.all
 assignments = Assignment.all

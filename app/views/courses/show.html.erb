@@ -11,7 +11,11 @@
             <div class="valign-wrapper box-pad">
                 <i class="material-icons">donut_large</i>
                 <h6 style="margin-left: 10px">Current Grade</h6>
-                <h6 style="margin-left: auto"><b>52 P</b></h6>
+                    <% if(@grade_value == "N/A") %>
+                        <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
+                    <% else %>
+                        <h6 style="margin-left: auto"><b><%= @current_grade%>% <%= @grade_value%></b></h6>
+                    <% end %>
             </div>
         </div>
     </div>
@@ -68,7 +72,7 @@
                 <th>
                     <div class="valign-wrapper">
                         <i class="material-icons">assessment</i>
-                        <span style="margin-left: 10px">Mark</span>
+                        <span style="margin-left: 10px">Max Mark</span>
                     </div>
                 </th>
 
@@ -79,7 +83,7 @@
         </thead>
 
         <tbody>
-            <% @assignments.each do |assignment| %>
+            <% @assignments.each_with_index do |assignment,index| %>
                 <tr>
                     <%# Assignment Name %>
                     <td>
@@ -98,16 +102,16 @@
 
                     <%# Marks %>
                     <td>
-                        <h6><%= assignment.max_points %></h6>
+                        <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
                     </td>
 
                     <%# Details button %>
                     <td>
                         <% if @is_marker %>
                             <%# Routes to where a marker will marks all assignments %>
-                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), marker_course_assignment_submissions_path(@person, @course, assignment)) %>
-                        <% else %>
-                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), student_course_assignment_submission_path(@person, @course, assignment)) %>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submissions_path(@course, assignment)) %>
+                        <% elsif assignment.submissions.find_by(student_id: session[:id]) %>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, assignment)) %>
                         <% end %>
                     </td>
                 </tr>

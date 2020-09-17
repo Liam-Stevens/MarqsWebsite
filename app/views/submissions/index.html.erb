@@ -3,7 +3,7 @@
 
 <%# Import Marks button %>
 <h5 style="margin-top: 30px">Import Marks from CSV</h5>
-<%= form_with(url: marker_course_assignment_submission_import_path(@person, @course, @assignment, -1), multipart: true) do %>
+<%= form_with(url: course_assignment_submission_import_path(@course, @assignment, -1), multipart: true) do %>
     <div class="input-field">
         <div class="file-field">
             <%# File icon/button %>
@@ -70,12 +70,12 @@
 
                 <%# Submission date %>
                 <td>
-                    <h6><%= submission.submitted_date %></h6>
+                    <h6><%= (submission.submitted_date==nil) ? "Not Submitted" : submission.submitted_date %></h6>
                 </td>
 
                 <%# Mark received %>
                 <td>
-                    <h6><%= submission.grade %></h6>
+                    <h6><%= (submission.grade==nil) ? "0" : submission.grade %>/<%= @assignment.max_points %></h6>
                 </td>
 
                 <%# Details button %>
@@ -87,7 +87,7 @@
                             <% if !submission.comments.empty? %>
                                     <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
                             <% end %>
-                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), marker_course_assignment_submission_path(@person, @course, @assignment, submission)) %>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, @assignment, submission)) %>
                             </div>
                         </div>
                     </div>
