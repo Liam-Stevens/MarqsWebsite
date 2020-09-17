@@ -31,7 +31,7 @@ RSpec.describe Assignment, type: :model do
 
     it "throws an Active:RecordInvalid exception if invalid" do
       assignment.max_points = 0;
-      expect { assignment.save! }.to raise_exception
+      expect { assignment.save! }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe Assignment, type: :model do
 
     it "raises an exception if invalid" do
       assignment.weighting = -1
-      expect{assignment.save!}.to raise_exception
+      expect{assignment.save!}.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 end
