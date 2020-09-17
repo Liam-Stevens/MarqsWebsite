@@ -7,6 +7,7 @@ Background:
     Given the following students are in the database
         | student_id    | first_name    | last_name     |
         | 1740420       | Amelia        | Adams         |
+        | 1740001       | Banana        | Pyjama        |
     And the following courses are in the database
         | course_id     | eff_date      | short_title   | long_title    | descr         | subject       |
         | 1001          | 20/08/2020    | Test Course   | Test Course   | A test course | TESTSUB       |
@@ -22,26 +23,36 @@ Background:
         | student_id    | courses           |
         | 1740420       | 1001, 1002, 1066  |
     And I am on the login page
-    And I fill in "id" with "1740420"
-    And I press "Login"
 
 Scenario: View all courses
-    Given I am on the home page for "1740420"
-    Then I should see "Test Course"
+    Given I fill in "id" with "1740420"
+    And I press "Login"
+    Then I should be on the home page for "1740420"
+    And I should see "Test Course"
     And I should see "Reading Stuff"
     And I should see "Writing Stuff"
     But I should not see "Hidden Boi"
 
+Scenario: No courses available
+    Given I fill in "id" with "1740001"
+    And I press "Login"
+    Then I should be on the home page for "1740001"
+    And I should see "You are not assigned to any courses"
+
 Scenario: View course with assignments
-    Given I am on the home page for "1740420"
+    Given I fill in "id" with "1740420"
+    And I press "Login"
+    Then I should be on the home page for "1740420"
     And I press "View" for the course "Test Course"
-    Then I should be on the "1001" course page for "1740420"
+    Then I should be on the course page for "1001"
     And I should see "Test 1"
     And I should see "Test 2"
     But I should not see "Read Book 1"
 
 Scenario: View course with no assignments
-    Given I am on the home page for "1740420"
+    Given I fill in "id" with "1740420"
+    And I press "Login"
+    Then I should be on the home page for "1740420"
     And I press "View" for the course "Writing Stuff"
-    Then I should be on the "1066" course page for "1740420"
+    Then I should be on the course page for "1066"
     And I should see "There are no assignments currently available for this course"
