@@ -26,6 +26,10 @@
     </div>
 <% end %>
 
+<div class="input-field">
+    <%= link_to(button_tag("Export", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_export_path(@course, @assignment, -1, format: "csv")) %>
+</div>
+
 <%# Table listing all submissions for an assignment %>
 <h5 style="margin-top: 30px">All Submissions</h5>
 <table>
