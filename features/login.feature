@@ -4,14 +4,7 @@ Feature: Login
     I want to be able to log in with my university credentials.
 
 Background:
-    Given the following students are in the database
-        | student_id    | first_name    | last_name    |
-        | 1740001       | Bugs          | Bunny        |
-        | 1740042       | Yosemite      | Sam          |
-    And the following markers are in the database
-        | marker_id     | first_name    | last_name    |
-        | 1700001       | Linus         | Torvalds     |
-        | 1700102       | Bill          | Gates        |
+    Given the database is seeded
     And I am on the login page
 
 Scenario: Login as student
@@ -21,9 +14,9 @@ Scenario: Login as student
     And I should see "Courses"
 
 Scenario: Login as marker
-    When I fill in "id" with "1700102"
+    When I fill in "id" with "1700002"
     And I press "Login"
-    Then I should be on the home page for "1700102"
+    Then I should be on the home page for "1700002"
     And I should see "Assigned Courses"
 
 Scenario: Submit invalid ID (not found)
