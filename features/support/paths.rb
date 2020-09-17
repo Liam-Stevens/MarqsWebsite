@@ -31,6 +31,12 @@ module NavigationHelpers
                 course_id = Assignment.find(assignment_id).course_id
                 course_assignment_submission_path(course_id, assignment_id, $1)
 
+            when /^the edit grade page for submission "(.*)"$/
+                # Get IDs from parents
+                assignment_id = Submission.find($1).assignment_id
+                course_id = Assignment.find(assignment_id).course_id
+                edit_course_assignment_submission_path(course_id, assignment_id, $1)
+
         else
             begin
                 page_name =~ /^the (.*) page$/
