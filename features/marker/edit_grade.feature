@@ -15,6 +15,7 @@ Scenario: Valid grade
     And I press "Update Grade"
     Then I should be on the submission page for id "1"
     And I should see "1740001's submission was updated"
+    And I should see "42/100"
 
 Scenario: Blank grade
     When I fill in "submission_grade" with ""
