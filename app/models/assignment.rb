@@ -4,6 +4,6 @@ class Assignment < ApplicationRecord
     has_many :submissions
 
     validates :max_points , numericality: {greater_than_or_equal_to: 1, message: "max marks can't be zero"}, allow_nil: false
-    validates :weighting , numericality: {greater_than_or_equal_to: 1, message: "weighting can't be zero"}, allow_nil: false
+    validates :weighting , numericality: {greater_than_or_equal_to: 0, message: "weighting can't be negative"}, allow_nil: false
 
 end
