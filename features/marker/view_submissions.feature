@@ -13,7 +13,3 @@ Scenario: View assignment with submissions
     Given I am on the submissions page for the assignment "1"
     Then I should see a submission for "1740420"
     And I should see a submission for "1740001"
-
-Scenario: View assignment with no submissions
-    Given I am on the submissions page for the assignment "2"
-    And I should see "No submissions have been made for this assignment"

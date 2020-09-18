@@ -30,11 +30,3 @@ Scenario: View course with assignments
     And I should see "Test Assignment 1"
     And I should see "Test Assignment 2"
     But I should not see "Read Book 1"
-
-Scenario: View course with no assignments
-    Given I fill in "id" with "1740001"
-    And I press "Login"
-    Then I should be on the home page for "1740001"
-    And I press "View" for the course "Reading Intro"
-    Then I should be on the course page for "1002"
-    And I should see "There are no assignments currently available for this course"

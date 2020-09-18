@@ -57,9 +57,9 @@ Given 'the database is seeded' do
     end
 
     # Add some assignments
-    assignments = [["Test Assignment 1", "3/09/2020", 20, 100, 1001],
-                   ["Test Assignment 2", "10/09/2020", 80, 200, 1001],
-                   ["Read Book 1", "1/1/2000", 50, 50, 1069]]
+    assignments = [["Test Assignment 1", "3/09/2020", 0.2, 100, 1001],
+                   ["Test Assignment 2", "10/09/2020", 0.8, 200, 1001],
+                   ["Read Book 1", "1/1/2000", 0.5, 50, 1069]]
     assignments.each do |assignment|
         a = Assignment.new
         a.title = assignment[0]
