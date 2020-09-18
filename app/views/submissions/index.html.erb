@@ -1,5 +1,6 @@
 <%# Assignment name %>
 <h3> <%= @assignment.title %> </h3>
+<h5> Due: <%= @assignment.due_date %></h5>
 
 <%# Import Marks button %>
 <h5 style="margin-top: 30px">Import Marks from CSV</h5>
@@ -25,25 +26,23 @@
     </div>
 <% end %>
 
-<%# Show message if no submissions %>
-<% if @submissions.empty? %>
-    <div style="text-align: center; margin-top: 20%">
-        <h6><i>No submissions have been made for this assignment</i></h6>
-    </div>
 
-<% else %>
-    <%# Table listing all submissions for an assignment %>
-    <h5 style="margin-top: 30px">All Submissions</h5>
-    <table>
-        <thead>
-            <tr>
-                <%# Student ID %>
-                <th>
-                    <div class="valign-wrapper">
-                        <i class="material-icons">assignment</i>
-                        <span style="margin-left: 10px">Student ID</span>
-                    </div>
-                </th>
+<div class="input-field">
+    <%= link_to(button_tag("Export", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_export_path(@course, @assignment, -1, format: "csv")) %>
+</div>
+
+<%# Table listing all submissions for an assignment %>
+<h5 style="margin-top: 30px">All Submissions</h5>
+<table>
+    <thead>
+        <tr>
+            <%# Student ID %>
+            <th>
+                <div class="valign-wrapper">
+                    <i class="material-icons">assignment</i>
+                    <span style="margin-left: 10px">Student ID</span>
+                </div>
+            </th>
 
                 <%# Submission Date %>
                 <th>
@@ -75,10 +74,19 @@
                         <h6><%= "a#{submission.student_id}" %></h6>
                     </td>
 
-                    <%# Submission date %>
-                    <td>
-                        <h6><%= (submission.submitted_date==nil) ? "Not Submitted" : submission.submitted_date %></h6>
-                    </td>
+
+                <%# Submission date %>
+                <td>
+                  <% if submission.submitted_date == nil && Date.today >= @assignment.due_date %>
+                    <h6 style="color:Red;"><i>Missing</i></h6>
+                  <% elsif submission.submitted_date == nil && Date.today < @assignment.due_date %>
+                    <h6><i>Not Submitted</i></h6>
+                  <% elsif submission.submitted_date != nil && submission.submitted_date >= @assignment.due_date %>
+                    <h6 style="color:Red;"><%= submission.submitted_date %></h6>
+                  <% elsif submission.submitted_date != nil && submission.submitted_date < @assignment.due_date %>
+                    <h6><%= submission.submitted_date %></h6>
+                  <% end %>
+                </td>
 
                     <%# Mark received %>
                     <td>

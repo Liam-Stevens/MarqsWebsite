@@ -33,9 +33,6 @@ class SubmissionsController < ApplicationController
             @submission = Submission.find(id)
         end
 
-        # Get the student
-        @student = @submission.student
-
         # Get the submission's assignment
         @assignment = @submission.assignment
 
@@ -139,5 +136,18 @@ class SubmissionsController < ApplicationController
         end
 
         redirect_back(fallback_location: root_path)
+    end
+
+    def export
+        assignment_id = params[:assignment_id]
+        @assignment = Assignment.find(assignment_id)
+        @submissions = @assignment.submissions.left_outer_joins(:comments).select("submissions.* , comments.*")
+
+
+        respond_to do |format|
+            format.html
+            format.csv { send_data Submission.to_csv(@submissions), filename: "#{@assignment.title}-#{Date.today}.csv" }
+        end
+
     end
 end
