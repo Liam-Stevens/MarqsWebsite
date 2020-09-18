@@ -26,6 +26,7 @@
     </div>
 <% end %>
 
+
 <div class="input-field">
     <%= link_to(button_tag("Export", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_export_path(@course, @assignment, -1, format: "csv")) %>
 </div>
@@ -43,35 +44,36 @@
                 </div>
             </th>
 
-            <%# Submission Date %>
-            <th>
-                <div class="valign-wrapper">
-                    <i class="material-icons">access_time</i>
-                    <span style="margin-left: 10px">Submitted</span>
-                </div>
-            </th>
+                <%# Submission Date %>
+                <th>
+                    <div class="valign-wrapper">
+                        <i class="material-icons">access_time</i>
+                        <span style="margin-left: 10px">Submitted</span>
+                    </div>
+                </th>
 
-            <%# Mark %>
-            <th>
-                <div class="valign-wrapper">
-                    <i class="material-icons">assessment</i>
-                    <span style="margin-left: 10px">Mark</span>
-                </div>
-            </th>
+                <%# Mark %>
+                <th>
+                    <div class="valign-wrapper">
+                        <i class="material-icons">assessment</i>
+                        <span style="margin-left: 10px">Mark</span>
+                    </div>
+                </th>
 
-            <%# View button %>
-            <th>
-            </th>
-        </tr>
-    </thead>
+                <%# View button %>
+                <th>
+                </th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <% @submissions.order("submitted_date DESC").each do |submission| %>
-            <tr>
-                <%# Student ID %>
-                <td>
-                    <h6><%= "a#{submission.student_id}" %></h6>
-                </td>
+        <tbody>
+            <% @submissions.order("submitted_date DESC").each do |submission| %>
+                <tr>
+                    <%# Student ID %>
+                    <td>
+                        <h6><%= "a#{submission.student_id}" %></h6>
+                    </td>
+
 
                 <%# Submission date %>
                 <td>
@@ -86,26 +88,27 @@
                   <% end %>
                 </td>
 
-                <%# Mark received %>
-                <td>
-                    <h6><%= (submission.grade==nil) ? "0" : submission.grade %>/<%= @assignment.max_points %></h6>
-                </td>
+                    <%# Mark received %>
+                    <td>
+                        <h6><%= (submission.grade==nil) ? "0" : submission.grade %>/<%= @assignment.max_points %></h6>
+                    </td>
 
-                <%# Details button %>
-                <td>
-                    <div class="valign-wrapper">
-                        <div style="margin-left: auto">
-                            <div class="valign-wrapper">
-                            <%# Show comment icon if there are comments%>
-                            <% if !submission.comments.empty? %>
-                                    <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
-                            <% end %>
-                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, @assignment, submission)) %>
+                    <%# Details button %>
+                    <td>
+                        <div class="valign-wrapper">
+                            <div style="margin-left: auto">
+                                <div class="valign-wrapper">
+                                <%# Show comment icon if there are comments%>
+                                <% if !submission.comments.empty? %>
+                                        <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
+                                <% end %>
+                                <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, @assignment, submission)) %>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>

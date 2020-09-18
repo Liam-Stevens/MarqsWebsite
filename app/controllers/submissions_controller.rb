@@ -1,5 +1,5 @@
 require 'csv'
-include Errors 
+include Errors
 
 class SubmissionsController < ApplicationController
     def submission_params
@@ -73,6 +73,13 @@ class SubmissionsController < ApplicationController
 
     #Updates grade
     def update
+        # Redirect back to same page if blank grade given
+        if submission_params[:grade].strip.empty?
+            addError("Unable to set a blank grade")
+            redirect_to edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], params[:id])
+            return
+        end
+
         @submission = Submission.find params[:id]
         @submission.grade = submission_params[:grade]
 
