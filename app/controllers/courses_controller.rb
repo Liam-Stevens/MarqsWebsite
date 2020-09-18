@@ -34,9 +34,6 @@ class CoursesController < ApplicationController
             if(grade != nil)
                 @grades.append(grade)
                 @weightings.append(assignment.weighting)
-            else
-                @grades.append(0)
-                @weightings.append(0)
             end
 
             #Assignments Left Counter
