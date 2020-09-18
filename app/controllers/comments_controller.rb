@@ -1,17 +1,23 @@
 class CommentsController < ApplicationController
     def create
-        # Find submission with matching ID
+        # Get necessary IDs
+        @course = Course.find(params[:course_id])
+        @assignment = Assignment.find(params[:assignment_id])
         submission = Submission.find(params[:submission_id])
+
+        # Redirect back to new page if comment is empty
+        if params[:content].strip.empty?
+            addError("Can't add a blank comment")
+            redirect_to new_course_assignment_submission_comment_path(@course, @assignment, submission)
+            return
+        end
 
         # Create a comment and assign to submission
         comment = Comment.new
         comment.marker_id = session[:id]
         comment.submission_id = submission.id
-        comment.content = params[:text]
+        comment.content = params[:content]
         comment.save!
-
-        assignment_id = params[:assignment_id]
-        @assignment = Assignment.find(assignment_id)
 
         @is_marker = session[:marker]
         if @is_marker == false
@@ -19,8 +25,6 @@ class CommentsController < ApplicationController
         else
             @person = Marker.find(session[:id])
         end
-
-        @course = Course.find(params[:course_id])
 
         # Redirect to submission
         redirect_to course_assignment_submission_path(@course, @assignment, submission)
@@ -47,9 +51,9 @@ class CommentsController < ApplicationController
 
     def edit
         # Find submission with matching ID and get student
-
         @submission = Submission.find(params[:submission_id])
         @student = @submission.student
+
         # Get the id of the assignment we're viewing and get the object
         assignment_id = params[:assignment_id]
         @assignment = Assignment.find(assignment_id)
@@ -60,21 +64,25 @@ class CommentsController < ApplicationController
     end
 
     def update
-        # Find comment
+        # Get necessary IDs
+        @course = Course.find(params[:course_id])
+        @assignment = Assignment.find(params[:assignment_id])
+        @submission = Submission.find(params[:submission_id])
         @comment = Comment.find(params[:id])
 
+        # Redirect back to edit page if comment is empty
+        if params[:content].strip.empty?
+            addError("Can't change to a blank comment")
+            redirect_to edit_comment_path(@comment, :course_id => @course, :assignment_id => @assignment, :submission_id => @submission)
+            return
+        end
+
         # Edit comment values
-        @comment.content = params[:text]
+        @comment.content = params[:content]
         @comment.save!
-
-        assignment_id = params[:assignment_id]
-        @assignment = Assignment.find(assignment_id)
-
-        @course = Course.find(params[:course_id])
-
         flash[:notice] = "Comment updated."
+
         # Redirect to submission
-        @submission = Submission.find(params[:submission_id])
         redirect_to course_assignment_submission_path(@course, @assignment, @submission)
     end
 

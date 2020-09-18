@@ -1,5 +1,3 @@
-
-
 class Submission < ApplicationRecord
     belongs_to :assignment
     has_many :comments
@@ -13,6 +11,19 @@ class Submission < ApplicationRecord
     def grade_cannot_be_greater_than_max 
         if (!grade.nil? && !assignment.max_points.nil? && grade > assignment.max_points) 
             errors.add(:grade, student_id.to_s + "'s grade can't be greater than max points: " + assignment.max_points.to_s)
+        end
+    end
+
+    def self.to_csv(data)
+        attributesReal = %w{student_id grade content}
+        attributesDummy = %w{student_id grade comments}
+    
+        CSV.generate(headers: true) do |csv|
+          csv << attributesDummy
+    
+          data.each do |data|
+            csv << data.attributes.values_at(*attributesReal)
+          end
         end
     end
 end

@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
             redirect_to login_path
         end
 
-        # Pass helpful objects
+        # Pass list of courses
         @courses = @logged_in_user.courses
 
         @all_grade = []

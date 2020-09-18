@@ -8,8 +8,8 @@
         <%= hidden_field_tag 'course_id', params[:course_id] %>
         <%= hidden_field_tag 'assignment_id', params[:assignment_id] %>
         <%= hidden_field_tag 'submission_id', params[:submission_id] %>
-        <%= label_tag(:text, "Comment") %>
-        <%= text_field_tag(:text, nil, value: @comment.content, required: true, class: "validate") %>
+        <%= label_tag("content", "Comment") %>
+        <%= text_field_tag("content", nil, value: @comment.content, class: "validate") %>
     </div>
 
     <%= submit_tag("Apply Edit", class: "grey darken-2 btn") %>

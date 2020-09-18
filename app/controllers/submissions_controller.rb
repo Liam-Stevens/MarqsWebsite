@@ -1,5 +1,5 @@
 require 'csv'
-include Errors 
+include Errors
 
 class SubmissionsController < ApplicationController
     def submission_params
@@ -32,9 +32,6 @@ class SubmissionsController < ApplicationController
         if (@submission == nil)
             @submission = Submission.find(id)
         end
-
-        # Get the student
-        @student = @submission.student
 
         # Get the submission's assignment
         @assignment = @submission.assignment
@@ -76,6 +73,13 @@ class SubmissionsController < ApplicationController
 
     #Updates grade
     def update
+        # Redirect back to same page if blank grade given
+        if submission_params[:grade].strip.empty?
+            addError("Unable to set a blank grade")
+            redirect_to edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], params[:id])
+            return
+        end
+
         @submission = Submission.find params[:id]
         @submission.grade = submission_params[:grade]
 
@@ -131,5 +135,18 @@ class SubmissionsController < ApplicationController
             end
         end
         redirect_back(fallback_location: root_path)
+    end
+
+    def export
+        assignment_id = params[:assignment_id]
+        @assignment = Assignment.find(assignment_id)
+        @submissions = @assignment.submissions.left_outer_joins(:comments).select("submissions.* , comments.*")
+
+
+        respond_to do |format|
+            format.html
+            format.csv { send_data Submission.to_csv(@submissions), filename: "#{@assignment.title}-#{Date.today}.csv" }
+        end
+
     end
 end

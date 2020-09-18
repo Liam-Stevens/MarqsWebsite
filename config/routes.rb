@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         resources :assignments do
             resources :submissions do
                 post 'import'
+                get 'export'
                 resources :comments, shallow: true
             end
         end

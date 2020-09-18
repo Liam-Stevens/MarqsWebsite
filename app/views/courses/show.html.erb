@@ -14,7 +14,7 @@
                     <% if(@grade_value == "N/A") %>
                         <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
                     <% else %>
-                        <h6 style="margin-left: auto"><b><%= @current_grade%>% <%= @grade_value%></b></h6>
+                        <h6 style="margin-left: auto"><b><%= @current_grade%> <%= @grade_value%></b></h6>
                     <% end %>
             </div>
         </div>
@@ -26,15 +26,23 @@
             <div class="valign-wrapper box-pad">
                 <i class="material-icons">assignment</i>
                 <h6 style="margin-left: 10px">Assignments Left</h6>
-                <h6 style="margin-left: auto"><b><%= @assignments_left %></b></h6>
+                <h6 style="margin-left: auto"><b><%= @remaining_assignments %></b></h6>
             </div>
         </div>
     </div>
 </div>
 
-<%# Table listing any assignments/components that are graded %>
 <h5 style="margin-top: 30px">Assignments</h5>
-<table>
+<%# Show message if no comments %>
+<% if @assignments.empty? %>
+    <div style="text-align: center; margin-top: 20%">
+        <h6><i>There are no assignments currently available for this course</i></h6>
+    </div>
+
+
+<%# Table listing any assignments/components that are graded %>
+<% else %>
+    <table>
     <thead>
         <tr>
             <%# Assignment Name %>
@@ -65,50 +73,71 @@
             <th>
                 <div class="valign-wrapper">
                     <i class="material-icons">assessment</i>
-                    <span style="margin-left: 10px">Max Mark</span>
+                    <span style="margin-left: 10px">Marks</span>
+                </div>
+            </th>
+
+            <%# Status %>
+            <th>
+                <div class="valign-wrapper">
+                  <i class="material-icons">library_add_check</i>
+                  <span style="margin-left: 10px">Status</span>
                 </div>
             </th>
 
             <%# Details button %>
             <th>
             </th>
-        </tr>
-    </thead>
 
-    <tbody>
-        <% @assignments.each_with_index do |assignment,index| %>
-            <tr>
-                <%# Assignment Name %>
-                <td>
-                    <h6><%= assignment.title %></h6>
-                </td>
+       </tr>
+   </thead>
 
-                <%# Due Date %>
-                <td>
-                    <h6><%= assignment.due_date %></h6>
-                </td>
+        <tbody>
+            <% @assignments.each_with_index do |assignment,index| %>
+                <tr>
+                    <%# Assignment Name %>
+                    <td>
+                        <h6><%= assignment.title %></h6>
+                    </td>
 
-                <%# Weighting %>
-                <td>
-                    <h6><%= (assignment.weighting*100).round.to_s + "%" %></h6>
-                </td>
+                    <%# Due Date %>
+                    <td>
+                        <h6><%= assignment.due_date %></h6>
+                    </td>
 
-                <%# Marks %>
-                <td>
-                    <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
-                </td>
+                    <%# Weighting %>
+                    <td>
+                        <h6><%= (assignment.weighting*100).round.to_s + "%" %></h6>
+                    </td>
 
-                <%# Details button %>
-                <td>
-                    <% if @is_marker %>
-                        <%# Routes to where a marker will marks all assignments %>
-                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submissions_path(@course, assignment)) %>
-                    <% elsif assignment.submissions.find_by(student_id: session[:id]) %>
-                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, assignment)) %>
+                    <%# Marks %>
+                    <td>
+                        <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
+                    </td>
+                  
+                    <%# Status %>
+                    <td>
+                      <% if assignment.submissions.find_by(student_id: session[:id]).grade != nil %>
+                        <i>Graded</i>
+                      <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today >= assignment.due_date %>
+                        <i style="color:Red;">Missing</i>
+                      <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date %>
+                        <i>Not Submitted</i>
+                      <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date != nil && assignment.submissions.find_by(student_id: session[:id]).submitted_date >= assignment.due_date %>
+                        <i style="color:Red;">Late</i>
+                      <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date != nil && assignment.submissions.find_by(student_id: session[:id]).submitted_date < assignment.due_date %>
+                        <i>Pending Mark</i>
+                      <% end %>
+                    </td>
+
+                    <%# Details button %>
+                    <td>
+                    <% if assignment.submissions.find_by(student_id: session[:id]) %>
+                        <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, assignment, assignment.submissions.find_by(student_id: session[:id]))) %>
                     <% end %>
                 </td>
-            </tr>
-        <% end %>
-    </tbody>
-
-</table>
+              </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
