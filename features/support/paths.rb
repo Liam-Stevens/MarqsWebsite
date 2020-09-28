@@ -22,26 +22,19 @@ module NavigationHelpers
 
             when /^the submissions page for the assignment "(.*)"$/
                 # Get course ID from assignment
-                course_id = Assignment.find($1).course_id
-                course_assignment_submissions_path(course_id, $1)
+                assignment_path($1)
 
             when /^the submission page for id "(.*)"$/
                 # Get IDs from parents
-                assignment_id = Submission.find($1).assignment_id
-                course_id = Assignment.find(assignment_id).course_id
-                course_assignment_submission_path(course_id, assignment_id, $1)
+                submission_path($1)
 
             when /^the edit grade page for submission "(.*)"$/
                 # Get IDs from parents
-                assignment_id = Submission.find($1).assignment_id
-                course_id = Assignment.find(assignment_id).course_id
-                edit_course_assignment_submission_path(course_id, assignment_id, $1)
+                edit_submission_path($1)
 
             when /^the add comment page for submission "(.*)"$/
                 # Get IDs from parents
-                assignment_id = Submission.find($1).assignment_id
-                course_id = Assignment.find(assignment_id).course_id
-                new_course_assignment_submission_comment_path(course_id, assignment_id, $1)
+                new_submission_comment_path($1)
 
             when /^the edit comment page for "(.*)"$/
                 edit_comment_path($1)
