@@ -14,4 +14,4 @@
 
     <%= submit_tag("Apply Edit", class: "grey darken-2 btn") %>
 <% end %>
-<%=link_to(button_tag("Cancel", class: "grey btn"), course_assignment_submission_path(@course, @assignment, @submission)) %>
+<%=link_to(button_tag("Cancel", class: "grey btn"), submission_path(@submission)) %>

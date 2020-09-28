@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 
     resources :courses do 
         get 'marker', to: 'courses#show_marker'
-        resources :assignments do
-            resources :submissions do
-                post 'import'
-                get 'export'
-                resources :comments, shallow: true
-            end
-        end
+    end
+    resources :assignments do
+        post 'import'
+        get 'export'
+    end
+    resources :submissions do
+        resources :comments, shallow: true
     end
 
 end
