@@ -32,8 +32,8 @@
         <%# Show 'add comment' and 'edit grade' buttons if logged in as a marker %>
         <% if session[:marker] == true %>
             <div class="right">
-                <%= link_to(button_tag("Edit Grade", class: "grey darken-2 waves-effect waves-light btn-small"), edit_course_assignment_submission_path(params[:course_id], params[:assignment_id], @submission)) %>
-                <%= link_to(button_tag("Add Comment", class: "grey darken-2 waves-effect waves-light btn-small"), new_course_assignment_submission_comment_path(params[:course_id], params[:assignment_id], @submission)) %>
+                <%= link_to(button_tag("Edit Grade", class: "grey darken-2 waves-effect waves-light btn-small"), edit_submission_path(@submission)) %>
+                <%= link_to(button_tag("Add Comment", class: "grey darken-2 waves-effect waves-light btn-small"), new_submission_comment_path(@submission)) %>
             </div>
         <% end %>
     </div>

@@ -2,7 +2,7 @@
 <h3 style="margin-bottom: 0"> <%= "Add comment to a#{@student.id}'s submission" %> </h3>
 <h5 style="margin-bottom: 1.4em"> <%= @assignment.title %> </h5>
 
-<%= form_with(url: course_assignment_submission_comments_path(params[:course_id], params[:assignment_id], @submission), id: "comment-form") do %>
+<%= form_with(url: submission_comments_path(@submission), id: "comment-form") do %>
     <%# Comment input %>
     <div class="input-field">
         <%= label_tag("content", "Comment") %>
@@ -11,4 +11,4 @@
 
     <%= submit_tag("Add Comment", class: "grey darken-2 btn") %>
 <% end %>
-<%=link_to(button_tag("Cancel", class: "grey btn"), course_assignment_submission_path(@course, @assignment, @submission)) %>
+<%=link_to(button_tag("Cancel", class: "grey btn"), submission_path(@submission)) %>

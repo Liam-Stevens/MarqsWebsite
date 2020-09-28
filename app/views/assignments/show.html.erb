@@ -4,7 +4,7 @@
 
 <%# Import Marks button %>
 <h5 style="margin-top: 30px">Import Marks from CSV</h5>
-<%= form_with(url: course_assignment_submission_import_path(@course, @assignment, -1), multipart: true) do %>
+<%= form_with(url: assignment_import_path(@assignment), multipart: true) do %>
     <div class="input-field">
         <div class="file-field">
             <%# File icon/button %>
@@ -28,7 +28,7 @@
 
 
 <div class="input-field">
-    <%= link_to(button_tag("Export", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_export_path(@course, @assignment, -1, format: "csv")) %>
+    <%= link_to(button_tag("Export", class: "grey darken-2 waves-effect waves-light btn"), assignment_export_path(@assignment, format: "csv")) %>
 </div>
 
 <%# Table listing all submissions for an assignment %>
@@ -102,7 +102,7 @@
                             <% if !submission.comments.empty? %>
                                     <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
                             <% end %>
-                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), course_assignment_submission_path(@course, @assignment, submission)) %>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), submission_path(submission)) %>
                             </div>
                         </div>
                     </div>
