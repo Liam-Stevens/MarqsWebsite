@@ -1,5 +1,7 @@
 class StudentsController < ApplicationController
+
     def show
+        add_breadcrumb "Dashboard", student_path(session[:id])
         # Redirect for wrong URI
         if session[:id] != params[:id]
             redirect_to login_path

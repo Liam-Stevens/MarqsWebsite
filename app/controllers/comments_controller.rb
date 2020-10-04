@@ -46,6 +46,12 @@ class CommentsController < ApplicationController
         end
 
         @course = @assignment.course
+
+        add_breadcrumb "Dashboard", marker_path(session[:id])
+        add_breadcrumb "Course", course_marker_path(@course.id)
+        add_breadcrumb "Assignment", assignment_path(@assignment.id)
+        add_breadcrumb "Submission", submission_path(@submission.id)
+        add_breadcrumb "Comment", :new_submission_comment_path
     end
 
     def edit
@@ -59,6 +65,12 @@ class CommentsController < ApplicationController
         @course = @assignment.course
 
         @comment = Comment.find(params[:id])
+
+        add_breadcrumb "Dashboard", marker_path(session[:id])
+        add_breadcrumb "Course", course_marker_path(@course.id)
+        add_breadcrumb "Assignment", assignment_path(@assignment.id)
+        add_breadcrumb "Submission", submission_path(@submission.id)
+        add_breadcrumb "Comment", :edit_comment_path
     end
 
     def update

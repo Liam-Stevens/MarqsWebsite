@@ -1,4 +1,6 @@
 class MarkersController < ApplicationController
+    add_breadcrumb "Dashboard", :marker_path
+
     def show
         # Redirect for wrong URI
         if session[:id] != params[:id]

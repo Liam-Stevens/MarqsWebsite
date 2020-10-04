@@ -2,9 +2,6 @@ class LoginController < ApplicationController
     # Don't check if logged in on the login page
     skip_before_action :redirect_to_root
 
-    add_breadcrumb "login", :root_path
-    add_breadcrumb "my", :my_path
-
     def index
         session[:ignore_redirect] = true
 

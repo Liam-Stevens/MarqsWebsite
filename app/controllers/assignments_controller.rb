@@ -15,6 +15,9 @@ class AssignmentsController < ApplicationController
             redirect_to course_path(@course)
         else
             @person = Marker.find(session[:id])
+            add_breadcrumb "Dashboard", marker_path(@person.id)
+            add_breadcrumb "Course", course_marker_path(@course.id)
+            add_breadcrumb "Assignment", :assignment_path
         end
     end
 
