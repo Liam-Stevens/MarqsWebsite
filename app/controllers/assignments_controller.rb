@@ -58,6 +58,7 @@ class AssignmentsController < ApplicationController
         summary[:min] = grades[0]
         summary[:med] = get_median(grades)
         summary[:max] = grades[grades.length - 1]
+        summary[:avg] = grades.sum/grades.length.to_f
 
         # Split in two and get their medians
         grades_left, grades_right = grades.each_slice((grades.length/2.0).round).to_a

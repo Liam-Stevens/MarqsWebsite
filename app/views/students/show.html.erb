@@ -45,11 +45,16 @@
 
                     <%# Current Grade %>
                     <td>
-                        <% if(@grade_value[index] == "N/A") %>
-                            <h6 style="margin: 0"><b><%= @grade_value[index]%></b></h6>
-                        <% else %>
-                            <h6 style="margin: 0"><b><%= @all_grade[index]%>% <%= @grade_value[index]%></b></h6>
-                        <% end %>
+                        <div class="valign-wrapper">
+                            <% if(@grade_value[index] == "N/A") %>
+                                <h6 style="margin: 0"><b><%= @grade_value[index]%></b></h6>
+                            <% else %>
+                                <h6 style="margin: 0"><b><%= @all_grade[index]%>% <%= @grade_value[index]%></b></h6>
+                            <% end %>
+
+                            <%# Show graph modal button %>
+                            <i class="modal-trigger graph-button material-icons grey-text text-lighten-1 right" data-target="graph" data-student="<%= @all_grade[index] %>" data-id="<%= course.id %>" data-title="<%= course.long_title %>" data-type="course">info_outlined</i>
+                        </div>
                     </td>
 
                     <%# View Button %>

@@ -11,23 +11,26 @@ var modal = M.Modal.init(elm, {
     }
 });
 
-// Small helper to return the percentage + grade of a mark
+// Small helpers to return the percentage + grade of a mark
+function getGrade(per) {
+    if (per >= 0 && per < 50) {
+        return "F";
+    } else if (per >= 50 && per < 64) {
+        return "P";
+    } else if (per >= 65 && per < 74) {
+        return "C";
+    } else if (per >= 75 && per < 84) {
+        return "D";
+    } else {
+        return "HD";
+    }
+}
+
 function getGradeString(mark, max_mark) {
     var per = 100.0 * (mark/max_mark);
-    var str = `${mark} (${per.toFixed(0)}% `;
-
-    if (per >= 0 && per < 50) {
-        str += "F";
-    } else if (per >= 50 && per < 64) {
-        str += "P";
-    } else if (per >= 65 && per < 74) {
-        str += "C";
-    } else if (per >= 75 && per < 84) {
-        str += "D";
-    } else if (per >= 85 && per <= 100) {
-        str += "HD";
-    }
-
+    var str = `${mark} `
+    str += `(${per.toFixed(0)}% `;
+    str += getGrade(per);
     str += ")";
     return str;
 }
@@ -50,7 +53,7 @@ function createGraph(json, student_mark) {
     // Show X axis
     var x = d3.scaleLinear()
               .range([0, dim.width - (dim.offset*2)])
-              .domain([0, json.max_marks])
+              .domain([0, (json.max_marks ? json.max_marks : 100)])
               .nice()
 
     var axis = d3.axisBottom(x)
@@ -109,7 +112,7 @@ function createGraph(json, student_mark) {
 }
 
 // Makes a request for the given assignment's five number summary
-function getFNS(id, mark) {
+function getFNS(id, mark, is_assignment) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
@@ -118,17 +121,27 @@ function getFNS(id, mark) {
             // Render the graph on a successful request
             if (this.status == 200) {
                 var json = JSON.parse(this.responseText);
+                json.avg = json.avg.toFixed(0);
+                json.med = json.med.toFixed(0);
 
                 // Show message if returned JSON is empty
                 if (JSON.stringify(json) == "{}") {
-                    elm.innerHTML = "No grades have been submitted for this assignment."
+                    elm.innerHTML = `No grades have been submitted${is_assignment ? " for this assignment" : ""}.`
                     return;
                 }
 
                 // Otherwise actually create graph
                 elm.style.display = "none"
                 createGraph(json, mark);
-                document.getElementById("graph-stats").innerHTML = `Average Mark: \t${getGradeString(json.med, json.max_marks)}\n<b>Your Mark: \t\t${getGradeString(mark, json.max_marks)}</b>`;
+                if (is_assignment) {
+                    var avg = `Average Mark: \t${getGradeString(json.avg, json.max_marks)}`
+                    var you = `Your Mark: \t\t${getGradeString(mark, json.max_marks)}`
+
+                } else {
+                    var avg = `Average Grade: \t${json.avg + "% " + getGrade(json.avg)}`
+                    var you = `Your Grade: \t\t${mark + "% " + getGrade(mark)}`
+                }
+                document.getElementById("graph-stats").innerHTML = `${avg}\n<b>${you}</b>`;
 
             // Indicate that an error occurred
             } else {
@@ -136,7 +149,9 @@ function getFNS(id, mark) {
             }
         }
     }
-    xhttp.open("GET", `/assignments/${id}/summary`, true);
+
+    var path = (is_assignment ? "/assignments" : "/courses");
+    xhttp.open("GET", `${path}/${id}/summary`, true);
     xhttp.send();
 }
 
@@ -146,12 +161,13 @@ buttons.forEach(function(elm) {
     // Override each graph button's click event to start an AJAX request
     elm.addEventListener("click", function(event) {
         // Read values from button that was clicked
-        assignment_id = event.target.getAttribute("data-assignment");
-        assignment_title = event.target.getAttribute("data-title");
+        assignment_id = event.target.getAttribute("data-id");
+        is_assignment = (event.target.getAttribute("data-type") === "assignment");
         student_mark = event.target.getAttribute("data-student");
+        title = event.target.getAttribute("data-title");
 
         // Start AJAX request for summary
-        document.getElementById("graph-heading").innerHTML = "Mark Boxplot for: " + assignment_title;
-        getFNS(assignment_id, student_mark);
+        document.getElementById("graph-heading").innerHTML = `${is_assignment ? "Mark" : "Grade"} Boxplot for: ${title}`;
+        getFNS(assignment_id, student_mark, is_assignment);
     });
 });
