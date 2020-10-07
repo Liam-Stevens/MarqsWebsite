@@ -115,8 +115,8 @@
                         <div class="valign-wrapper">
                             <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
 
-                            <%# Show graph button if there is a grade %>
-                            <% if @grades[index] != nil %>
+                            <%# Show graph button if there are grades %>
+                            <% if !assignment.submissions.empty? %>
                                 <a class="modal-trigger graph-button" href="#graph">
                                     <i class="material-icons grey-text text-lighten-1 right" data-student="<%= session[:id] %>" data-assignment="<%= assignment.id %>">info_outlined</i>
                                 </a>
@@ -155,12 +155,11 @@
     <%# Graph modal %>
     <div id="graph" class="modal">
         <%# Actual content %>
-        <div class="modal-content">
-            <h4 id="graph-id1">0</h4>
-            <h4 id="graph-id2">00</h4>
+        <div class="modal-content valign-wrapper">
+            <h6 id="graph-loading">Loading...</h6>
         </div>
         <div class="modal-footer">
-            <a class="modal-close">Close</a>
+            <a id="graph-close" class="modal-close">Close</a>
         </div>
     </div>
 

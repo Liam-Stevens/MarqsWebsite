@@ -1,6 +1,43 @@
 include Errors
 
 class AssignmentsController < ApplicationController
+    helper_method :get_median, :remove_median
+
+    # Return the median value in the given (sorted) array
+    def get_median(array)
+        # Edge case: empty
+        if (array.empty?)
+            return nil
+        end
+
+        # Handle even/odd sizes
+        if (array.length % 2 == 0)
+            mid = array.length/2
+            return (array[mid - 1] + array[mid])/2
+        else
+            return array[array.length/2]
+        end
+    end
+
+    # Remove the median elements from the given (sorted) array
+    def remove_median(array)
+        # Edge case: empty
+        if (array.empty?)
+            return array
+        end
+
+        # Handle even/odd sizes
+        if (array.length % 2 == 0)
+            mid = array.length/2
+            array.delete_at(mid)
+            array.delete_at(mid - 1)
+        else
+            array.delete_at(array.length/2)
+        end
+
+        return array
+    end
+
     def show
         # Get the id of the assignment we're viewing and get the object
         assignment_id = params[:id]
@@ -19,6 +56,30 @@ class AssignmentsController < ApplicationController
             add_breadcrumb "Course", course_marker_path(@course.id)
             add_breadcrumb "Assignment", :assignment_path
         end
+    end
+
+    # Get five number summary for assignment
+    def summary
+        # Get assignment and it's submissions for given ID
+        assignment = Assignment.find(params[:assignment_id])
+        grades = assignment.submissions.pluck(:grade)
+        grades.compact!
+
+        # Calculate relevant metrics and assign to hash
+        grades.sort!
+        five_summary = {};
+        five_summary[:min] = grades[0]
+        five_summary[:med] = get_median(grades)
+        five_summary[:max] = grades[grades.length - 1]
+        grades = remove_median(grades)
+
+        # Split in two and get their medians
+        grades_left, grades_right = grades.each_slice((grades.length/2.0).round).to_a
+        five_summary[:q1] = get_median(grades_left)
+        five_summary[:q3] = get_median(grades_right)
+
+        # Return as a JSON
+        render json: five_summary
     end
 
     def import
