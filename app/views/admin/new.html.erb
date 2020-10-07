@@ -6,29 +6,28 @@
   <%= form_with(url: admin_index_path, id: "course-form") do %>
     <div class="input-field">
       <%= label_tag("Long_Title", "Full Title") %>
-      <%= text_field_tag("Long_Title", nil, class: "validate") %>
+      <%= text_field_tag("Long_Title", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("Short_Title", "Short Title") %>
-      <%= text_field_tag("Short_Title", nil, class: "validate") %>
+      <%= text_field_tag("Short_Title", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("Subject", "Subject Type") %>
-      <%= text_field_tag("Subject", nil, class: "validate") %>
+      <%= text_field_tag("Subject", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("Course_ID", "Course ID") %>
-      <%= text_field_tag("Course_ID", nil, class: "validate") %>
+      <%= number_field_tag("Course_ID", nil, class: "validate", required: true) %>
     </div>
-    <div class="input-field">
+    <div class="date-field">
       <%= label_tag("Eff_Date", "Effective Date") %>
-      <%= text_field_tag("Eff_Date", nil, class: "validate") %>
+      <%= date_field_tag("Eff_Date", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("Descr", "Description") %>
-      <%= text_field_tag("Descr", nil, class: "validate") %>
+      <%= text_field_tag("Descr", nil, class: "validate", required: true) %>
     </div>
-
 
     <%= submit_tag("Add Course", class: "grey darken-2 btn") %>
   <% end %>
@@ -37,18 +36,34 @@
 <% elsif @type == "student" %>
   <%= form_with(url: admin_index_path, id: "student-form") do %>
     <div class="input-field">
-      <%= label_tag("content", "Student ID") %>
-      <%= text_field_tag("content", nil, class: "validate") %>
+      <%= label_tag("Student_ID", "Student ID") %>
+      <%= text_field_tag("Student_ID", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
-      <%= label_tag("content", "First Name") %>
-      <%= text_field_tag("content", nil, class: "validate") %>
+      <%= label_tag("First_Name", "First Name") %>
+      <%= text_field_tag("First_Name", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
-      <%= label_tag("content", "Last Name") %>
-      <%= text_field_tag("content", nil, class: "validate") %>
+      <%= label_tag("Last_Name", "Last Name") %>
+      <%= text_field_tag("Last_Name", nil, class: "validate", required: true) %>
     </div>
     <%# Courses List %>
+    <div class="input-field">
+      <%= label_tag("Course1", "Course 1") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course2", "Course 2") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course3", "Course 3") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course4", "Course 4") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
 
     <%= submit_tag("Add Student", class: "grey darken-2 btn") %>
   <% end %>
@@ -57,18 +72,34 @@
 <% elsif @type == "marker" %>
   <%= form_with(url: admin_index_path, id: "marker-form") do %>
     <div class="input-field">
-      <%= label_tag("content", "Marker ID") %>
-      <%= text_field_tag("content", nil, class: "validate") %>
+      <%= label_tag("Marker_ID", "Marker ID") %>
+      <%= text_field_tag("Marker_ID", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
-      <%= label_tag("content", "First Name") %>
-      <%= text_field_tag("content", nil, class: "validate") %>
+      <%= label_tag("First_Name", "First Name") %>
+      <%= text_field_tag("First_Name", nil, class: "validate", required: true) %>
     </div>
     <div class="input-field">
-      <%= label_tag("content", "Last Name") %>
-      <%= text_field_tag("content", nil, class: "validate") %>
+      <%= label_tag("Last_Name", "Last Name") %>
+      <%= text_field_tag("Last_Name", nil, class: "validate", required: true) %>
     </div>
     <%# Courses List %>
+    <div class="input-field">
+      <%= label_tag("Course1", "Course 1") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course2", "Course 2") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course3", "Course 3") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course4", "Course 4") %>
+      <%= text_field_tag("Course1", nil, class: "validate") %>
+    </div>
 
     <%= submit_tag("Add Marker", class: "grey darken-2 btn") %>
   <% end %>
