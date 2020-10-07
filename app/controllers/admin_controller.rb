@@ -43,6 +43,20 @@ class AdminController < ApplicationController
         addError("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
       end
+    elsif params[:commit] == "Add Student"
+      student = Student.new
+      student.student_id = params[:Student_ID]
+      student.first_name = params[:First_Name]
+      student.last_name = params[:Last_Name]
+      student.save!
+      redirect_to admin_index_path
+    elsif params[:commit] == "Add Marker"
+      marker = Marker.new
+      marker.marker_id = params[:Marker_ID]
+      marker.first_name = params[:First_Name]
+      marker.last_name = params[:Last_Name]
+      marker.save!
+      redirect_to admin_index_path
     end
   end
 end
