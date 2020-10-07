@@ -40,6 +40,7 @@ class AdminController < ApplicationController
         assignment.save!
         redirect_to admin_index_path
       else
+        
         addError("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
       end
@@ -48,6 +49,13 @@ class AdminController < ApplicationController
       student.student_id = params[:Student_ID]
       student.first_name = params[:First_Name]
       student.last_name = params[:Last_Name]
+      
+      courses = []
+      params[:Course_id].each do |course|
+          courses.push(Course.find(course.to_i))
+      end
+      student.courses = courses
+
       student.save!
       redirect_to admin_index_path
     elsif params[:commit] == "Add Marker"
@@ -55,6 +63,13 @@ class AdminController < ApplicationController
       marker.marker_id = params[:Marker_ID]
       marker.first_name = params[:First_Name]
       marker.last_name = params[:Last_Name]
+
+      courses = []
+      params[:Course_id].each do |course|
+          courses.push(Course.find(course.to_i))
+      end
+      student.courses = courses
+
       marker.save!
       redirect_to admin_index_path
     end

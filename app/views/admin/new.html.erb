@@ -49,20 +49,12 @@
     </div>
     <%# Courses List %>
     <div class="input-field">
-      <%= label_tag("Course1", "Course 1") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
-    </div>
-    <div class="input-field">
-      <%= label_tag("Course2", "Course 2") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
-    </div>
-    <div class="input-field">
-      <%= label_tag("Course3", "Course 3") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
-    </div>
-    <div class="input-field">
-      <%= label_tag("Course4", "Course 4") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
+      <select multiple class="validate valid" name="Course_id[]" id="Course_id" multiple="true">
+          <option value="" disabled>Select Course's</option>
+          <% @courses.each do |course| %>
+              <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
+          <% end %>
+      </select>
     </div>
 
     <%= submit_tag("Add Student", class: "grey darken-2 btn") %>
@@ -85,20 +77,12 @@
     </div>
     <%# Courses List %>
     <div class="input-field">
-      <%= label_tag("Course1", "Course 1") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
-    </div>
-    <div class="input-field">
-      <%= label_tag("Course2", "Course 2") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
-    </div>
-    <div class="input-field">
-      <%= label_tag("Course3", "Course 3") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
-    </div>
-    <div class="input-field">
-      <%= label_tag("Course4", "Course 4") %>
-      <%= text_field_tag("Course1", nil, class: "validate") %>
+      <select multiple class="validate valid" name="Course_id[]" id="Course_id" required>
+          <option value="" disabled>Select Course's</option>
+          <% @courses.each do |course| %>
+              <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
+          <% end %>
+      </select>
     </div>
 
     <%= submit_tag("Add Marker", class: "grey darken-2 btn") %>
@@ -125,8 +109,12 @@
     </div>
     <%# Course %>
     <div class="input-field">
-      <%= label_tag("Course_id", "Course ID") %>
-      <%= text_field_tag("Course_id", nil, class: "validate", required: true) %>
+      <select class="validate valid" name="Course_id" id="Course_id" required>
+          <option value="" disabled selected>Select Course</option>
+          <% @courses.each do |course| %>
+              <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
+          <% end %>
+      </select>
     </div>
 
     <%= submit_tag("Add Assignment", class: "grey darken-2 btn") %>
