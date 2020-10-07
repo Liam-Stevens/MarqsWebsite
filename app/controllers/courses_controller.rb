@@ -1,7 +1,10 @@
 class CoursesController < ApplicationController
+
     def show
         # Get course object for ID
         id = params[:id]
+        add_breadcrumb "Dashboard", student_path(session[:id])
+        add_breadcrumb "Course", :course_path
         @is_marker = session[:marker]
         if @is_marker == false
             @person = Student.find(session[:id])
@@ -79,6 +82,9 @@ class CoursesController < ApplicationController
         @person = Marker.find(session[:id])
 
         @course = Course.find(id)
+
+        add_breadcrumb "Dashboard", marker_path(@person.id)
+        add_breadcrumb "Course", course_marker_path(@course.id)
 
         # Get course's assignments and sort by due date
         @assignments = @course.assignments

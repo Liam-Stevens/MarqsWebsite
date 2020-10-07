@@ -2,6 +2,7 @@ require 'csv'
 include Errors
 
 class SubmissionsController < ApplicationController
+
     def submission_params
         params.require(:submission).permit(:id, :assignment_id, :grade, :submitted_date)
     end
@@ -17,6 +18,18 @@ class SubmissionsController < ApplicationController
 
         # Get the submission's assignment
         @assignment = @submission.assignment
+
+        @is_marker = session[:marker]
+        if @is_marker == false
+            add_breadcrumb "Dashboard", student_path(session[:id])
+            add_breadcrumb "Course", course_path(@assignment.course)
+            add_breadcrumb "Submission", :submission_path
+        else
+            add_breadcrumb "Dashboard", marker_path(session[:id])
+            add_breadcrumb "Course", course_marker_path(@assignment.course)
+            add_breadcrumb "Assignment", assignment_path(@assignment.id)
+            add_breadcrumb "Submission", :submission_path
+        end
 
         # Get a list of the submission's comments
         @comments = @submission.comments
@@ -47,6 +60,11 @@ class SubmissionsController < ApplicationController
             @person = Student.find(session[:id])
         else
             @person = Marker.find(session[:id])
+            add_breadcrumb "Dashboard", marker_path(session[:id])
+            add_breadcrumb "Course", course_marker_path(@assignment.course)
+            add_breadcrumb "Assignment", assignment_path(@assignment.id)
+            add_breadcrumb "Submission", :submission_path
+            add_breadcrumb "Grade", :edit_submission_path
         end
 
         @course = @submission.assignment.course

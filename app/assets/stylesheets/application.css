@@ -40,6 +40,18 @@
     border: solid lightgrey 1px;
 }
 
+.breadcrumbs {
+    color: red !important;
+}
+
+.breadcrumbs a:any-link {
+    color: #ff7242 !important;
+}
+
+.breadcrumbs a:hover {
+    color: red !important;
+}
+
 .heading-style {
     font-family: "Nunito";
     color: #ff7242 !important;
