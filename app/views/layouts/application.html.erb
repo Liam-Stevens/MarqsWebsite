@@ -14,6 +14,9 @@
         <%# Load Materalize CSS %>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <%= stylesheet_link_tag 'materialize' %>
+
+        <%# Our JS %>
+        <%= javascript_include_tag 'application' %>
     </head>
 
     <body style="background-color: rgb(237, 237, 239); margin-bottom: 50px">
@@ -64,8 +67,5 @@
             <%# Other views go here %>
             <%= yield %>
         </div>
-
-        <%# Materialize's JS %>
-        <%= javascript_include_tag 'materialize' %>
     </body>
 </html>
