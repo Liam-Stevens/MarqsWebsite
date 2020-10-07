@@ -24,6 +24,6 @@ class Submission < ApplicationRecord
         data.each do |value|
             csv << value.attributes.values_at(*attributesReal)
         end
-    end
+      end
   end
 end
