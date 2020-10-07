@@ -1,13 +1,38 @@
+// Init modal
 var elm = document.getElementById("graph");
+M.Modal._count = 0;
 var modal = M.Modal.init(elm, {
     onOpenStart: function() {
         var elm = document.getElementById("graph-loading");
         elm.innerHTML = "Loading...";
-        elm.display = "block";
+        elm.style.display = "block";
         document.getElementById("graph-container").innerHTML = "";
+        document.getElementById("graph-stats").innerHTML = "";
     }
 });
 
+// Small helper to return the percentage + grade of a mark
+function getGradeString(mark, max_mark) {
+    var per = 100.0 * (mark/max_mark);
+    var str = `${mark} (${per.toFixed(0)}% `;
+
+    if (per >= 0 && per < 50) {
+        str += "F";
+    } else if (per >= 50 && per < 64) {
+        str += "P";
+    } else if (per >= 65 && per < 74) {
+        str += "C";
+    } else if (per >= 75 && per < 84) {
+        str += "D";
+    } else if (per >= 85 && per <= 100) {
+        str += "HD";
+    }
+
+    str += ")";
+    return str;
+}
+
+// Creates a boxplot svg and inserts in the #graph-container element
 function createGraph(json, student_mark) {
     // Calculate graph size
     var container = document.getElementById("graph-container");
@@ -29,7 +54,7 @@ function createGraph(json, student_mark) {
               .nice()
 
     var axis = d3.axisBottom(x)
-                 .tickValues(x.ticks(5).concat(x.domain()))
+                 .tickValues(x.ticks(6).concat(x.domain()))
 
     svg.append("g")
         .style("font", "14px times")
@@ -74,7 +99,7 @@ function createGraph(json, student_mark) {
     if (student_mark > 0) {
         markSize = dim.boxHeight/3;
         svg.append("rect")
-           .attr("x", x(student_mark) - markSize/2)
+           .attr("x", x(student_mark) + dim.offset - markSize/2)
            .attr("y", (dim.height - markSize - dim.offset)/2)
            .attr("height", markSize)
            .attr("width", markSize)
@@ -93,9 +118,17 @@ function getFNS(id, mark) {
             // Render the graph on a successful request
             if (this.status == 200) {
                 var json = JSON.parse(this.responseText);
-                elm.innerHTML = "";
-                // elm.innerHTML = `Average Mark: ${json.med}\t\tYour Mark: ${mark}`;
+
+                // Show message if returned JSON is empty
+                if (JSON.stringify(json) == "{}") {
+                    elm.innerHTML = "No grades have been submitted for this assignment."
+                    return;
+                }
+
+                // Otherwise actually create graph
+                elm.style.display = "none"
                 createGraph(json, mark);
+                document.getElementById("graph-stats").innerHTML = `Average Mark: \t${getGradeString(json.med, json.max_marks)}\n<b>Your Mark: \t\t${getGradeString(mark, json.max_marks)}</b>`;
 
             // Indicate that an error occurred
             } else {
@@ -118,7 +151,7 @@ buttons.forEach(function(elm) {
         student_mark = event.target.getAttribute("data-student");
 
         // Start AJAX request for summary
-        document.getElementById("graph-heading").innerHTML = assignment_title;
+        document.getElementById("graph-heading").innerHTML = "Mark Boxplot for: " + assignment_title;
         getFNS(assignment_id, student_mark);
     });
 });

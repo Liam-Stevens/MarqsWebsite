@@ -46,6 +46,12 @@ class AssignmentsController < ApplicationController
         grades = assignment.submissions.pluck(:grade)
         grades.compact!
 
+        # Return blank JSON if no grades
+        if (grades.empty?)
+            render json: "{}"
+            return
+        end
+
         # Calculate relevant metrics and assign to hash
         grades.sort!
         summary = {};
@@ -55,8 +61,13 @@ class AssignmentsController < ApplicationController
 
         # Split in two and get their medians
         grades_left, grades_right = grades.each_slice((grades.length/2.0).round).to_a
-        summary[:q1] = get_median(grades_left)
-        summary[:q3] = get_median(grades_right)
+        if (grades_left == nil || grades_right == nil)
+            summary[:q1] = grades[0]
+            summary[:q3] = grades[0]
+        else
+            summary[:q1] = get_median(grades_left)
+            summary[:q3] = get_median(grades_right)
+        end
 
         # Append other relevant info
         summary[:title] = assignment.title
