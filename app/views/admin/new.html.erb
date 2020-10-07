@@ -1,0 +1,90 @@
+<%# Headings %>
+<h3 style="margin-bottom: 0"> <%= "Add a new " + @type %> </h3>
+
+<%# Course Form %>
+<% if @type == "course" %>
+  <%= form_with(url: admin_index_path, id: "course-form") do %>
+    <div class="input-field">
+      <%= label_tag("Long_Title", "Full Title") %>
+      <%= text_field_tag("Long_Title", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Short_Title", "Short Title") %>
+      <%= text_field_tag("Short_Title", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Subject", "Subject Type") %>
+      <%= text_field_tag("Subject", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course_ID", "Course ID") %>
+      <%= text_field_tag("Course_ID", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Eff_Date", "Effective Date") %>
+      <%= text_field_tag("Eff_Date", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Descr", "Description") %>
+      <%= text_field_tag("Descr", nil, class: "validate") %>
+    </div>
+
+
+    <%= submit_tag("Add Course", class: "grey darken-2 btn") %>
+  <% end %>
+
+<%# Student Form %>
+<% elsif @type == "student" %>
+  <%= form_with(url: admin_index_path, id: "student-form") do %>
+    <div class="input-field">
+      <%= label_tag("content", "Student ID") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("content", "First Name") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("content", "Last Name") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <%# Courses List %>
+
+    <%= submit_tag("Add Student", class: "grey darken-2 btn") %>
+  <% end %>
+
+<%# Marker Form %>
+<% elsif @type == "marker" %>
+  <%= form_with(url: admin_index_path, id: "marker-form") do %>
+    <div class="input-field">
+      <%= label_tag("content", "Marker ID") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("content", "First Name") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("content", "Last Name") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <%# Courses List %>
+
+    <%= submit_tag("Add Marker", class: "grey darken-2 btn") %>
+  <% end %>
+
+<%# Assignment Form %>
+<% elsif @type == "assignment" %>
+  <%= form_with(url: admin_index_path, id: "assignment-form") do %>
+    <div class="input-field">
+      <%= label_tag("content", "Assignment Name") %>
+      <%= text_field_tag("content", nil, class: "validate") %>
+    </div>
+    <%# Course %>
+
+    <%= submit_tag("Add Assignment", class: "grey darken-2 btn") %>
+  <% end %>
+
+<% end %>
+
+<%=link_to(button_tag("Cancel", class: "grey btn"), admin_index_path) %>

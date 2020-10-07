@@ -2,6 +2,7 @@ Rails.application.routes.draw do
     root 'homepage#index'
     resources :login, only: [:index, :show]
 
+    resources :admin
     resources :students, only: [:show]
     resources :markers, only: [:show]
 
