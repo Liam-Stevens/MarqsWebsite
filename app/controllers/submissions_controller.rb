@@ -42,6 +42,15 @@ class SubmissionsController < ApplicationController
             ratio = ratio.round(1)
             @grade_string = "#{@submission.grade}/#{@assignment.max_points} (#{ratio}%)"
         end
+
+        # Format string containing submission and marking dates
+        @date_string = ""
+        if (@submission.submitted_date != nil)
+            @date_string += "Submitted: #{@submission.submitted_date}"
+        end
+        if (@submission.marked_date != nil)
+            @date_string += " - Marked: #{@submission.marked_date}"
+        end
     end
 
     def edit
