@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
             end
 
             #Assignments Left Counter
-            if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
+        if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
                 @remaining_assignments = @remaining_assignments + 1
             end
         end

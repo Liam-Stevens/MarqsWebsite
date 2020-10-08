@@ -70,7 +70,7 @@ class StudentsController < ApplicationController
 
         end
 
-        # Fetch a list of recently marked assignments
-        @recently_marked = []
+        # Fetch a list of recently marked assignments (which are really submissions)
+        @recently_marked = Submission.where(student_id: @logged_in_user.id, marked_date: 7.days.ago.beginning_of_day..Date.today)
     end
 end
