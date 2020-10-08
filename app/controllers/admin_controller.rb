@@ -38,9 +38,20 @@ class AdminController < ApplicationController
         assignment.weighting = params[:Weighting]
         assignment.max_points = params[:Max_points]
         assignment.save!
+        
+        #add submission for each student
+        students = Course.find(params[:Course_id]).students
+        students.each do |student|
+            submission = Submission.new
+            submission.student_id = student.student_id
+            submission.assignment_id = assignment.id
+            submission.save!
+            
+            assignment.submissions << submission
+        end
+        
         redirect_to admin_index_path
       else
-        
         addError("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
       end
