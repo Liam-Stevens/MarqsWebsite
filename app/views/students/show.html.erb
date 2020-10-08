@@ -7,8 +7,8 @@
         <h6><i>You are not assigned to any courses</i></h6>
     </div>
 
-<%# Table of courses %>
 <% else %>
+    <%# Table of courses %>
     <table>
         <thead>
             <tr>
@@ -60,4 +60,68 @@
             <% end %>
         </tbody>
     </table>
+
+    <%# Table of recently marked assignments %>
+    <% if !@recently_marked.empty? %>
+        <h5 style="padding-top: 40px">Recently Marked</h5>
+        <table>
+            <thead>
+                <tr>
+                    <%# Assignment name %>
+                    <th>
+                        <div class="valign-wrapper">
+                            <i class="material-icons">assignment</i>
+                            <span style="margin-left: 10px">Assignment Name</span>
+                        </div>
+                    </th>
+
+                    <%# Marked Date %>
+                    <th>
+                        <div class="valign-wrapper">
+                            <i class="material-icons">access_time</i>
+                            <span style="margin-left: 10px">Marked Date</span>
+                        </div>
+                    </th>
+
+                    <%# Mark %>
+                    <th>
+                        <div class="valign-wrapper">
+                            <i class="material-icons">assessment</i>
+                            <span style="margin-left: 10px">Mark</span>
+                        </div>
+                    </th>
+
+                    <%# Details button %>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @recently_marked.each do |assignment| %>
+                    <tr>
+                        <%# Assignment name %>
+                        <td>
+                            <h6><%= assignment.name %></h6>
+                        </td>
+
+                        <%# Marked Date %>
+                        <td>
+                            <h6><%= assignment.marked_date %></h6>
+                        </td>
+
+                        <%# Mark %>
+                        <td>
+                            <h6><%= "0/#{assignment.max_points}" %></h6>
+                        </td>
+
+                        <%# Details button %>
+                        <td>
+                            <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), submission_path(assignment.submissions.find_by(student_id: session[:id]))) %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% end %>
 <% end %>

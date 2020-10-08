@@ -70,5 +70,7 @@ class StudentsController < ApplicationController
 
         end
 
+        # Fetch a list of recently marked assignments
+        @recently_marked = []
     end
 end
