@@ -33,13 +33,8 @@ class CoursesController < ApplicationController
             grades_and_weighting_helper(assignment)
         end
 
-        calculate_grades_helper()
-
+        calculate_grades()
         @grade_value = get_letter_grade(@current_grade)
-
-        if(get_letter_grade(@current_grade) == "N/A")
-            @current_grade = 0
-        end
 
     end
 

@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def calculate_grades_helper
+    def calculate_grades
         @sum_grade = 0
         @sum_weightings = 0
 

@@ -24,13 +24,7 @@ class StudentsController < ApplicationController
             end
 
             calculate_grades_helper()
-
             @grade_value.append(get_letter_grade(@current_grade))
-        
-            if(get_letter_grade(@current_grade) == "N/A")
-                @current_grade = 0
-            end
-
             @all_grade.append(@current_grade)
 
         end
