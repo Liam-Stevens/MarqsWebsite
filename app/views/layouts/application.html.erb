@@ -37,10 +37,12 @@
                     </div>
                 <% end %>
             </div>
-            <ol class="left-align breadcrumbs">
+            <div class="left">
+              <ol class="left-align breadcrumbs">
                 <%# Breadcrumb %>
                 <%= render_breadcrumbs :tag => :li, :separator => " " %>
-            </ol>
+              </ol>
+            </div>
         </nav>
 
         <%# All errors, assumes flash[:errors] is an array of strings %>
