@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
                 grades_and_weighting_helper(assignment)
             end
 
-            calculate_grades_helper()
+            calculate_grades()
             @grade_value.append(get_letter_grade(@current_grade))
             @all_grade.append(@current_grade)
 
