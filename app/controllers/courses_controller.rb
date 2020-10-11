@@ -25,39 +25,15 @@ class CoursesController < ApplicationController
         @remaining_assignments = 0
 
         @assignments.each do |assignment|
-            @submission = assignment.submissions.find_by(student_id: session[:id])
-            @max_grades.append(assignment.max_points)
-            grade = @submission.grade
-
             #Assignments Left Counter
             if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
                 @remaining_assignments = @remaining_assignments + 1
             end
 
-            if (grade == nil)
-                @grades.append(0)
-                @weightings.append(0)
-                next
-            end
-
-            @grades.append(grade)
-            @weightings.append(assignment.weighting)
-
+            grades_and_weighting_helper(assignment)
         end
 
-        @sum_grade = 0
-        @sum_weightings = 0
-
-        @grades.each_with_index do |grade,index|
-            @sum_grade += (@grades[index].to_f/@max_grades[index].to_f)*(@weightings[index]*100)
-            @sum_weightings += @weightings[index]*100
-        end
-
-        if(@sum_weightings == 0)
-            @current_grade = -1
-        else
-            @current_grade = ((@sum_grade/@sum_weightings)*100).floor
-        end
+        calculate_grades_helper()
 
         @grade_value = get_letter_grade(@current_grade)
 

@@ -20,37 +20,10 @@ class StudentsController < ApplicationController
             @weightings = []
 
             @assignments.each do |assignment|
-                submission = assignment.submissions.find_by(student_id: session[:id])
-                @max_grades.append(assignment.max_points)
-                if (submission.grade == nil)
-                    @grades.append(0)
-                    @weightings.append(0)
-                    next
-                end
-                grade = submission.grade
-
-                if(grade != nil)
-                    @grades.append(grade)
-                    @weightings.append(assignment.weighting)
-                else
-                    @grades.append(0)
-                    @weightings.append(0)
-                end
+                grades_and_weighting_helper(assignment)
             end
 
-            @sum_grade = 0
-            @sum_weightings = 0
-
-            @grades.each_with_index do |grade,index|
-                @sum_grade += (@grades[index].to_f/@max_grades[index].to_f)*(@weightings[index]*100)
-                @sum_weightings += @weightings[index]*100
-            end
-
-            if(@sum_weightings == 0)
-                @current_grade = -1
-            else
-                @current_grade = ((@sum_grade/@sum_weightings)*100).floor
-            end
+            calculate_grades_helper()
 
             @grade_value.append(get_letter_grade(@current_grade))
         
