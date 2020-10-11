@@ -52,4 +52,18 @@ class CoursesController < ApplicationController
         @assignments = @course.assignments
         @assignments.order("due_date DESC")
     end
+
+    def show_failing
+        # Get course object for ID
+        id = params[:course_id]
+        @person = Marker.find(session[:id])
+
+        @course = Course.find(id)
+        @students = @course.students
+        
+        add_breadcrumb "Dashboard", marker_path(@person.id)
+        add_breadcrumb "Course", course_marker_path(@course.id)
+        add_breadcrumb "Failing Students", course_failing_path(@course.id)
+
+    end
 end
