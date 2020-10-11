@@ -112,7 +112,7 @@
 
                     <%# Marks %>
                     <td>
-                        <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
+                        <h6 class="valign-wrapper grade-prediction"><%= number_field("mark", nil, value: @grades[index]) %>/<%= assignment.max_points %></h6>
                     </td>
 
                     <%# Status %>
