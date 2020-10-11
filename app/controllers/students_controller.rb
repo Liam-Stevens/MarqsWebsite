@@ -22,7 +22,7 @@ class StudentsController < ApplicationController
             @assignments.each do |assignment|
                 submission = assignment.submissions.find_by(student_id: session[:id])
                 @max_grades.append(assignment.max_points)
-                if (submission == nil)
+                if (submission.grade == nil)
                     @grades.append(0)
                     @weightings.append(0)
                     next
