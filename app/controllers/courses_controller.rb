@@ -27,22 +27,22 @@ class CoursesController < ApplicationController
         @assignments.each do |assignment|
             @submission = assignment.submissions.find_by(student_id: session[:id])
             @max_grades.append(assignment.max_points)
-            if (@submission == nil)
-                @grades.append(0)
-                @weightings.append(0)
-                next
-            end
             grade = @submission.grade
-
-            if(grade != nil)
-                @grades.append(grade)
-                @weightings.append(assignment.weighting)
-            end
 
             #Assignments Left Counter
             if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
                 @remaining_assignments = @remaining_assignments + 1
             end
+
+            if (grade == nil)
+                @grades.append(0)
+                @weightings.append(0)
+                next
+            end
+
+            @grades.append(grade)
+            @weightings.append(assignment.weighting)
+
         end
 
         @sum_grade = 0
@@ -59,21 +59,12 @@ class CoursesController < ApplicationController
             @current_grade = ((@sum_grade/@sum_weightings)*100).floor
         end
 
-        case @current_grade
-            when 0..49
-                @grade_value = ("F")
-            when 50..64
-                @grade_value = ("P")
-            when 65..74
-                @grade_value = ("C")
-            when 75..84
-                @grade_value = ("D")
-            when 85..100
-                @grade_value = ("HD")
-            else
-                @grade_value = ("N/A")
-                @current_grade = 0
+        @grade_value = get_letter_grade(@current_grade)
+
+        if(get_letter_grade(@current_grade) == "N/A")
+            @current_grade = 0
         end
+
     end
 
     def show_marker

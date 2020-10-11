@@ -27,4 +27,21 @@ class ApplicationController < ActionController::Base
             redirect_to root_path
         end
     end
+
+    def get_letter_grade(current_grade)
+        case current_grade
+            when 0..49
+                return "F"
+            when 50..64
+                return "P"
+            when 65..74
+                return "C"
+            when 75..84
+                return "D"
+            when 85..100
+                return "HD"
+            else
+                return "N/A"
+        end
+    end
 end

@@ -1,7 +1,5 @@
 class StudentsController < ApplicationController
-
     def show
-        add_breadcrumb "Dashboard", student_path(session[:id])
         # Redirect for wrong URI
         if session[:id] != params[:id]
             redirect_to login_path
@@ -34,6 +32,9 @@ class StudentsController < ApplicationController
                 if(grade != nil)
                     @grades.append(grade)
                     @weightings.append(assignment.weighting)
+                else
+                    @grades.append(0)
+                    @weightings.append(0)
                 end
             end
 
@@ -51,21 +52,12 @@ class StudentsController < ApplicationController
                 @current_grade = ((@sum_grade/@sum_weightings)*100).floor
             end
 
-            case @current_grade
-                when 0..49
-                    @grade_value.append("F")
-                when 50..64
-                    @grade_value.append("P")
-                when 65..74
-                    @grade_value.append("C")
-                when 75..84
-                    @grade_value.append("D")
-                when 85..100
-                    @grade_value.append("HD")
-                else
-                    @grade_value.append("N/A")
-                    @current_grade = 0
+            @grade_value.append(get_letter_grade(@current_grade))
+        
+            if(get_letter_grade(@current_grade) == "N/A")
+                @current_grade = 0
             end
+
             @all_grade.append(@current_grade)
 
         end
