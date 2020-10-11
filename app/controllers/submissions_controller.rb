@@ -7,12 +7,11 @@ class SubmissionsController < ApplicationController
         params.require(:submission).permit(:id, :assignment_id, :grade, :submitted_date)
     end
 
-
     def show
         # Get the object with the given id
         id = params[:id]
         @submission = Submission.where(assignment_id: params[:assignment_id], student_id: @logged_in_user.id)[0]
-        if (@submission == nil)
+        if @submission == nil
             @submission = Submission.find(id)
         end
 
@@ -35,7 +34,7 @@ class SubmissionsController < ApplicationController
         @comments = @submission.comments
 
         # Format a string containing grade
-        if (@submission.grade == nil || @assignment.max_points == nil) then
+        if @submission.grade == nil || @assignment.max_points == nil
             @grade_string = "N/A"
         else
             ratio = 100 * (@submission.grade / @assignment.max_points.to_f)
@@ -76,8 +75,7 @@ class SubmissionsController < ApplicationController
         # Redirect back to same page if blank grade given
         if submission_params[:grade].strip.empty?
             addError("Unable to set a blank grade")
-            redirect_to edit_submission_path(params[:id])
-            return
+            redirect_to edit_submission_path(params[:id]) and return
         end
 
         @submission = Submission.find params[:id]
@@ -86,11 +84,9 @@ class SubmissionsController < ApplicationController
         if @submission.save
             flash[:notice] = "#{@submission.student_id}'s submission was updated"
             redirect_to submission_path(@submission)
-            return
         else
             addErrorArray(@submission.errors.messages[:grade])
             redirect_to edit_submission_path(@submission)
-            return
         end
     end
 

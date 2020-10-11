@@ -23,7 +23,7 @@ class AssignmentsController < ApplicationController
 
     def import
         # Error if not a CSV file
-        if(params[:grades] == nil || !params[:grades].path.match(".*.csv$"))
+        if params[:grades] == nil || !params[:grades].path.match(".*.csv$")
             addError("select CSV file")
             redirect_back(fallback_location: root_path)
             return
@@ -36,14 +36,14 @@ class AssignmentsController < ApplicationController
         headers = csv.headers
 
         # Error if file headers are incorrect
-        if(headers == nil || headers != ["student_id", "fix_final_mark", "feedback_mark", "comments"])
+        if headers == nil || headers != %w[student_id fix_final_mark feedback_mark comments]
             addError("please set headers to student_id, fix_final_mark, feedback_mark, comments")
             redirect_back(fallback_location: root_path)
             return
         end
 
         assignment = Assignment.find(params[:assignment_id])
-        max_mark = assignment.max_points
+        #max_mark = assignment.max_points
         submissions = assignment.submissions
 
         # Setting students grades to imported grades
@@ -51,13 +51,13 @@ class AssignmentsController < ApplicationController
             submission = submissions.where(student_id: row["student_id"]).first
 
             # Error if student is not found
-            if(submission == nil)
+            if submission == nil
                 addError(row["student_id"] + " " + "not found. Did not update")
                 next
             end
 
             submission.grade = row["fix_final_mark"]
-            if (!submission.save)
+            unless submission.save
                 addErrorArray(submission.errors.messages[:grade])
             end
         end
