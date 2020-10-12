@@ -37,7 +37,8 @@ Given 'the database is seeded' do
 
     # Add some students
     students = [[1740001, "Amelia", "Adams"],
-                [1740420, "Bill", "Gates"]]
+                [1740420, "Bill", "Gates"],
+                [1740021, "Bugs", "Bunny"]]
     students.each do |student|
         s = Student.new
         s.student_id = student[0]
@@ -47,7 +48,7 @@ Given 'the database is seeded' do
     end
 
     # Assign students to courses
-    pairs = [[1740001, [1001, 1002]]]
+    pairs = [[1740001, [1001, 1002]], [1740021, [1069]]]
     pairs.each do |pair|
         s = Student.find(pair[0])
         pair[1].each do |course|
@@ -71,14 +72,16 @@ Given 'the database is seeded' do
     end
 
     # Add some submissions
-    submissions = [[1, 80, "12/03/2000", 1740001],
-                   [1, 72, "11/03/2000", 1740420]]
+    submissions = [[1, 80, "1/09/2020", 4.days.ago, 1740001],
+                   [1, 72, "11/03/2000", 1.month.ago, 1740420],
+                   [2, 33, "8/09/2020", 9.days.ago, 1740021]]
     submissions.each do |submission|
         s = Submission.new
         s.assignment_id = submission[0]
         s.grade = submission[1]
         s.submitted_date = submission[2]
-        s.student_id = submission[3]
+        s.marked_date = submission[3]
+        s.student_id = submission[4]
         s.save!
     end
 
