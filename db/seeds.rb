@@ -113,6 +113,13 @@ csv_text = File.read(Rails.root.join('lib','seeds','Marker_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 Marker.delete_all
 
+# Hard Seed Admin
+admin = Marker.new
+admin.marker_id = "0000000"
+admin.first_name = "Admin"
+admin.last_name = "Admin"
+admin.save!
+
 csv.each do |row|
     m = Marker.new
 

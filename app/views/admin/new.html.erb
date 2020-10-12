@@ -1,0 +1,125 @@
+<%# Headings %>
+<h3 style="margin-bottom: 0"> <%= "Add a new " + @type %> </h3>
+
+<%# Course Form %>
+<% if @type == "course" %>
+  <%= form_with(url: admin_index_path, id: "course-form") do %>
+    <div class="input-field">
+      <%= label_tag("Long_Title", "Full Title") %>
+      <%= text_field_tag("Long_Title", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Short_Title", "Short Title") %>
+      <%= text_field_tag("Short_Title", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Subject", "Subject Type") %>
+      <%= text_field_tag("Subject", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Course_ID", "Course ID") %>
+      <%= number_field_tag("Course_ID", nil, class: "validate", required: true) %>
+    </div>
+    <div class="date-field">
+      <%= label_tag("Eff_Date", "Effective Date") %>
+      <%= date_field_tag("Eff_Date", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Descr", "Description") %>
+      <%= text_field_tag("Descr", nil, class: "validate", required: true) %>
+    </div>
+
+    <%= submit_tag("Add Course", class: "grey darken-2 btn") %>
+  <% end %>
+
+<%# Student Form %>
+<% elsif @type == "student" %>
+  <%= form_with(url: admin_index_path, id: "student-form") do %>
+    <div class="input-field">
+      <%= label_tag("Student_ID", "Student ID") %>
+      <%= number_field_tag("Student_ID", nil, class: "validate", min: 0, required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("First_Name", "First Name") %>
+      <%= text_field_tag("First_Name", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Last_Name", "Last Name") %>
+      <%= text_field_tag("Last_Name", nil, class: "validate", required: true) %>
+    </div>
+    <%# Courses List %>
+    <div class="input-field">
+      <select multiple class="validate valid" name="Course_id[]" id="Course_id" multiple="true">
+          <option value="" disabled>Select Course's</option>
+          <% @courses.each do |course| %>
+              <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
+          <% end %>
+      </select>
+    </div>
+
+    <%= submit_tag("Add Student", class: "grey darken-2 btn") %>
+  <% end %>
+
+<%# Marker Form %>
+<% elsif @type == "marker" %>
+  <%= form_with(url: admin_index_path, id: "marker-form") do %>
+    <div class="input-field">
+      <%= label_tag("Marker_ID", "Marker ID") %>
+      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 0, required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("First_Name", "First Name") %>
+      <%= text_field_tag("First_Name", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Last_Name", "Last Name") %>
+      <%= text_field_tag("Last_Name", nil, class: "validate", required: true) %>
+    </div>
+    <%# Courses List %>
+    <div class="input-field">
+      <select multiple class="validate valid" name="Course_id[]" id="Course_id" required>
+          <option value="" disabled>Select Course's</option>
+          <% @courses.each do |course| %>
+              <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
+          <% end %>
+      </select>
+    </div>
+
+    <%= submit_tag("Add Marker", class: "grey darken-2 btn") %>
+  <% end %>
+
+<%# Assignment Form %>
+<% elsif @type == "assignment" %>
+  <%= form_with(url: admin_index_path, id: "assignment-form") do |f| %>
+    <div class="input-field">
+      <%= label_tag("Title", "Title") %>
+      <%= text_field_tag("Title", nil, class: "validate", required: true) %>
+    </div>
+    <div class="date-field">
+      <%= label_tag("Date", "Due Date") %>
+      <%= date_field_tag("Date", nil, class: "validate", required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Weighting", "Weighting") %>
+      <%= number_field_tag("Weighting", nil, class: "validate", min: 0, max: 1, step: 0.01, required: true) %>
+    </div>
+    <div class="input-field">
+      <%= label_tag("Max_points", "Maximum Mark") %>
+      <%= number_field_tag("Max_points", nil, class: "validate", min: 1, required: true) %>
+    </div>
+    <%# Course %>
+    <div class="input-field">
+      <select class="validate valid" name="Course_id" id="Course_id" required>
+          <option value="" disabled selected>Select Course</option>
+          <% @courses.each do |course| %>
+              <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
+          <% end %>
+      </select>
+    </div>
+
+    <%= submit_tag("Add Assignment", class: "grey darken-2 btn") %>
+  <% end %>
+
+<% end %>
+
+<%=link_to(button_tag("Cancel", class: "grey btn"), admin_index_path) %>
