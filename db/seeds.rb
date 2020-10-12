@@ -162,6 +162,7 @@ csv.each do |row|
     s.assignment_id = assignment.id
     s.grade = row["grade"]
     s.submitted_date = row["submitted_date"]
+    s.marked_date = row["marked_date"]
     s.save!
 end
 
