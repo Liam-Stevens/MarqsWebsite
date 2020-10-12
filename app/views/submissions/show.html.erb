@@ -29,9 +29,13 @@
         <% end %>
         <%# Show 'add comment' and 'edit grade' buttons if logged in as a marker %>
         <% if session[:marker] == true %>
-            <div class="right">
+            <div class="valign-wrapper right">
+              <div style="padding-right: 0.5em">
                 <%= link_to(button_tag("Edit Grade", class: "grey darken-2 waves-effect waves-light btn-small"), edit_submission_path(@submission)) %>
+              </div>
+              <div>
                 <%= link_to(button_tag("Add Comment", class: "grey darken-2 waves-effect waves-light btn-small"), new_submission_comment_path(@submission)) %>
+              </div>
             </div>
         <% end %>
     </div>
@@ -68,6 +72,8 @@
                 <% if session[:marker] == true %>
                   <th>
                   </th>
+                  <th>
+                  </th>
                 <% end %>
             </tr>
         </thead>
@@ -76,21 +82,22 @@
             <% @comments.each do |comment| %>
                 <tr>
                     <%# Comment %>
-                    <td> <%= comment.content %> </td>
+                    <td style="max-width: 40em"> <%= comment.content %> </td>
 
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>
 
                     <% if session[:marker] == true %>
-                      <%# Remove Comment %>
-                      <td class="right">
-                        <%= link_to(button_tag("Remove", class: "red darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
-                      </td>
-
-                      <%# Edit Comment %>
-                      <td class="right">
-                        <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission)) %>
-                      </td>
+                      <div class="valign-wrapper">
+                        <%# Edit Comment %>
+                        <td>
+                          <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission)) %>
+                        </td>
+                        <%# Remove Comment %>
+                        <td>
+                          <%= link_to(button_tag("Remove", class: "red darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
+                        </td>
+                      </div>
                     <% end %>
                 </tr>
             <% end %>

@@ -63,6 +63,10 @@
     color: #ff7242 !important;
 }
 
+.grade-prediction {
+    max-width: 5em;
+}
+
 .breadcrumbs a:hover {
     color: red !important;
 }

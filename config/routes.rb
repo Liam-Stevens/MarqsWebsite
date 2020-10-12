@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :markers, only: [:show]
 
     resources :courses, only: [:show] do
+        put 'predict'
         get 'marker', to: 'courses#show_marker'
         get 'failing', to: 'courses#show_failing'
         get 'summary'

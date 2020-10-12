@@ -1,5 +1,10 @@
 class CoursesController < ApplicationController
     helper_method :get_median
+  
+    #Updates current grade temporarily based on what-if scores
+    def predict
+        @grade_value = ("F")
+    end
 
     # Return the median value in the given (sorted) array
     def get_median(array)
@@ -92,16 +97,16 @@ class CoursesController < ApplicationController
 
         @assignments.each do |assignment|
             #Assignments Left Counter
-        if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
+            if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
                 @remaining_assignments = @remaining_assignments + 1
             end
 
             grades_and_weighting_helper(assignment,@person)
         end
 
+
         calculate_grades()
         @grade_value = get_letter_grade(@current_grade)
-
     end
 
     def show_marker

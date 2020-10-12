@@ -28,7 +28,6 @@ class StudentsController < ApplicationController
             calculate_grades()
             @grade_value.append(get_letter_grade(@current_grade))
             @all_grade.append(@current_grade)
-            current_grade = @logged_in_user.calculate_grade(course)
         end
 
         # Fetch a list of recently marked assignments (which are really submissions)

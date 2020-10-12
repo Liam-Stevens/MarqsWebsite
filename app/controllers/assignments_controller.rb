@@ -80,7 +80,7 @@ class AssignmentsController < ApplicationController
 
     def import
         # Error if not a CSV file
-        if(params[:grades] == nil || !params[:grades].path.match(".*.csv$"))
+        if params[:grades] == nil || !params[:grades].path.match(".*.csv$")
             addError("select CSV file")
             redirect_back(fallback_location: root_path)
             return
@@ -93,14 +93,14 @@ class AssignmentsController < ApplicationController
         headers = csv.headers
 
         # Error if file headers are incorrect
-        if(headers == nil || headers != ["StudentID", "Fix-Final-Mark", "Feedback-Mark", "Feedback-Comments"])
+        if headers == nil || headers != %w["StudentID", "Fix-Final-Mark", "Feedback-Mark", "Feedback-Comments"]
             addError("please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
             redirect_back(fallback_location: root_path)
             return
         end
 
         assignment = Assignment.find(params[:assignment_id])
-        max_mark = assignment.max_points
+        #max_mark = assignment.max_points
         submissions = assignment.submissions
 
         # Setting students grades to imported grades
@@ -108,23 +108,23 @@ class AssignmentsController < ApplicationController
             submission = submissions.where(student_id: row["StudentID"]).first
 
             # Error if student is not found
-            if(submission == nil)
+            if submission == nil
                 addError(row["StudentID"] + " " + "not found. Did not update")
                 next
             end
 
-            if (row["Fix-Final-Mark"] != nil)
+            if row["Fix-Final-Mark"] != nil
                 submission.grade = row["Fix-Final-Mark"]
-            elsif (row["Feedback-Mark"] != nil)
+            elsif row["Feedback-Mark"] != nil
                 submission.grade = row["Feedback-Mark"]
             end
             
-            if (!submission.save)
+            unless submission.save
                 addErrorArray(submission.errors.messages[:grade])
             end
 
-            if (row["Feedback-Comments"] != nil)
-                if (Comment.find_by(submission_id: submission.id, content: row["Feedback-Comments"]) == nil)
+            if row["Feedback-Comments"] != nil
+                if Comment.find_by(submission_id: submission.id, content: row["Feedback-Comments"]) == nil
                     comment = Comment.new
                     comment.marker_id = session[:id]
                     comment.submission_id = submission.id
