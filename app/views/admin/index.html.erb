@@ -1,0 +1,66 @@
+<h3> Manage Marqs </h3>
+
+<table>
+  <thead>
+  <tr>
+    <%# Course Name %>
+    <th>
+    </th>
+
+    <%# Button column %>
+    <th>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+    <%# Courses %>
+    <tr>
+      <td>
+        <h6>Courses</h6>
+      </td>
+
+      <%# Manage Buttons %>
+      <td class="right">
+        <%= link_to(button_tag("Add", class: "grey darken-2 waves-effect waves-light btn"), new_admin_path(:type => "course")) %>
+        <%#= link_to(button_tag("Manage", class: "grey darken-2 waves-effect waves-light btn"), admin_index_path) %>
+      </td>
+    </tr>
+    <%# Students %>
+    <tr>
+      <td>
+        <h6>Students</h6>
+      </td>
+
+      <%# Manage Buttons %>
+      <td class="right">
+        <%= link_to(button_tag("Add", class: "grey darken-2 waves-effect waves-light btn"), new_admin_path(:type => "student")) %>
+        <%#= link_to(button_tag("Manage", class: "grey darken-2 waves-effect waves-light btn"), admin_index_path) %>
+      </td>
+    </tr>
+    <%# Markers %>
+    <tr>
+      <td>
+        <h6>Markers</h6>
+      </td>
+
+      <%# Manage Button %>
+      <td class="right">
+        <%= link_to(button_tag("Add", class: "grey darken-2 waves-effect waves-light btn"), new_admin_path(:type => "marker")) %>
+        <%#= link_to(button_tag("Manage", class: "grey darken-2 waves-effect waves-light btn"), admin_index_path) %>
+      </td>
+    </tr>
+    <%# Assignments %>
+    <tr>
+      <td>
+        <h6>Assignments</h6>
+      </td>
+
+      <%# Manage Buttons %>
+      <td class="right">
+        <%= link_to(button_tag("Add", class: "grey darken-2 waves-effect waves-light btn"), new_admin_path(:type => "assignment")) %>
+        <%#= link_to(button_tag("Manage", class: "grey darken-2 waves-effect waves-light btn"), admin_index_path) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
