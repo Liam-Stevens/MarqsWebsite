@@ -36,8 +36,8 @@ class AssignmentsController < ApplicationController
         headers = csv.headers
 
         # Error if file headers are incorrect
-        if(headers == nil || headers != ["student_id", "fix_final_mark", "feedback_mark", "comments"])
-            addError("please set headers to student_id, fix_final_mark, feedback_mark, comments")
+        if(headers == nil || headers != ["StudentID", "Fix-Final-Mark", "Feedback-Mark", "Feedback-Comments"])
+            addError("please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
             redirect_back(fallback_location: root_path)
             return
         end
@@ -48,17 +48,32 @@ class AssignmentsController < ApplicationController
 
         # Setting students grades to imported grades
         csv.each do |row|
-            submission = submissions.where(student_id: row["student_id"]).first
+            submission = submissions.where(student_id: row["StudentID"]).first
 
             # Error if student is not found
             if(submission == nil)
-                addError(row["student_id"] + " " + "not found. Did not update")
+                addError(row["StudentID"] + " " + "not found. Did not update")
                 next
             end
 
-            submission.grade = row["fix_final_mark"]
+            if (row["Fix-Final-Mark"] != nil)
+                submission.grade = row["Fix-Final-Mark"]
+            elsif (row["Feedback-Mark"] != nil)
+                submission.grade = row["Feedback-Mark"]
+            end
+            
             if (!submission.save)
                 addErrorArray(submission.errors.messages[:grade])
+            end
+
+            if (row["Feedback-Comments"] != nil)
+                if (Comment.find_by(submission_id: submission.id, content: row["Feedback-Comments"]) == nil)
+                    comment = Comment.new
+                    comment.marker_id = session[:id]
+                    comment.submission_id = submission.id
+                    comment.content = row["Feedback-Comments"]
+                    comment.save!
+                end
             end
         end
         redirect_back(fallback_location: root_path)
@@ -67,7 +82,7 @@ class AssignmentsController < ApplicationController
     def export
         assignment_id = params[:assignment_id]
         @assignment = Assignment.find(assignment_id)
-        @submissions = @assignment.submissions.left_outer_joins(:comments).select("submissions.* , comments.*")
+        @submissions = @assignment.submissions.left_outer_joins(:comments).select("submissions.* , comments.*").group(:student_id)
 
 
         respond_to do |format|

@@ -49,7 +49,7 @@ csv.each do |row|
 
     course_id = row["course_id"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
     courses = []
-    course_id.each do |course|
+    course_id.uniq.each do |course|
         courses.push(Course.find(course))
     end
 
