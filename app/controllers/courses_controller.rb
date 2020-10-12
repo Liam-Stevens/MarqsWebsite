@@ -1,4 +1,70 @@
 class CoursesController < ApplicationController
+    helper_method :get_median
+
+    # Return the median value in the given (sorted) array
+    def get_median(array)
+        # Edge case: empty
+        if (array.empty?)
+            return nil
+        end
+
+        # Handle even/odd sizes
+        if (array.length % 2 == 0)
+            mid = array.length/2
+            return (array[mid - 1] + array[mid])/2.0
+        else
+            return array[array.length/2]
+        end
+    end
+
+    # Get five number summary for a course
+    def summary
+        course = Course.find(params[:course_id])
+        grades = []
+
+        # Calculate all students grades for this course
+        students = Student.all
+        students.each do |student|
+            grade = student.calculate_grade(course)
+
+            # Eliminate grades of zero
+            if (grade > 0)
+                grades.append(grade)
+            end
+        end
+        grades.compact!
+        puts grades
+
+        # Return blank JSON if no grades
+        if (grades.empty?)
+            render json: "{}"
+            return
+        end
+
+        # Calculate relevant metrics and assign to hash
+        grades.sort!
+        summary = {};
+        summary[:min] = grades[0]
+        summary[:med] = get_median(grades)
+        summary[:max] = grades[grades.length - 1]
+        summary[:avg] = grades.sum/grades.length.to_f
+
+        # Split in two and get their medians
+        grades_left, grades_right = grades.each_slice((grades.length/2.0).round).to_a
+        if (grades_left == nil || grades_right == nil)
+            summary[:q1] = grades[0]
+            summary[:q3] = grades[0]
+        else
+            summary[:q1] = get_median(grades_left)
+            summary[:q3] = get_median(grades_right)
+        end
+
+        # Append other relevant info
+        summary[:title] = course.long_title
+
+        # Return as a JSON
+        render json: summary
+    end
 
     def show
         # Get course object for ID
@@ -26,7 +92,7 @@ class CoursesController < ApplicationController
 
         @assignments.each do |assignment|
             #Assignments Left Counter
-            if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
+        if assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date
                 @remaining_assignments = @remaining_assignments + 1
             end
 

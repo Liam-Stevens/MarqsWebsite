@@ -112,7 +112,14 @@
 
                     <%# Marks %>
                     <td>
-                        <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
+                        <div class="valign-wrapper">
+                            <h6><%= @grades[index] %>/<%= assignment.max_points %></h6>
+
+                            <%# Show graph button if there are grades %>
+                            <% if !assignment.submissions.empty? %>
+                                <i class="modal-trigger graph-button material-icons grey-text text-lighten-1 right" data-target="graph" data-student="<%= @grades[index] %>" data-id="<%= assignment.id %>" data-title="<%= assignment.title %>" data-type="assignment">info_outlined</i>
+                            <% end %>
+                        </div>
                     </td>
 
                     <%# Status %>

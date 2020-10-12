@@ -10,10 +10,14 @@
 
         <%# Load application-specific CSS %>
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
         <%# Load Materalize CSS %>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <%= stylesheet_link_tag 'materialize' %>
+
+        <%# Our JS %>
+        <%= javascript_include_tag 'application' %>
     </head>
 
     <body style="background-color: rgb(237, 237, 239); margin-bottom: 50px">
@@ -65,7 +69,38 @@
             <%= yield %>
         </div>
 
-        <%# Materialize's JS %>
-        <%= javascript_include_tag 'materialize' %>
+        <%# Graph modal %>
+        <div id="graph" class="modal">
+            <%# Actual content %>
+            <div class="modal-content" style="padding-bottom: 0">
+                <%# Heading %>
+                <h5 id="graph-heading" class="truncate"></h5>
+
+                <%# Loading text/statistics %>
+                <h6 id="graph-loading" style="padding-top: 10px"></h6>
+
+                <%# Graph %>
+                <div id="graph-container" class="center"></div>
+            </div>
+
+            <div class="row" style="margin: 0; padding: 10px 24px 12px 24px">
+                <%# Statistics %>
+                <div class="col s6">
+                    <div>
+                        <p id="graph-stats" style="margin: 0; text-align: left; white-space: pre-wrap"></p>
+                    </div>
+                </div>
+
+                <%# Close button %>
+                <div class="col s6">
+                    <div class="right" style="padding-top: 3px">
+                        <%= button_tag("Close", class: "grey darken-2 waves-effect waves-light btn modal-close") %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%# Load modal JS last %>
+        <%= javascript_include_tag 'graph' %>
     </body>
 </html>

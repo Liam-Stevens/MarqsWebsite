@@ -49,7 +49,7 @@ csv.each do |row|
 
     course_id = row["course_id"].gsub(/\s+/m, ' ').strip.split(" ").map!(&:to_i)
     courses = []
-    course_id.each do |course|
+    course_id.uniq.each do |course|
         courses.push(Course.find(course))
     end
 
@@ -113,6 +113,13 @@ csv_text = File.read(Rails.root.join('lib','seeds','Marker_Data.csv'))
 csv = CSV.parse(csv_text, :headers => true)
 Marker.delete_all
 
+# Hard Seed Admin
+admin = Marker.new
+admin.marker_id = "0000000"
+admin.first_name = "Admin"
+admin.last_name = "Admin"
+admin.save!
+
 csv.each do |row|
     m = Marker.new
 
@@ -155,6 +162,7 @@ csv.each do |row|
     s.assignment_id = assignment.id
     s.grade = row["grade"]
     s.submitted_date = row["submitted_date"]
+    s.marked_date = row["marked_date"]
     s.save!
 end
 

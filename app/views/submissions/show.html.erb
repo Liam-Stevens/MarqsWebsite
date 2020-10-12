@@ -1,5 +1,3 @@
-<%= javascript_include_tag "application" %>
-
 <%# Assignment title %>
 <h3> <%= @assignment.title %> </h3>
 
@@ -27,7 +25,7 @@
     <%# Date + marker buttons %>
     <div class="col s6" style="padding-right: 0">
         <% if @submission.submitted_date != nil %>
-        <h6 class="right"> <%= "Submitted at: #{@submission.submitted_date}"%> </h6>
+          <h6 class="right"> <%= @date_string %> </h6>
         <% end %>
         <%# Show 'add comment' and 'edit grade' buttons if logged in as a marker %>
         <% if session[:marker] == true %>
