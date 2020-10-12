@@ -1,6 +1,5 @@
 class StudentsController < ApplicationController
     def show
-        add_breadcrumb "Dashboard", student_path(session[:id])
         # Redirect for wrong URI
         if session[:id] != params[:id]
             redirect_to login_path
@@ -11,28 +10,25 @@ class StudentsController < ApplicationController
 
         @all_grade = []
         @grade_value = []
+        
+        student = Student.find(session[:id])
 
         # Calculating students grade for each course
         @courses.each do |course|
-            current_grade = @logged_in_user.calculate_grade(course)
+            @assignments = course.assignments
 
-            case current_grade
-                when 0..49
-                    @grade_value.append("F")
-                when 50..64
-                    @grade_value.append("P")
-                when 65..74
-                    @grade_value.append("C")
-                when 75..84
-                    @grade_value.append("D")
-                when 85..100
-                    @grade_value.append("HD")
-                else
-                    @grade_value.append("N/A")
-                    current_grade = 0
+            @grades = []
+            @max_grades = []
+            @weightings = []
+
+            @assignments.each do |assignment|
+                grades_and_weighting_helper(assignment,student)
             end
 
-            @all_grade.append(current_grade)
+            calculate_grades()
+            @grade_value.append(get_letter_grade(@current_grade))
+            @all_grade.append(@current_grade)
+            current_grade = @logged_in_user.calculate_grade(course)
         end
 
         # Fetch a list of recently marked assignments (which are really submissions)

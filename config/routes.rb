@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     resources :courses, only: [:show] do
         get 'marker', to: 'courses#show_marker'
+        get 'failing', to: 'courses#show_failing'
         get 'summary'
     end
 
