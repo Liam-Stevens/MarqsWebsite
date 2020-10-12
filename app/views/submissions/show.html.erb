@@ -31,9 +31,13 @@
         <% end %>
         <%# Show 'add comment' and 'edit grade' buttons if logged in as a marker %>
         <% if session[:marker] == true %>
-            <div class="right">
+            <div class="valign-wrapper right">
+              <div style="padding-right: 0.5em">
                 <%= link_to(button_tag("Edit Grade", class: "grey darken-2 waves-effect waves-light btn-small"), edit_submission_path(@submission)) %>
+              </div>
+              <div>
                 <%= link_to(button_tag("Add Comment", class: "grey darken-2 waves-effect waves-light btn-small"), new_submission_comment_path(@submission)) %>
+              </div>
             </div>
         <% end %>
     </div>
@@ -80,7 +84,7 @@
             <% @comments.each do |comment| %>
                 <tr>
                     <%# Comment %>
-                    <td style="max-width: 45em"> <%= comment.content %> </td>
+                    <td style="max-width: 40em"> <%= comment.content %> </td>
 
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>
