@@ -30,7 +30,7 @@ class CoursesController < ApplicationController
                 @remaining_assignments = @remaining_assignments + 1
             end
 
-            grades_and_weighting_helper(assignment)
+            grades_and_weighting_helper(assignment,@person)
         end
 
         calculate_grades()
@@ -51,5 +51,39 @@ class CoursesController < ApplicationController
         # Get course's assignments and sort by due date
         @assignments = @course.assignments
         @assignments.order("due_date DESC")
+    end
+
+    def show_failing
+        # Get course object for ID
+        id = params[:course_id]
+        @person = Marker.find(session[:id])
+
+        @course = Course.find(id)
+        @students = @course.students
+
+        @student_grade = []
+        @student_grade_value = []
+
+        @students.each do |student|
+            @assignments = @course.assignments
+            
+            @grades = []
+            @max_grades = []
+            @weightings = []
+
+            @assignments.each do |assignment|
+                grades_and_weighting_helper(assignment,student)
+            end
+
+            calculate_grades()
+            
+            @student_grade.append(get_letter_grade(@current_grade))
+            @student_grade_value.append(@current_grade)
+        end
+
+        add_breadcrumb "Dashboard", marker_path(@person.id)
+        add_breadcrumb "Course", course_marker_path(@course.id)
+        add_breadcrumb "Failing Students", course_failing_path(@course.id)
+
     end
 end

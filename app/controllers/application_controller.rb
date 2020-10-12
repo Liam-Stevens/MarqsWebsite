@@ -45,8 +45,8 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def grades_and_weighting_helper(assignment)
-        @submission = assignment.submissions.find_by(student_id: session[:id])
+    def grades_and_weighting_helper(assignment,student)
+        @submission = assignment.submissions.find_by(student_id: student.student_id)
         @max_grades.append(assignment.max_points)
         grade = @submission.grade
 

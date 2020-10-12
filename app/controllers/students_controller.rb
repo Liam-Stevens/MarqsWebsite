@@ -10,6 +10,8 @@ class StudentsController < ApplicationController
 
         @all_grade = []
         @grade_value = []
+        
+        student = Student.find(session[:id])
 
         # Calculating students grade for each course
         @courses.each do |course|
@@ -20,13 +22,12 @@ class StudentsController < ApplicationController
             @weightings = []
 
             @assignments.each do |assignment|
-                grades_and_weighting_helper(assignment)
+                grades_and_weighting_helper(assignment,student)
             end
 
             calculate_grades()
             @grade_value.append(get_letter_grade(@current_grade))
             @all_grade.append(@current_grade)
-
         end
 
     end
