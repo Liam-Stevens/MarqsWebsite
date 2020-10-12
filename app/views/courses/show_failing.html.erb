@@ -37,6 +37,7 @@
 
     <tbody>
         <% @students.each_with_index do |student,index| %>
+            <% if(@student_grade[index] == "F" || @student_grade[index] == "N/A") %>
             <tr>
                 <%# Student Name %>
                 <td>
@@ -50,16 +51,16 @@
 
                 <%# grades for current course %>
                 <td>
-                    <%
-=begin%>
- <h6><%= student.grades %></h6> 
-<%
-=end%>
+                    <% if(@student_grade[index] == "N/A") %>
+                        <h6><%= @student_grade[index]%></h6>
+                    <% else %>
+                        <h6><%=@student_grade_value[index] %>% <%=@student_grade[index]%></h6>
+                    <% end %>
                 </td>
 
                 <%# Details button %>
-
             </tr>
+            <% end %>
         <% end %>
     </tbody>
 </table>
