@@ -121,14 +121,15 @@ function getFNS(id, mark, is_assignment) {
             // Render the graph on a successful request
             if (this.status == 200) {
                 var json = JSON.parse(this.responseText);
-                json.avg = json.avg.toFixed(0);
-                json.med = json.med.toFixed(0);
 
                 // Show message if returned JSON is empty
                 if (JSON.stringify(json) == "{}") {
                     elm.innerHTML = `No grades have been submitted${is_assignment ? " for this assignment" : ""}.`
                     return;
                 }
+            
+                json.avg = json.avg.toFixed(0);
+                json.med = json.med.toFixed(0);
 
                 // Otherwise actually create graph
                 elm.style.display = "none"
