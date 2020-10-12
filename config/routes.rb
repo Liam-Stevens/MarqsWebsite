@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     resources :students, only: [:show]
     resources :markers, only: [:show]
 
-    resources :courses, only: [:show] do 
+    resources :courses, only: [:show] do
+        put 'predict'
         get 'marker', to: 'courses#show_marker'
     end
     resources :assignments, only: [:show] do

@@ -99,7 +99,7 @@
                         <div style="margin-left: auto">
                             <div class="valign-wrapper">
                             <%# Show comment icon if there are comments%>
-                            <% if !submission.comments.empty? %>
+                            <% unless submission.comments.empty? %>
                                     <i class="material-icons grey-text text-darken-1" style="font-size: 1.3em; margin-right: 15px">chat</i>
                             <% end %>
                             <%= link_to(button_tag("Details", class: "grey darken-2 waves-effect waves-light btn"), submission_path(submission)) %>

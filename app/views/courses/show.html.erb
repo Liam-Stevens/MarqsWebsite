@@ -11,7 +11,7 @@
             <div class="valign-wrapper box-pad">
                 <i class="material-icons">donut_large</i>
                 <h6 style="margin-left: 10px">Current Grade</h6>
-                    <% if(@grade_value == "N/A") %>
+                    <% if @grade_value == "N/A" %>
                         <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
                     <% else %>
                         <h6 style="margin-left: auto"><b><%= @current_grade%> <%= @grade_value%></b></h6>
@@ -139,7 +139,7 @@
                     <% end %>
                 </td>
               </tr>
-            <% end %>
+          <% end %>
         </tbody>
     </table>
 <% end %>

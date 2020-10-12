@@ -45,7 +45,7 @@
 
                     <%# Current Grade %>
                     <td>
-                        <% if(@grade_value[index] == "N/A") %>
+                        <% if @grade_value[index] == "N/A" %>
                             <h6 style="margin: 0"><b><%= @grade_value[index]%></b></h6>
                         <% else %>
                             <h6 style="margin: 0"><b><%= @all_grade[index]%>% <%= @grade_value[index]%></b></h6>

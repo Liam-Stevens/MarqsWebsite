@@ -70,6 +70,8 @@
                 <% if session[:marker] == true %>
                   <th>
                   </th>
+                  <th>
+                  </th>
                 <% end %>
             </tr>
         </thead>
@@ -78,21 +80,22 @@
             <% @comments.each do |comment| %>
                 <tr>
                     <%# Comment %>
-                    <td> <%= comment.content %> </td>
+                    <td style="max-width: 45em"> <%= comment.content %> </td>
 
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>
 
                     <% if session[:marker] == true %>
-                      <%# Remove Comment %>
-                      <td class="right">
-                        <%= link_to(button_tag("Remove", class: "red darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
-                      </td>
-
-                      <%# Edit Comment %>
-                      <td class="right">
-                        <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission)) %>
-                      </td>
+                      <div class="valign-wrapper">
+                        <%# Edit Comment %>
+                        <td>
+                          <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission)) %>
+                        </td>
+                        <%# Remove Comment %>
+                        <td>
+                          <%= link_to(button_tag("Remove", class: "red darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
+                        </td>
+                      </div>
                     <% end %>
                 </tr>
             <% end %>

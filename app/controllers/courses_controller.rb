@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
     #Updates current grade temporarily based on what-if scores
     def predict
-
+        @grade_value = ("F")
     end
 
     def show
