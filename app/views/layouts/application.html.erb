@@ -10,14 +10,13 @@
 
         <%# Load application-specific CSS %>
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application'%>
 
         <%# Load Materalize CSS %>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <%= stylesheet_link_tag 'materialize' %>
 
         <%# Our JS %>
-        <%= javascript_include_tag 'application' %>
     </head>
 
     <body style="background-color: rgb(237, 237, 239); margin-bottom: 50px">
@@ -100,7 +99,10 @@
             </div>
         </div>
 
+
+
         <%# Load modal JS last %>
+        <%= javascript_include_tag 'materialize' %>
         <%= javascript_include_tag 'graph' %>
     </body>
 </html>
