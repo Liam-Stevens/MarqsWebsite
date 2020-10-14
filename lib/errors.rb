@@ -1,6 +1,6 @@
 module Errors 
     #Adds a single string into flash[:errors]
-    def addError(error)
+    def add_error(error)
         if flash[:errors].nil?
             flash[:errors] = []
         end
@@ -8,7 +8,7 @@ module Errors
     end
 
     #Adds an array of errors
-    def addErrorArray(error)
+    def add_error_array(error)
         if (flash[:errors].nil?)
             flash[:errors] = error
         else

@@ -83,7 +83,7 @@ class SubmissionsController < ApplicationController
     def update
         # Redirect back to same page if blank grade given
         if submission_params[:grade].strip.empty?
-            addError("Unable to set a blank grade")
+            add_error("Unable to set a blank grade")
             redirect_to edit_submission_path(params[:id]) and return
         end
 
@@ -94,7 +94,7 @@ class SubmissionsController < ApplicationController
             flash[:notice] = "#{@submission.student_id}'s submission was updated"
             redirect_to submission_path(@submission)
         else
-            addErrorArray(@submission.errors.messages[:grade])
+            add_error_array(@submission.errors.messages[:grade])
             redirect_to edit_submission_path(@submission)
         end
     end
