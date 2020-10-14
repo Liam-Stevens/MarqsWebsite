@@ -2,7 +2,7 @@ class Student < ApplicationRecord
     has_and_belongs_to_many :courses
     has_many :submission, dependent: :destroy
 
-    validates :student_id, uniqueness: true{student_id, marker.marker_id}
+    validates :student_id, uniqueness: true
 
     # Calculate a student's current grade for the given course
     def calculate_grade(course)

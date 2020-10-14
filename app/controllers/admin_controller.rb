@@ -103,6 +103,7 @@ class AdminController < ApplicationController
     elsif params[:commit] == "Add Marker"
       if (Marker.find_by(marker_id: params[:Marker_ID]) == nil)
         marker = Marker.new
+        marker.marker_id = params[:marker_ID]
         marker.first_name = params[:First_Name]
         marker.last_name = params[:Last_Name]
 
