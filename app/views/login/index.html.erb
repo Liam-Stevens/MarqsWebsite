@@ -3,7 +3,7 @@
 <h6 style="margin-bottom: 30px">Please login with your credentials:</h6>
 
 <%# Main form %>
-<%= form_with(url: "/login", method: :get) do %>
+<%= form_with(url: "/login", method: :get, local:true) do %>
     <%# Error message set by controller %>
     <p class="red-text text-darken-2" style="margin: 0 0 20px 0"><%= @failure %></p>
 
