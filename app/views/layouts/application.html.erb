@@ -51,7 +51,11 @@
         <%# All errors, assumes flash[:errors] is an array of strings %>
         <% unless flash[:errors].nil? %>
             <% flash[:errors].each do |error| %>
-                <%= error %> <br>
+                <div class="center-align" style="margin-top: 2em">
+                    <div class="center-vertical flash-wrapper" style="border-color: red;">
+                        <h6 style="display: inline-block; margin-left: 1em; margin-right: 1em; color: red;"> <%= error %> </h6>
+                    </div>
+                </div>
             <% end %>
         <% end %>
 

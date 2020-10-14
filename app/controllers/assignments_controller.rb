@@ -93,7 +93,7 @@ class AssignmentsController < ApplicationController
         headers = csv.headers
 
         # Error if file headers are incorrect
-        if headers == nil || headers != %w["StudentID", "Fix-Final-Mark", "Feedback-Mark", "Feedback-Comments"]
+        if headers == nil || headers != %w(StudentID Fix-Final-Mark Feedback-Mark Feedback-Comments)
             add_error("please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
             redirect_back(fallback_location: root_path)
             return
