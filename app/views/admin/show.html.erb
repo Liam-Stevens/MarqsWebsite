@@ -37,17 +37,13 @@
           <td>
             <h6><%= course.long_title %></h6>
           </td>
-          <%# Name %>
-          <td>
-            <h6><%= course.long_title %></h6>
-          </td>
 
           <%# Buttons %>
           <td class="right">
             <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
             <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
               <i class="material-icons">clear</i>
-            <% end, login_path) %>
+            <% end, admin_path(:action => 'destroy', :id => @type, :course => course.id), :method => :delete ) %>
           </td>
         </tr>
       <% end %>
@@ -107,7 +103,7 @@
             <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
             <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
               <i class="material-icons">clear</i>
-            <% end, login_path) %>
+            <% end, admin_path(:action => 'destroy', :id => @type, :student => student.id), :method => :delete ) %>
           </td>
         </tr>
       <% end %>
@@ -151,27 +147,27 @@
       <tbody>
       <%# Insert a row for each enrolled course %>
       <% @markers.each_with_index do |marker,index| %>
-        <tr>
-          <%# ID %>
-          <td>
-            <h6><%= "a" + marker.id.to_s %></h6>
-          </td>
-
-          <%# Name %>
-          <td>
-            <h6><%= marker.first_name + " " + marker.last_name %></h6>
-          </td>
-
-          <%# Buttons %>
-          <% if marker.id != 0 %>
-            <td class="right">
-              <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
-              <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
-                <i class="material-icons">clear</i>
-              <% end, login_path) %>
+        <% if marker.id != 0 %>
+          <tr>
+            <%# ID %>
+            <td>
+              <h6><%= "a" + marker.id.to_s %></h6>
             </td>
-          <% end %>
-        </tr>
+
+            <%# Name %>
+            <td>
+              <h6><%= marker.first_name + " " + marker.last_name %></h6>
+            </td>
+
+            <%# Buttons %>
+              <td class="right">
+                <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
+                <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
+                  <i class="material-icons">clear</i>
+                <% end, admin_path(:action => 'destroy', :id => @type, :marker => marker.id), :method => :delete ) %>
+              </td>
+          </tr>
+        <% end %>
       <% end %>
       </tbody>
     </table>
@@ -231,7 +227,7 @@
             <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
             <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
               <i class="material-icons">clear</i>
-            <% end, login_path) %>
+            <% end, admin_path(:action => 'destroy', :id => @type, :assignment => assignment.id), :method => :delete ) %>
           </td>
         </tr>
       <% end %>

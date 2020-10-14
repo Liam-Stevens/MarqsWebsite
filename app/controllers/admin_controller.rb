@@ -135,4 +135,47 @@ class AdminController < ApplicationController
       end
     end
   end
+
+  def destroy
+    if params[:id] == "course"
+      myCourse = Course.find(params[:course])
+      if myCourse != nil
+        myCourse.destroy
+      else
+        add_error("Course not found")
+      end
+
+      redirect_to admin_path(:id => params[:id])
+    elsif params[:id] == "student"
+      myStudent = Student.find(params[:student])
+      if myStudent != nil
+        myStudent.destroy
+      else
+        add_error("Student not found")
+      end
+
+      redirect_to admin_path(:id => params[:id])
+    elsif params[:id] == "marker"
+      myMarker = Marker.find(params[:marker])
+      if myMarker != nil
+        myMarker.destroy
+      else
+        add_error("Marker not found")
+      end
+
+      redirect_to admin_path(:id => params[:id])
+    elsif params[:id] == "assignment"
+      myAssignment = Assignment.find(params[:assignment])
+      if myAssignment != nil
+        myAssignment.destroy
+      else
+        add_error("Assignment not found")
+      end
+
+      redirect_to admin_path(:id => params[:id])
+    else
+      redirect_to admin_index_path
+    end
+  end
+
 end
