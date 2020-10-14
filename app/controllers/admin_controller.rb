@@ -31,7 +31,7 @@ class AdminController < ApplicationController
         course.save!
         redirect_to admin_index_path
       else
-        addError("Course already exists")
+        add_error("Course already exists")
         redirect_to new_admin_path(:type => "course")
       end
     elsif params[:commit] == "Add Assignment"
@@ -57,7 +57,7 @@ class AdminController < ApplicationController
         
         redirect_to admin_index_path
       else
-        addError("Course not Found")
+        add_error("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
       end
     elsif params[:commit] == "Add Student"
@@ -76,7 +76,7 @@ class AdminController < ApplicationController
         student.save!
         redirect_to admin_index_path
       else
-        addError("Student already exists")
+        add_error("Student already exists")
         redirect_to new_admin_path(:type => "student")
       end
     elsif params[:commit] == "Add Marker"
@@ -95,7 +95,7 @@ class AdminController < ApplicationController
         marker.save!
         redirect_to admin_index_path
       else
-        addError("Marker already exists")
+        add_error("Marker already exists")
         redirect_to new_admin_path(:type => "marker")
       end
     end

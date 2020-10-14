@@ -81,7 +81,7 @@ class AssignmentsController < ApplicationController
     def import
         # Error if not a CSV file
         if params[:grades] == nil || !params[:grades].path.match(".*.csv$")
-            addError("select CSV file")
+            add_error("select CSV file")
             redirect_back(fallback_location: root_path)
             return
         end
@@ -94,7 +94,7 @@ class AssignmentsController < ApplicationController
 
         # Error if file headers are incorrect
         if headers == nil || headers != %w["StudentID", "Fix-Final-Mark", "Feedback-Mark", "Feedback-Comments"]
-            addError("please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
+            add_error("please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
             redirect_back(fallback_location: root_path)
             return
         end
@@ -109,7 +109,7 @@ class AssignmentsController < ApplicationController
 
             # Error if student is not found
             if submission == nil
-                addError(row["StudentID"] + " " + "not found. Did not update")
+                add_error(row["StudentID"] + " " + "not found. Did not update")
                 next
             end
 
@@ -120,7 +120,7 @@ class AssignmentsController < ApplicationController
             end
             
             unless submission.save
-                addErrorArray(submission.errors.messages[:grade])
+                add_error_array(submission.errors.messages[:grade])
             end
 
             if row["Feedback-Comments"] != nil
