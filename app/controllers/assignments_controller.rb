@@ -99,40 +99,8 @@ class AssignmentsController < ApplicationController
             return
         end
 
-        assignment = Assignment.find(params[:assignment_id])
-        #max_mark = assignment.max_points
-        submissions = assignment.submissions
-
-        # Setting students grades to imported grades
-        csv.each do |row|
-            submission = submissions.where(student_id: row["StudentID"]).first
-
-            # Error if student is not found
-            if submission == nil
-                add_error(row["StudentID"] + " " + "not found. Did not update")
-                next
-            end
-
-            if row["Fix-Final-Mark"] != nil
-                submission.grade = row["Fix-Final-Mark"]
-            elsif row["Feedback-Mark"] != nil
-                submission.grade = row["Feedback-Mark"]
-            end
-            
-            unless submission.save
-                add_error_array(submission.errors.messages[:grade])
-            end
-
-            if row["Feedback-Comments"] != nil
-                if Comment.find_by(submission_id: submission.id, content: row["Feedback-Comments"]) == nil
-                    comment = Comment.new
-                    comment.marker_id = session[:id]
-                    comment.submission_id = submission.id
-                    comment.content = row["Feedback-Comments"]
-                    comment.save!
-                end
-            end
-        end
+        errors = Assignment.import_marks(csv, params[:assignment_id], session[:id])
+        add_error_array(errors)
         redirect_back(fallback_location: root_path)
     end
 

@@ -4,7 +4,7 @@ class Submission < ApplicationRecord
   belongs_to :student
 
   #Validates that grade is within range
-  validates :grade , numericality: {greater_than_or_equal_to: 0, message: "Grade can't be negative"}, allow_nil: true
+  validates :grade , numericality: {greater_than_or_equal_to: 0, message: "grade must be a non-negative number"}, allow_nil: true
   validate :grade_cannot_be_greater_than_max
 
 
