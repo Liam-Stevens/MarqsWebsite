@@ -18,6 +18,22 @@ class AdminController < ApplicationController
 
   end
 
+  def show
+    @type = params[:id]
+    if @type != "course" && @type != "student" && @type != "marker" && @type != "assignment"
+      redirect_to admin_index_path
+    end
+
+    add_breadcrumb "Manager", admin_index_path
+    add_breadcrumb "Manage "+@type+"s", admin_path(:id => @type)
+
+    @courses = Course.all
+    @students = Student.all
+    @markers = Marker.all
+    @assignments = Assignment.all
+
+  end
+
   def create
     if params[:commit] == "Add Course"
       if (Course.find_by(course_id: params[:Course_ID]) == nil)
