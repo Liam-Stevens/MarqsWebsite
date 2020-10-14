@@ -29,7 +29,9 @@ class AdminController < ApplicationController
         course.descr = params[:Descr]
         course.subject = params[:Subject]
         course.save!
+
         redirect_to admin_index_path
+        add_error("Course added succesfully!")
       else
         add_error("Course already exists")
         redirect_to new_admin_path(:type => "course")
@@ -56,6 +58,7 @@ class AdminController < ApplicationController
         end
         
         redirect_to admin_index_path
+        add_error("Assignment added succesfully!")
       else
         add_error("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
@@ -70,11 +73,26 @@ class AdminController < ApplicationController
         courses = []
         params[:Course_id].each do |course|
             courses.push(Course.find(course.to_i))
+            
         end
         student.courses = courses
-
         student.save!
+
+        #add submission for each assignment
+        courses.each do |course|
+          assignment = course.assignments
+          assignment.each do |assignment|
+            submission = Submission.new
+            submission.student_id = student.student_id
+            submission.assignment_id = assignment.id
+            submission.save!
+          
+            assignment.submissions << submission
+          end
+        end
+
         redirect_to admin_index_path
+        add_error("Student added succesfully!")
       else
         add_error("Student already exists")
         redirect_to new_admin_path(:type => "student")
@@ -94,6 +112,7 @@ class AdminController < ApplicationController
 
         marker.save!
         redirect_to admin_index_path
+        add_error("Marker added succesfully!")
       else
         add_error("Marker already exists")
         redirect_to new_admin_path(:type => "marker")
