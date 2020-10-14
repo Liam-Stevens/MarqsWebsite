@@ -70,29 +70,32 @@ class AdminController < ApplicationController
         student.first_name = params[:First_Name]
         student.last_name = params[:Last_Name]
 
-        courses = []
-        params[:Course_id].each do |course|
-            courses.push(Course.find(course.to_i))
-            
+        if (params[:Course_id] != nil)
+          courses = []
+          params[:Course_id].each do |course|
+              courses.push(Course.find(course.to_i))
+          end
+          student.courses = courses
         end
-        student.courses = courses
         student.save!
 
         #add submission for each assignment
-        courses.each do |course|
-          assignment = course.assignments
-          assignment.each do |assignment|
-            submission = Submission.new
-            submission.student_id = student.student_id
-            submission.assignment_id = assignment.id
-            submission.save!
-          
-            assignment.submissions << submission
+        if (courses != nil)
+          courses.each do |course|
+            assignment = course.assignments
+            assignment.each do |assignment|
+              submission = Submission.new
+              submission.student_id = student.student_id
+              submission.assignment_id = assignment.id
+              submission.save!
+            
+              assignment.submissions << submission
+            end
           end
         end
 
         redirect_to admin_index_path
-        add_error("Student added succesfully!")
+        add_error("#{student.id}: #{student.first_name} #{student.last_name} added succesfully!")
       else
         add_error("Student already exists")
         redirect_to new_admin_path(:type => "student")
@@ -100,19 +103,20 @@ class AdminController < ApplicationController
     elsif params[:commit] == "Add Marker"
       if (Marker.find_by(marker_id: params[:Marker_ID]) == nil)
         marker = Marker.new
-        marker.marker_id = params[:Marker_ID]
         marker.first_name = params[:First_Name]
         marker.last_name = params[:Last_Name]
 
-        courses = []
-        params[:Course_id].each do |course|
-            courses.push(Course.find(course.to_i))
+        if (params[:Course_id] != nil)
+          courses = []
+          params[:Course_id].each do |course|
+              courses.push(Course.find(course.to_i))
+          end
+          marker.courses = courses
         end
-        student.courses = courses
 
         marker.save!
         redirect_to admin_index_path
-        add_error("Marker added succesfully!")
+        add_error("#{marker.id}: #{marker.first_name} #{marker.last_name} added succesfully!")
       else
         add_error("Marker already exists")
         redirect_to new_admin_path(:type => "marker")

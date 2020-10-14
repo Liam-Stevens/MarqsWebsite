@@ -39,7 +39,7 @@
   <%= form_with(url: admin_index_path, id: "student-form") do %>
     <div class="input-field">
       <%= label_tag("Student_ID", "Student ID") %>
-      <%= number_field_tag("Student_ID", nil, class: "validate", min: 0, required: true) %>
+      <%= number_field_tag("Student_ID", nil, class: "validate", min: 1740000) %>
     </div>
     <div class="input-field">
       <%= label_tag("First_Name", "First Name") %>
@@ -67,7 +67,7 @@
   <%= form_with(url: admin_index_path, id: "marker-form") do %>
     <div class="input-field">
       <%= label_tag("Marker_ID", "Marker ID") %>
-      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 0, required: true) %>
+      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 1700000) %>
     </div>
     <div class="input-field">
       <%= label_tag("First_Name", "First Name") %>
@@ -79,7 +79,7 @@
     </div>
     <%# Courses List %>
     <div class="input-field">
-      <select multiple class="validate valid" name="Course_id[]" id="Course_id" required>
+      <select multiple class="validate valid" name="Course_id[]" id="Course_id">
           <option value="" disabled>Select Course's</option>
           <% @courses.each do |course| %>
               <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
