@@ -36,30 +36,32 @@
     </thead>
 
     <tbody>
-        <% @students.each_with_index do |student,index| %>
-            <% if(@student_grade[index] == "F" || @student_grade[index] == "N/A") %>
-            <tr>
-                <%# Student Name %>
-                <td>
-                    <h6><%= student.first_name %> <%= student.last_name %></h6>
-                </td>
+        <% cache [@student_grade,@student_grade_value] do%>
+            <% @students.each_with_index do |student,index| %>
+                <% if(@student_grade[index] == "F" || @student_grade[index] == "N/A") %>
+                <tr>
+                    <%# Student Name %>
+                    <td>
+                        <h6><%= student.first_name %> <%= student.last_name %></h6>
+                    </td>
 
-                <%# Student ID %>
-                <td>
-                    <h6><%= student.id %></h6>
-                </td>
+                    <%# Student ID %>
+                    <td>
+                        <h6><%= student.id %></h6>
+                    </td>
 
-                <%# grades for current course %>
-                <td>
-                    <% if(@student_grade[index] == "N/A") %>
-                        <h6><%= @student_grade[index]%></h6>
-                    <% else %>
-                        <h6><%=@student_grade_value[index] %>% <%=@student_grade[index]%></h6>
-                    <% end %>
-                </td>
+                    <%# grades for current course %>
+                    <td>
+                        <% if(@student_grade[index] == "N/A") %>
+                            <h6><%= @student_grade[index]%></h6>
+                        <% else %>
+                            <h6><%=@student_grade_value[index] %>% <%=@student_grade[index]%></h6>
+                        <% end %>
+                    </td>
 
-                <%# Details button %>
-            </tr>
+                    <%# Details button %>
+                </tr>
+                <% end %>
             <% end %>
         <% end %>
     </tbody>

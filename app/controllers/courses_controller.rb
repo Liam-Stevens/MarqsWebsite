@@ -134,7 +134,7 @@ class CoursesController < ApplicationController
 
         @student_grade = []
         @student_grade_value = []
-
+        
         @students.each do |student|
             @assignments = @course.assignments
             

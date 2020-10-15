@@ -6,20 +6,21 @@
 <h5 style="margin-top: 30px">Summary</h5>
 <div class="row" style="width: 100%">
     <%# Current Grade %>
-    <div class="col s6">
-        <div class="grey-box">
-            <div class="valign-wrapper box-pad">
-                <i class="material-icons">donut_large</i>
-                <h6 style="margin-left: 10px">Current Grade</h6>
-                    <% if @grade_value == "N/A" %>
-                        <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
-                    <% else %>
-                        <h6 style="margin-left: auto"><b><%= @current_grade%> <%= @grade_value%></b></h6>
-                    <% end %>
+    <% cache [@grade_value,@current_grade] do%>
+        <div class="col s6">
+            <div class="grey-box">
+                <div class="valign-wrapper box-pad">
+                    <i class="material-icons">donut_large</i>
+                    <h6 style="margin-left: 10px">Current Grade</h6>
+                        <% if @grade_value == "N/A" %>
+                            <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
+                        <% else %>
+                            <h6 style="margin-left: auto"><b><%= @current_grade%> <%= @grade_value%></b></h6>
+                        <% end %>
+                </div>
             </div>
         </div>
-    </div>
-
+    <% end %>
     <%# Remaining Assignments %>
     <div class="col s6">
         <div class="grey-box">
