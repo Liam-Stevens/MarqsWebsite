@@ -64,7 +64,7 @@ class AdminController < ApplicationController
         redirect_to new_admin_path(:type => "assignment")
       end
     elsif params[:commit] == "Add Student"
-      if (Student.find_by(student_id: params[:Student_ID]) == nil)
+      if (Marker.find_by(marker_id: params[:Student_ID]) == nil && Student.find_by(student_id: params[:Student_ID]) == nil)
         student = Student.new
         student.student_id = params[:Student_ID]
         student.first_name = params[:First_Name]
@@ -97,11 +97,11 @@ class AdminController < ApplicationController
         redirect_to admin_index_path
         add_error("#{student.id}: #{student.first_name} #{student.last_name} added succesfully!")
       else
-        add_error("Student already exists")
+        add_error("User ID already exists")
         redirect_to new_admin_path(:type => "student")
       end
     elsif params[:commit] == "Add Marker"
-      if (Marker.find_by(marker_id: params[:Marker_ID]) == nil)
+      if (Marker.find_by(marker_id: params[:Marker_ID]) == nil && Student.find_by(student_id: params[:Marker_ID]) == nil)
         marker = Marker.new
         marker.marker_id = params[:marker_ID]
         marker.first_name = params[:First_Name]
@@ -119,7 +119,7 @@ class AdminController < ApplicationController
         redirect_to admin_index_path
         add_error("#{marker.id}: #{marker.first_name} #{marker.last_name} added succesfully!")
       else
-        add_error("Marker already exists")
+        add_error("User ID already exists")
         redirect_to new_admin_path(:type => "marker")
       end
     end
