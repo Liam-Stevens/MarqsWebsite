@@ -36,32 +36,34 @@
 
         <tbody>
             <%# Insert a row for each enrolled course %>
-            <% @courses.each_with_index do |course,index| %>
-                <tr>
-                    <%# Name %>
-                    <td>
-                        <h6><%= course.long_title %></h6>
-                    </td>
+            <% cache [@grade_value,@all_grade] do%>
+                <% @courses.each_with_index do |course,index| %>
+                    <tr>
+                        <%# Name %>
+                        <td>
+                            <h6><%= course.long_title %></h6>
+                        </td>
 
-                    <%# Current Grade %>
-                    <td>
-                        <div class="valign-wrapper">
-                            <% if @grade_value[index] == "N/A" %>
-                                <h6 style="margin: 0"><b><%= @grade_value[index]%></b></h6>
-                            <% else %>
-                                <h6 style="margin: 0"><b><%= @all_grade[index]%>% <%= @grade_value[index]%></b></h6>
-                            <% end %>
+                        <%# Current Grade %>
+                        <td>
+                            <div class="valign-wrapper">
+                                <% if @grade_value[index] == "N/A" %>
+                                    <h6 style="margin: 0"><b><%= @grade_value[index]%></b></h6>
+                                <% else %>
+                                    <h6 style="margin: 0"><b><%= @all_grade[index]%>% <%= @grade_value[index]%></b></h6>
+                                <% end %>
 
-                            <%# Show graph modal button %>
-                            <i class="modal-trigger graph-button material-icons grey-text text-lighten-1 right" data-target="graph" data-student="<%= @all_grade[index] %>" data-id="<%= course.id %>" data-title="<%= course.long_title %>" data-type="course">info_outlined</i>
-                        </div>
-                    </td>
+                                <%# Show graph modal button %>
+                                <i class="modal-trigger graph-button material-icons grey-text text-lighten-1 right" data-target="graph" data-student="<%= @all_grade[index] %>" data-id="<%= course.id %>" data-title="<%= course.long_title %>" data-type="course">info_outlined</i>
+                            </div>
+                        </td>
 
-                    <%# View Button %>
-                    <td class="right">
-                        <%= link_to(button_tag("View", class: "grey darken-2 waves-effect waves-light btn"), course_path(course)) %>
-                    </td>
-                </tr>
+                        <%# View Button %>
+                        <td class="right">
+                            <%= link_to(button_tag("View", class: "grey darken-2 waves-effect waves-light btn"), course_path(course)) %>
+                        </td>
+                    </tr>
+                <% end %>
             <% end %>
         </tbody>
     </table>
