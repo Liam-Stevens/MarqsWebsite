@@ -36,7 +36,7 @@
     </thead>
 
     <tbody>
-        <% cache [@student_grade,@student_grade_value] do%>
+        <% cache [@student_grade, @student_grade_value] do%>
             <% @students.each_with_index do |student,index| %>
                 <% if(@student_grade[index] == "F" || @student_grade[index] == "N/A") %>
                 <tr>
