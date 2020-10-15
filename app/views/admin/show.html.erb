@@ -1,0 +1,239 @@
+<%= javascript_include_tag 'admin' %>
+
+<%# Headings %>
+<h3 style="margin-bottom: 0"> <%= "Manage " + @type + "s" %> </h3>
+
+<%# Course Form %>
+<% if @type == "course" %>
+  <% if @courses.empty? %>
+    <div style="text-align: center; margin-top: 20%">
+      <h6><i>There are no courses</i></h6>
+    </div>
+
+  <% else %>
+    <%# Table of courses %>
+    <table>
+      <thead>
+      <tr>
+        <%# Course Name %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment</i>
+            <span style="margin-left: 10px">Course Name</span>
+          </div>
+        </th>
+
+        <%# Button column %>
+        <th>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <%# Insert a row for each enrolled course %>
+      <% @courses.each_with_index do |course,index| %>
+        <tr>
+          <%# Name %>
+          <td>
+            <h6><%= course.long_title %></h6>
+          </td>
+
+          <%# Buttons %>
+          <td class="right">
+            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => course.id)) %>
+            <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
+              <i class="material-icons">clear</i>
+            <% end, admin_path(:action => 'destroy', :id => @type, :course => course.id), :method => :delete ) %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+<%# Student Form %>
+<% elsif @type == "student" %>
+  <% if @students.empty? %>
+    <div style="text-align: center; margin-top: 20%">
+      <h6><i>There are no students</i></h6>
+    </div>
+
+  <% else %>
+    <%# Table of Students %>
+    <table>
+      <thead>
+      <tr>
+        <%# Student Name %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment</i>
+            <span style="margin-left: 10px">Student ID</span>
+          </div>
+        </th>
+        <%# Student Name %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment</i>
+            <span style="margin-left: 10px">Student Name</span>
+          </div>
+        </th>
+
+        <%# Button column %>
+        <th>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <%# Insert a row for each enrolled course %>
+      <% @students.each_with_index do |student,index| %>
+        <tr>
+          <%# ID %>
+          <td>
+            <h6><%= "a" + student.id.to_s %></h6>
+          </td>
+
+          <%# Name %>
+          <td>
+            <h6><%= student.first_name + " " + student.last_name %></h6>
+          </td>
+
+          <%# Buttons %>
+          <td class="right">
+            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => student.id)) %>
+            <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
+              <i class="material-icons">clear</i>
+            <% end, admin_path(:action => 'destroy', :id => @type, :student => student.id), :method => :delete ) %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+<%# Marker Form %>
+<% elsif @type == "marker" %>
+  <% if @markers.empty? %>
+    <div style="text-align: center; margin-top: 20%">
+      <h6><i>There are no markers</i></h6>
+    </div>
+
+  <% else %>
+    <%# Table of Markers %>
+    <table>
+      <thead>
+      <tr>
+        <%# Marker ID %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment</i>
+            <span style="margin-left: 10px">Marker ID</span>
+          </div>
+        </th>
+        <%# Marker Name %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment</i>
+            <span style="margin-left: 10px">Marker Name</span>
+          </div>
+        </th>
+
+        <%# Button column %>
+        <th>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <%# Insert a row for each enrolled course %>
+      <% @markers.each_with_index do |marker,index| %>
+        <% if marker.id != 0 %>
+          <tr>
+            <%# ID %>
+            <td>
+              <h6><%= "a" + marker.id.to_s %></h6>
+            </td>
+
+            <%# Name %>
+            <td>
+              <h6><%= marker.first_name + " " + marker.last_name %></h6>
+            </td>
+
+            <%# Buttons %>
+              <td class="right">
+                <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => marker.id)) %>
+                <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
+                  <i class="material-icons">clear</i>
+                <% end, admin_path(:action => 'destroy', :id => @type, :marker => marker.id), :method => :delete ) %>
+              </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+<%# Assignment Form %>
+<% elsif @type == "assignment" %>
+  <% if @assignments.empty? %>
+    <div style="text-align: center; margin-top: 20%">
+      <h6><i>There are no assignments</i></h6>
+    </div>
+
+
+<%# Table listing any assignments/components that are graded %>
+  <% else %>
+    <table>
+      <thead>
+      <tr>
+        <%# Assignment Name %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment</i>
+            <span style="margin-left: 10px">Assignment Name</span>
+          </div>
+        </th>
+
+        <%# Course Name %>
+        <th>
+          <div class="valign-wrapper">
+            <i class="material-icons">assignment_returned</i>
+            <span style="margin-left: 10px">Course Title</span>
+          </div>
+        </th>
+
+        <%# Details button %>
+        <th>
+        </th>
+
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @assignments.each_with_index do |assignment,index| %>
+        <tr>
+          <%# Assignment Name %>
+          <td>
+            <h6><%= assignment.title %></h6>
+          </td>
+
+          <%# Course Title %>
+          <td>
+            <h6><%= assignment.course.long_title %></h6>
+          </td>
+
+          <%# Buttons %>
+          <td class="right">
+            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => assignment.id)) %>
+            <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
+              <i class="material-icons">clear</i>
+            <% end, admin_path(:action => 'destroy', :id => @type, :assignment => assignment.id), :method => :delete ) %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>
+
+<%=link_to(button_tag("Cancel", class: "grey btn"), admin_index_path) %>

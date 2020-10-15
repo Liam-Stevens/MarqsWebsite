@@ -10,7 +10,7 @@
     <%# Student/Marker ID input %>
     <div class="input-field">
       <%= label_tag(:id, "Student/Marker ID") %>
-      <%= text_field_tag(:id, nil, value: session[:id], class: "validate") %>
+      <%= text_field_tag(:id, nil, placeholder: "a1234567", value: session[:id], class: "validate") %>
     </div>
 
     <%# Submit button %>

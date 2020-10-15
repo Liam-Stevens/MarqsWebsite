@@ -17,6 +17,7 @@ class LoginController < ApplicationController
         # Redirect to page based on ID
         id = session[:id]
         if id == "0000000"
+            session[:marker] = true
             session[:logged_in] = true
             session[:ignore_redirect] = false
             redirect_to admin_index_path
