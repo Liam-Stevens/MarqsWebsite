@@ -7,4 +7,6 @@ class CreateMarkers < ActiveRecord::Migration[5.2]
       t.timestamps
     end
   end
+
+  ActiveRecord::Base.connection.execute("UPDATE SQLITE_SEQUENCE SET seq = 1700000 WHERE name = 'id'")
 end

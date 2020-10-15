@@ -5,6 +5,8 @@ class Marker < ApplicationRecord
     has_many :courses, through: :course_members
     has_many :comments
 
+    validates :marker_id, uniqueness: true
+
     # Helper to concatenate name
     def full_name
         return first_name + " " + last_name
