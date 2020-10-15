@@ -40,7 +40,7 @@
 
           <%# Buttons %>
           <td class="right">
-            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
+            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => course.id)) %>
             <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
               <i class="material-icons">clear</i>
             <% end, admin_path(:action => 'destroy', :id => @type, :course => course.id), :method => :delete ) %>
@@ -100,7 +100,7 @@
 
           <%# Buttons %>
           <td class="right">
-            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
+            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => student.id)) %>
             <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
               <i class="material-icons">clear</i>
             <% end, admin_path(:action => 'destroy', :id => @type, :student => student.id), :method => :delete ) %>
@@ -161,7 +161,7 @@
 
             <%# Buttons %>
               <td class="right">
-                <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
+                <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => marker.id)) %>
                 <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
                   <i class="material-icons">clear</i>
                 <% end, admin_path(:action => 'destroy', :id => @type, :marker => marker.id), :method => :delete ) %>
@@ -224,7 +224,7 @@
 
           <%# Buttons %>
           <td class="right">
-            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), login_path) %>
+            <%= link_to(button_tag("Edit", class: "grey darken-2 waves-effect waves-light btn"), edit_admin_path(:id => @type, :find => assignment.id)) %>
             <%= link_to(button_tag(class: "btn-floating waves-effect waves-light red") do %>
               <i class="material-icons">clear</i>
             <% end, admin_path(:action => 'destroy', :id => @type, :assignment => assignment.id), :method => :delete ) %>
