@@ -27,10 +27,10 @@ class AdminController < ApplicationController
     add_breadcrumb "Manager", admin_index_path
     add_breadcrumb "Manage "+@type+"s", admin_path(:id => @type)
 
-    @courses = Course.all
-    @students = Student.all
-    @markers = Marker.all
-    @assignments = Assignment.all
+    @courses = (Course.all).reorder(:long_title)
+    @students = Student.all.reorder(:student_id)
+    @markers = Marker.all.reorder(:marker_id)
+    @assignments = (Assignment.all).reorder(:course_id)
 
   end
 
@@ -282,7 +282,11 @@ class AdminController < ApplicationController
     if params[:id] == "course"
       myCourse = Course.find(params[:course])
       if myCourse != nil
+        courseID = myCourse.id
+        courseName = myCourse.short_title
+
         myCourse.destroy
+        add_error("#{courseID}: #{courseName} removed")
       else
         add_error("Course not found")
       end
@@ -291,7 +295,11 @@ class AdminController < ApplicationController
     elsif params[:id] == "student"
       myStudent = Student.find(params[:student])
       if myStudent != nil
+        studentID = myStudent.id
+        studentName = myStudent.first_name + " " + myStudent.last_name
+
         myStudent.destroy
+        add_error("#{studentID}: #{studentName} removed")
       else
         add_error("Student not found")
       end
@@ -300,16 +308,24 @@ class AdminController < ApplicationController
     elsif params[:id] == "marker"
       myMarker = Marker.find(params[:marker])
       if myMarker != nil
+        markerID = myMarker.id
+        markerName = myMarker.first_name + " " + myMarker.last_name
         myMarker.destroy
+
+        add_error("#{markerID}: #{markerName} removed")
       else
         add_error("Marker not found")
       end
-
+      
       redirect_to admin_path(:id => params[:id])
     elsif params[:id] == "assignment"
       myAssignment = Assignment.find(params[:assignment])
       if myAssignment != nil
+        assignmentID = myAssignment.id
+        assignmentName = myAssignment.title
+        
         myAssignment.destroy
+        add_error("#{assignmentID}: #{assignmentName} removed")
       else
         add_error("Assignment not found")
       end
