@@ -36,7 +36,7 @@ class AdminController < ApplicationController
 
   def create
     if params[:commit] == "Add Course"
-      if Course.find_by(course_id: params[:Course_ID] == nil)
+      if Course.find_by(course_id: params[:Course_ID]) == nil
         course = Course.new
         course.eff_date = params[:Eff_Date]
         course.course_id = params[:Course_ID]
@@ -47,7 +47,7 @@ class AdminController < ApplicationController
         course.save!
 
         redirect_to admin_index_path
-        add_error("Course added succesfully!")
+        add_error("#{course.course_id}: #{course.long_title} added succesfully!")
       else
         add_error("Course already exists")
         redirect_to new_admin_path(:type => "course")
@@ -112,7 +112,7 @@ class AdminController < ApplicationController
         redirect_to new_admin_path(:type => "marker")
       end
     elsif params[:commit] == "Add Assignment"
-      if Course.find_by(course_id: params[:Course_id] != nil)
+      if Course.find_by(course_id: params[:Course_id]) != nil
         assignment = Assignment.new
         assignment.course = Course.find(params[:Course_id])
         assignment.title = params[:Title]
@@ -133,7 +133,7 @@ class AdminController < ApplicationController
         end
 
         redirect_to admin_index_path
-        add_error("Assignment added succesfully!")
+        add_error("#{assignment.title} added succesfully!")
       else
         add_error("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
