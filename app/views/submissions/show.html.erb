@@ -53,7 +53,7 @@
         <thead>
             <tr>
                 <%# Comment %>
-                <th>
+                <th style="width: 70%">
                     <div class="valign-wrapper">
                         <i class="material-icons">chat</i>
                         <span style="margin-left: 10px">Comment</span>
@@ -82,7 +82,7 @@
             <% @comments.each do |comment| %>
                 <tr>
                     <%# Comment %>
-                    <td style="max-width: 40em"> <%= comment.content %> </td>
+                    <td style="max-width: 40em; overflow: auto"> <%= comment.content %> </td>
 
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>

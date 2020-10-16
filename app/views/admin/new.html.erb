@@ -30,7 +30,7 @@
       <%= label_tag("Descr", "Description") %>
       <%= text_field_tag("Descr", nil, class: "validate", required: true) %>
     </div>
-
+    <br>
     <%= submit_tag("Add Course", class: "grey darken-2 btn") %>
   <% end %>
 
@@ -39,7 +39,7 @@
   <%= form_with(url: admin_index_path, id: "student-form") do %>
     <div class="input-field">
       <%= label_tag("Student_ID", "Student ID") %>
-      <%= number_field_tag("Student_ID", nil, class: "validate", min: 0, required: true) %>
+      <%= number_field_tag("Student_ID", nil, class: "validate", min: 1000000, max: 9999999, requried: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("First_Name", "First Name") %>
@@ -58,7 +58,7 @@
           <% end %>
       </select>
     </div>
-
+    <br>
     <%= submit_tag("Add Student", class: "grey darken-2 btn") %>
   <% end %>
 
@@ -67,7 +67,7 @@
   <%= form_with(url: admin_index_path, id: "marker-form") do %>
     <div class="input-field">
       <%= label_tag("Marker_ID", "Marker ID") %>
-      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 0, required: true) %>
+      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 1000000, max: 9999999, required: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("First_Name", "First Name") %>
@@ -79,14 +79,14 @@
     </div>
     <%# Courses List %>
     <div class="input-field">
-      <select multiple class="validate valid" name="Course_id[]" id="Course_id" required>
+      <select multiple class="validate valid" name="Course_id[]" id="Course_id">
           <option value="" disabled>Select Course's</option>
           <% @courses.each do |course| %>
               <option value = <%= course.id %>><%= course.id %> - <%= course.short_title %></option>
           <% end %>
       </select>
     </div>
-
+    <br>
     <%= submit_tag("Add Marker", class: "grey darken-2 btn") %>
   <% end %>
 
@@ -118,10 +118,10 @@
           <% end %>
       </select>
     </div>
-
+    <br>
     <%= submit_tag("Add Assignment", class: "grey darken-2 btn") %>
   <% end %>
 
 <% end %>
-
+<br>
 <%=link_to(button_tag("Cancel", class: "grey btn"), admin_index_path) %>

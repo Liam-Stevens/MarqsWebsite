@@ -3,14 +3,14 @@
 <h6 style="margin-bottom: 30px">Please login with your credentials:</h6>
 
 <%# Main form %>
-<%= form_with(url: "/login", method: :get) do %>
+<%= form_with(url: "/login", method: :get, local:true) do %>
     <%# Error message set by controller %>
     <p class="red-text text-darken-2" style="margin: 0 0 20px 0"><%= @failure %></p>
 
     <%# Student/Marker ID input %>
     <div class="input-field">
       <%= label_tag(:id, "Student/Marker ID") %>
-      <%= text_field_tag(:id, nil, value: session[:id], class: "validate") %>
+      <%= text_field_tag(:id, nil, placeholder: "a1234567", value: session[:id], class: "validate") %>
     </div>
 
     <%# Submit button %>
