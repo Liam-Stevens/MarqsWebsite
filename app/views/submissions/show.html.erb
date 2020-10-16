@@ -82,7 +82,7 @@
             <% @comments.each do |comment| %>
                 <tr>
                     <%# Comment %>
-                    <td style="max-width: 40em"> <%= comment.content %> </td>
+                    <td style="max-width: 40em; overflow: auto"> <%= comment.content %> </td>
 
                     <%# Marker ID %>
                     <td> <%= "a#{comment.marker.id}" %> </td>
