@@ -40,13 +40,13 @@
                     </div>
                 <% end %>
             </div>
-            <div class="left">
-              <ol class="left-align breadcrumbs">
-                <%# Breadcrumb %>
-                <%= render_breadcrumbs :tag => :li, :separator => " " %>
-              </ol>
-            </div>
         </nav>
+        <div class="left valign-wrapper breadcrumb-div">
+          <ol class="left-align breadcrumbs">
+            <%# Breadcrumb %>
+            <%= render_breadcrumbs :separator => "/" %>
+          </ol>
+        </div>
 
         <%# All errors, assumes flash[:errors] is an array of strings %>
         <% unless flash[:errors].nil? %>
@@ -104,8 +104,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <%# Load modal JS last %>
         <%= javascript_include_tag 'materialize' %>

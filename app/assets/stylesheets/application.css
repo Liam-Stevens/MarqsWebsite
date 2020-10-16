@@ -55,7 +55,12 @@
     border: solid lightgrey 1px;
 }
 
+.breadcrumb-div {
+    width: 100%;
+}
+
 .breadcrumbs {
+    width: 100%;
     color: red !important;
 }
 
