@@ -84,7 +84,7 @@ class AdminController < ApplicationController
         end
 
         redirect_to admin_index_path
-        add_error("#{student.id}: #{student.first_name} #{student.last_name} added succesfully!")
+        add_error("#{student.student_id}: #{student.first_name} #{student.last_name} added succesfully!")
       else
         add_error("User ID already exists")
         redirect_to new_admin_path(:type => "student")
@@ -92,7 +92,7 @@ class AdminController < ApplicationController
     elsif params[:commit] == "Add Marker"
       if (Marker.find_by(marker_id: params[:Marker_ID]) == nil && Student.find_by(student_id: params[:Marker_ID]) == nil)
         marker = Marker.new
-        marker.marker_id = params[:marker_ID]
+        marker.marker_id = params[:Marker_ID]
         marker.first_name = params[:First_Name]
         marker.last_name = params[:Last_Name]
 
@@ -106,7 +106,7 @@ class AdminController < ApplicationController
 
         marker.save!
         redirect_to admin_index_path
-        add_error("#{marker.id}: #{marker.first_name} #{marker.last_name} added succesfully!")
+        add_error("#{marker.marker_id}: #{marker.first_name} #{marker.last_name} added succesfully!")
       else
         add_error("User ID already exists")
         redirect_to new_admin_path(:type => "marker")

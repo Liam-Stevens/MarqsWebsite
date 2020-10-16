@@ -39,7 +39,7 @@
   <%= form_with(url: admin_index_path, id: "student-form") do %>
     <div class="input-field">
       <%= label_tag("Student_ID", "Student ID") %>
-      <%= number_field_tag("Student_ID", nil, class: "validate", min: 1740000) %>
+      <%= number_field_tag("Student_ID", nil, class: "validate", min: 1000000, max: 9999999, requried: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("First_Name", "First Name") %>
@@ -67,7 +67,7 @@
   <%= form_with(url: admin_index_path, id: "marker-form") do %>
     <div class="input-field">
       <%= label_tag("Marker_ID", "Marker ID") %>
-      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 1700000) %>
+      <%= number_field_tag("Marker_ID", nil, class: "validate", min: 1000000, max: 9999999, required: true) %>
     </div>
     <div class="input-field">
       <%= label_tag("First_Name", "First Name") %>
