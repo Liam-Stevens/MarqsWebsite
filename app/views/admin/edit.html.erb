@@ -26,7 +26,7 @@
       <%= label_tag("Descr", "Description") %>
       <%= text_field_tag("Descr", nil, value: @this_course.descr, class: "validate", required: true) %>
     </div>
-
+    <br>
     <%= submit_tag("Save Course", class: "grey darken-2 btn") %>
   <% end %>
 
@@ -50,7 +50,7 @@
         <% end %>
       </select>
     </div>
-
+    <br>
     <%= submit_tag("Save Student", class: "grey darken-2 btn") %>
   <% end %>
 
@@ -74,7 +74,7 @@
         <% end %>
       </select>
     </div>
-
+    <br>
     <%= submit_tag("Save Marker", class: "grey darken-2 btn") %>
   <% end %>
 
@@ -106,10 +106,10 @@
         <% end %>
       </select>
     </div>
-
+    <br>
     <%= submit_tag("Save Assignment", class: "grey darken-2 btn", params: [:type => @type ]) %>
   <% end %>
 
 <% end %>
-
+<br>
 <%=link_to(button_tag("Cancel", class: "grey btn")) %>
