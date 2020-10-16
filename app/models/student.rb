@@ -1,5 +1,5 @@
 class Student < ApplicationRecord
-    has_and_belongs_to_many :courses
+    has_and_belongs_to_many :courses, touch: true
     has_many :submission, dependent: :destroy
 
     validates :student_id, uniqueness: true
