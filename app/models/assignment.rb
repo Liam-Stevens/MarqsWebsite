@@ -47,7 +47,10 @@ class Assignment < ApplicationRecord
                 end
             end
         end
-
+        
+        if errors.length == 0
+            errors.push("Successfully Imported!")
+        end
         return errors
     end
 end

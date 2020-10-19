@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
     # Redirect to root if not logged in
     def redirect_to_root
-        if !@logged_in && session[:ignore_redirect] == false
+        if (@logged_in == false || session[:ignore_redirect] == true)
             redirect_to root_path
         end
     end
