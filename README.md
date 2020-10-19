@@ -25,3 +25,12 @@ The server should be running on port `3000`
 Execute Cucumber tests using `bundle exec cucumber`
 
 Execute RSPEC tests using `bundle exec RSPEC`
+
+## Build to Docker
+
+Change to the directory of the server,
+then run the following:
+
+`docker build . -t marqs_webapp`
+
+`docker run -it -p 3000:3000 marqs_webapp`
