@@ -115,9 +115,9 @@ Marker.delete_all
 
 # Hard Seed Admin
 admin = Marker.new
-admin.marker_id = "0000000"
+admin.marker_id = "1000000"
 admin.first_name = "Admin"
-admin.last_name = "Admin"
+admin.last_name = ""
 admin.save!
 
 csv.each do |row|

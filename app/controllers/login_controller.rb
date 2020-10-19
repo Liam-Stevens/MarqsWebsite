@@ -7,16 +7,13 @@ class LoginController < ApplicationController
 
         # Set session ID if passed in parameters
         if params[:id] != nil
-          if params[:id][0] == 'a'
-            params[:id][0] = ''
-          end
-          session[:id] = params[:id]
-          session[:logout] = false
+        session[:id] = params[:id]
+        session[:logout] = false
         end
 
         # Redirect to page based on ID
         id = session[:id]
-        if id == "0000000"
+        if id == "1000000"
             session[:marker] = true
             session[:logged_in] = true
             session[:ignore_redirect] = false
