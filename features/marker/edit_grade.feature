@@ -27,7 +27,7 @@ Scenario: Negative grade
     When I fill in "submission_grade" with "-1"
     And I press "Update Grade"
     Then I should be on the edit grade page for submission "1"
-    And I should see "Grade can't be negative"
+    And I should see "grade must be a non-negative number"
 
 Scenario: Grade larger than maximum
     When I fill in "submission_grade" with "99999999"

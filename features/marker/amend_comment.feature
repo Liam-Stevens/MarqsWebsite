@@ -42,8 +42,3 @@ Scenario: Update a comment to blank
     And I press "Apply Edit"
     Then I should be on the edit comment page for "1"
     And I should see "Can't change to a blank comment"
-
-Scenario: Remove a comment
-    Given I follow "Remove" for comment "This is a comment"
-    Then I should see "Comment deleted."
-    And I should not see "This is a comment"

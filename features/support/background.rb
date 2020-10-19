@@ -75,7 +75,12 @@ Given 'the database is seeded' do
     submissions = [[1, 81.2, "1/09/2020", 4.days.ago, 1740001],
                    [1, 72, "11/03/2000", 1.month.ago, 1740420],
                    [2, 33, "8/09/2020", 9.days.ago, 1740021],
-                   [3, 50, "2/1/2000", 1.day.ago, 1740021]]
+                   [3, 50, "2/1/2000", 9.days.ago, 1740021],
+                   [1, nil, nil, nil, 1740021],
+                   [2, nil, nil, nil, 1740001],
+                   [2, nil, nil, nil, 1740420],
+                   [3, nil, nil, nil, 1740001],
+                   [3, nil, nil, nil, 1740420]]
     submissions.each do |submission|
         s = Submission.new
         s.assignment_id = submission[0]
