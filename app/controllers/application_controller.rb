@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
             return grade
         end
 
-        grade = grade.round(1);
-        str = grade.to_s;
+        grade = grade.round(2)
+        str = grade.to_s
         if str[str.length - 1] == '0'
             grade = grade.floor
         end
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
     # Redirect to root if not logged in
     def redirect_to_root
-        if (@logged_in == false || session[:ignore_redirect] == true)
+        if @logged_in == false || session[:ignore_redirect] == true
             redirect_to root_path
         end
     end
@@ -64,9 +64,16 @@ class ApplicationController < ActionController::Base
         @submission = assignment.submissions.find_by(student_id: student.student_id)
         @max_grades.append(assignment.max_points)
         grade = format_grade(@submission.grade)
+        date = @submission.submitted_date
 
-        if(grade != nil)
+        if grade != nil
             @grades.append(grade)
+            @weightings.append(assignment.weighting)
+        elsif date == nil && Date.today >= assignment.due_date
+            @grades.append(0)
+            @weightings.append(assignment.weighting)
+        elsif date != nil && date >= assignment.due_date
+            @grades.append(0)
             @weightings.append(assignment.weighting)
         else
             @grades.append(0)
@@ -83,7 +90,7 @@ class ApplicationController < ActionController::Base
             @sum_weightings += @weightings[index]*100
         end
 
-        if(@sum_weightings == 0)
+        if @sum_weightings == 0
             @current_grade = -1
         else
             @current_grade = (@sum_grade/@sum_weightings)*100
