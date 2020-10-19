@@ -7,11 +7,17 @@ Background:
     Given the database is seeded
     And I am on the login page
 
-Scenario: View Grade
+Scenario: View Grade (whole number)
+    When I fill in "id" with "1740021"
+    And I press "Login"
+    Given I am on the submission page for id "4"
+    Then I should see "50/50"
+
+Scenario: View Grade (floating point)
     When I fill in "id" with "1740001"
     And I press "Login"
     Given I am on the submission page for id "1"
-    Then I should see "80/100"
+    Then I should see "81.2/100"
 
 Scenario: View a submission with comments
     When I fill in "id" with "1740001"
