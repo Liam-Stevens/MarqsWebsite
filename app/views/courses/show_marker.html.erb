@@ -11,7 +11,7 @@
 
 <%# Table listing any assignments/components that are graded %>
 <% else %>
-    <%= link_to(button_tag("View Failing Students", class: "orange darken-2 waves-effect waves-light btn"), course_path(@course)+"/failing") %>
+    <%= link_to(button_tag("View Failing Students", { class: "waves-effect waves-light btn", style: 'background-color: #fe7442 !important;'}), course_path(@course)+"/failing") %>
 
     <table id="table-id">
         <thead>

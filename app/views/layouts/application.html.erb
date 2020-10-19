@@ -51,12 +51,6 @@
                 <% end %>
             </div>
         </nav>
-        <div class="left valign-wrapper breadcrumb-div">
-          <ol class="left-align breadcrumbs">
-            <%# Breadcrumb %>
-            <%= render_breadcrumbs :separator => "/" %>
-          </ol>
-        </div>
 
         <%# All errors, assumes flash[:errors] is an array of strings %>
         <% unless flash[:errors].nil? %>
@@ -71,6 +65,15 @@
 
         <%# Container for other elements %>
         <div class="container">
+            <% if @render_breadcrumb == nil || @render_breadcrumb %>
+              <nav style="background-color: #fe7442 !important;">
+                <div id="breadcrumb-div" class="nav-wrapper">
+                  <div class="col s12" style="padding-left:1em">
+                    <%= render_breadcrumbs :tag => :a, :separator => "" %>
+                  </div>
+                </div>
+              </nav>
+            <% end %>
             <%# Flash message (show if not empty) %>
             <% if flash[:notice] %>
                 <div class="center-align" style="margin-top: 2em">
@@ -118,5 +121,12 @@
         <%# Load modal JS last %>
         <%= javascript_include_tag 'materialize' %>
         <%= javascript_include_tag 'graph' %>
+
+        <script>
+          $(() => {
+            $('#breadcrumb-div').find("a:even:not(:last-child)").remove();
+            $('#breadcrumb-div').find("a").addClass("breadcrumb");
+          });
+        </script>
     </body>
 </html>
