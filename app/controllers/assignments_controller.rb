@@ -25,7 +25,11 @@ class AssignmentsController < ApplicationController
         @assignment = Assignment.find(assignment_id)
 
         # List out submissions
-        @submissions = @assignment.submissions
+        @submissions = @assignment.submissions.order("submitted_date DESC")
+        @grades = []
+        @submissions.each do |submission|
+           @grades.push(format_grade(submission.grade))
+        end
 
         @course = @assignment.course
         @is_marker = session[:marker]
@@ -55,19 +59,19 @@ class AssignmentsController < ApplicationController
         # Calculate relevant metrics and assign to hash
         grades.sort!
         summary = {};
-        summary[:min] = grades[0]
-        summary[:med] = get_median(grades)
-        summary[:max] = grades[grades.length - 1]
-        summary[:avg] = grades.sum/grades.length.to_f
+        summary[:min] = format_grade(grades[0])
+        summary[:med] = format_grade(get_median(grades))
+        summary[:max] = format_grade(grades[grades.length - 1])
+        summary[:avg] = format_grade(grades.sum/grades.length.to_f)
 
         # Split in two and get their medians
         grades_left, grades_right = grades.each_slice((grades.length/2.0).round).to_a
         if (grades_left == nil || grades_right == nil)
-            summary[:q1] = grades[0]
-            summary[:q3] = grades[0]
+            summary[:q1] = format_grade(grades[0])
+            summary[:q3] = format_grade(grades[0])
         else
-            summary[:q1] = get_median(grades_left)
-            summary[:q3] = get_median(grades_right)
+            summary[:q1] = format_grade(get_median(grades_left))
+            summary[:q3] = format_grade(get_median(grades_right))
         end
 
         # Append other relevant info

@@ -39,7 +39,7 @@ class SubmissionsController < ApplicationController
         else
             ratio = 100 * (@submission.grade / @assignment.max_points.to_f)
             ratio = ratio.round(1)
-            @grade_string = "#{@submission.grade}/#{@assignment.max_points} (#{ratio}%)"
+            @grade_string = "#{format_grade(@submission.grade)}/#{@assignment.max_points} (#{ratio}%)"
         end
 
         # Format string containing submission and marking dates

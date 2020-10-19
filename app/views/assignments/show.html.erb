@@ -67,7 +67,7 @@
     </thead>
 
     <tbody>
-        <% @submissions.order("submitted_date DESC").each do |submission| %>
+        <% @submissions.each_with_index do |submission, index| %>
             <tr>
                 <%# Student ID %>
                 <td>
@@ -90,7 +90,7 @@
 
                 <%# Mark received %>
                 <td>
-                    <h6><%= (submission.grade==nil) ? "0" : submission.grade %>/<%= @assignment.max_points %></h6>
+                    <h6><%= (submission.grade==nil) ? "0" : @grades[index] %>/<%= @assignment.max_points %></h6>
                 </td>
 
                 <%# Details button %>

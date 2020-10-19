@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
     helper_method :get_median
-  
+
     #Updates current grade temporarily based on what-if scores
     def predict
         @grade_value = ("F")
@@ -49,19 +49,19 @@ class CoursesController < ApplicationController
         # Calculate relevant metrics and assign to hash
         grades.sort!
         summary = {};
-        summary[:min] = grades[0]
-        summary[:med] = get_median(grades)
-        summary[:max] = grades[grades.length - 1]
-        summary[:avg] = grades.sum/grades.length.to_f
+        summary[:min] = format_grade(grades[0])
+        summary[:med] = format_grade(get_median(grades))
+        summary[:max] = format_grade(grades[grades.length - 1])
+        summary[:avg] = format_grade(grades.sum/grades.length.to_f)
 
         # Split in two and get their medians
         grades_left, grades_right = grades.each_slice((grades.length/2.0).round).to_a
         if (grades_left == nil || grades_right == nil)
-            summary[:q1] = grades[0]
-            summary[:q3] = grades[0]
+            summary[:q1] = format_grade(grades[0])
+            summary[:q3] = format_grade(grades[0])
         else
-            summary[:q1] = get_median(grades_left)
-            summary[:q3] = get_median(grades_right)
+            summary[:q1] = format_grade(get_median(grades_left))
+            summary[:q3] = format_grade(get_median(grades_right))
         end
 
         # Append other relevant info
@@ -137,7 +137,7 @@ class CoursesController < ApplicationController
 
         @students.each do |student|
             @assignments = @course.assignments
-            
+
             @grades = []
             @max_grades = []
             @weightings = []
@@ -147,7 +147,7 @@ class CoursesController < ApplicationController
             end
 
             calculate_grades()
-            
+
             @student_grade.append(get_letter_grade(@current_grade))
             @student_grade_value.append(@current_grade)
         end

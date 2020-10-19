@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
 
         @all_grade = []
         @grade_value = []
-        
+
         student = Student.find(session[:id])
 
         # Calculating students grade for each course
@@ -34,5 +34,9 @@ class StudentsController < ApplicationController
 
         # Fetch a list of recently marked assignments (which are really submissions)
         @recently_marked = Submission.where(student_id: @logged_in_user.id, marked_date: 7.days.ago.beginning_of_day..Date.today)
+        @recently_marked_grades = []
+        @recently_marked.each do |submission|
+            @recently_marked_grades.push(format_grade(submission.grade))
+        end
     end
 end

@@ -5,6 +5,21 @@ class ApplicationController < ActionController::Base
     before_action :get_logged_in_user
     before_action :redirect_to_root
 
+    # Format a float
+    def format_grade(grade)
+        # Skip over blank
+        if grade == nil
+            return grade
+        end
+
+        grade = grade.round(1);
+        str = grade.to_s;
+        if str[str.length - 1] == '0'
+            grade = grade.floor
+        end
+        return grade
+    end
+
     # Checks if a user is logged in and redirects to home page if not
     def check_authenticated
         @logged_in = session[:logged_in]
@@ -48,7 +63,7 @@ class ApplicationController < ActionController::Base
     def grades_and_weighting_helper(assignment,student)
         @submission = assignment.submissions.find_by(student_id: student.student_id)
         @max_grades.append(assignment.max_points)
-        grade = @submission.grade
+        grade = format_grade(@submission.grade)
 
         if(grade != nil)
             @grades.append(grade)
@@ -71,8 +86,9 @@ class ApplicationController < ActionController::Base
         if(@sum_weightings == 0)
             @current_grade = -1
         else
-            @current_grade = ((@sum_grade/@sum_weightings)*100).floor
+            @current_grade = (@sum_grade/@sum_weightings)*100
         end
 
+        @current_grade = format_grade(@current_grade)
     end
 end

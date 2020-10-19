@@ -11,6 +11,16 @@ var modal = M.Modal.init(elm, {
     }
 });
 
+function formatGrade(grade) {
+    grade = parseFloat(grade);
+    grade = grade.toFixed(1);
+    str = String(grade);
+    if (str[str.length - 1] == '0') {
+        grade = Math.floor(grade);
+    }
+    return grade
+}
+
 // Small helpers to return the percentage + grade of a mark
 function getGrade(per) {
     if (per >= 0 && per < 50) {
@@ -27,9 +37,9 @@ function getGrade(per) {
 }
 
 function getGradeString(mark, max_mark) {
-    var per = 100.0 * (mark/max_mark);
+    var per = formatGrade(100.0 * (mark/max_mark));
     var str = `${mark} `
-    str += `(${per.toFixed(0)}% `;
+    str += `(${per}% `;
     str += getGrade(per);
     str += ")";
     return str;
@@ -127,20 +137,17 @@ function getFNS(id, mark, is_assignment) {
                     elm.innerHTML = `No grades have been submitted${is_assignment ? " for this assignment" : ""}.`
                     return;
                 }
-            
-                json.avg = json.avg.toFixed(0);
-                json.med = json.med.toFixed(0);
 
                 // Otherwise actually create graph
                 elm.style.display = "none"
                 createGraph(json, mark);
                 if (is_assignment) {
                     var avg = `Average Mark: \t${getGradeString(json.avg, json.max_marks)}`
-                    var you = `Your Mark: \t\t${getGradeString(mark, json.max_marks)}`
+                    var you = `Your Mark: \t\t${getGradeString(formatGrade(mark), json.max_marks)}`
 
                 } else {
                     var avg = `Average Grade: \t${json.avg + "% " + getGrade(json.avg)}`
-                    var you = `Your Grade: \t\t${mark + "% " + getGrade(mark)}`
+                    var you = `Your Grade: \t\t${formatGrade(mark) + "% " + getGrade(mark)}`
                 }
                 document.getElementById("graph-stats").innerHTML = `${avg}\n<b>${you}</b>`;
 
