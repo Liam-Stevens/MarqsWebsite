@@ -77,7 +77,7 @@ class AdminController < ApplicationController
               submission.student_id = student.student_id
               submission.assignment_id = assignment.id
               submission.save!
-            
+
               assignment.submissions << submission
             end
           end
@@ -176,7 +176,6 @@ class AdminController < ApplicationController
     elsif @type == "Save Course"
       course = Course.find_by(course_id: params[:find])
       if course != nil
-        puts(course.eff_date)
         course.eff_date = params[:Eff_Date]
         course.short_title = params[:Short_Title]
         course.long_title = params[:Long_Title]
@@ -316,14 +315,14 @@ class AdminController < ApplicationController
       else
         add_error("Marker not found")
       end
-      
+
       redirect_to admin_path(:id => params[:id])
     elsif params[:id] == "assignment"
       myAssignment = Assignment.find(params[:assignment])
       if myAssignment != nil
         assignmentID = myAssignment.id
         assignmentName = myAssignment.title
-        
+
         myAssignment.destroy
         add_error("#{assignmentID}: #{assignmentName} removed")
       else

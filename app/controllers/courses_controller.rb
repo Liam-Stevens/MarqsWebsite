@@ -38,7 +38,6 @@ class CoursesController < ApplicationController
             end
         end
         grades.compact!
-        puts grades
 
         # Return blank JSON if no grades
         if (grades.empty?)
