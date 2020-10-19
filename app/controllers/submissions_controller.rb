@@ -56,6 +56,7 @@ class SubmissionsController < ApplicationController
         # Get the submission
         id = params[:id]
         @submission = Submission.find(id)
+        @grade = format_grade(@submission.grade)
 
         # Get the submission's assignment
         @assignment = @submission.assignment
