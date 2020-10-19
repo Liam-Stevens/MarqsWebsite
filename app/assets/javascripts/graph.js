@@ -13,7 +13,7 @@ var modal = M.Modal.init(elm, {
 
 function formatGrade(grade) {
     grade = parseFloat(grade);
-    grade = grade.toFixed(1);
+    grade = grade.toFixed(2);
     str = String(grade);
     if (str[str.length - 1] == '0') {
         grade = Math.floor(grade);
