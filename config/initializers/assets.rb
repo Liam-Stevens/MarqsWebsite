@@ -12,4 +12,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w( graph.js courses.js materialize.js materialize.css admin.js tablesort.js tablesort.number.js tablesort.date.js sortable-arrows.js jquery.min.js proceed_dialog.js duDialog.css duDialog.js)
+Rails.application.config.assets.precompile += %w( graph.js courses.js materialize.js materialize.css admin.js tablesort.js tablesort.number.js tablesort.date.js sortable-arrows.js jquery.min.js proceed_dialog.js duDialog.css duDialog.js predict_grade.js)
