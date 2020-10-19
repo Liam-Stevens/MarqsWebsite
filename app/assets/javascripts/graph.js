@@ -138,6 +138,9 @@ function getFNS(id, mark, is_assignment) {
                     return;
                 }
 
+                // Fix negative marks
+                mark = (mark < 0 ? 0 : mark)
+
                 // Otherwise actually create graph
                 elm.style.display = "none"
                 createGraph(json, mark);
