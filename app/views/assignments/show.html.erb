@@ -33,22 +33,33 @@
 
 <%# Table listing all submissions for an assignment %>
 <h5 style="margin-top: 30px">All Submissions</h5>
-<table>
+<table id="table-id">
     <thead>
         <tr>
             <%# Student ID %>
-            <th>
+            <th class="sortable">
                 <div class="valign-wrapper">
                     <i class="material-icons">assignment</i>
                     <span style="margin-left: 10px">Student ID</span>
+                    <i class="material-icons sortable-arrow">sort</i>
+                </div>
+            </th>
+
+            <%# Student Name %>
+            <th class="sortable">
+                <div class="valign-wrapper">
+                    <i class="material-icons">face</i>
+                    <span style="margin-left: 10px">Student Name</span>
+                    <i class="material-icons sortable-arrow">sort</i>
                 </div>
             </th>
 
             <%# Submission Date %>
-            <th>
+            <th class="sortable">
                 <div class="valign-wrapper">
                     <i class="material-icons">access_time</i>
                     <span style="margin-left: 10px">Submitted</span>
+                    <i class="material-icons sortable-arrow">sort</i>
                 </div>
             </th>
 
@@ -61,7 +72,7 @@
             </th>
 
             <%# View button %>
-            <th>
+            <th data-sort-method='none'>
             </th>
         </tr>
     </thead>
@@ -74,15 +85,19 @@
                     <h6><%= "a#{submission.student_id}" %></h6>
                 </td>
 
+                <td>
+                    <% student = Student.find(submission.student_id) %>
+                    <h6><%= "#{student.first_name} #{student.last_name}" %></h6>
+                </td>
 
                 <%# Submission date %>
-                <td>
+                <td data-sort="<%= (submission.submitted_date != nil) ? submission.submitted_date.to_time.to_i : 9007199254740991 %>">
                     <% if submission.submitted_date == nil && Date.today >= @assignment.due_date %>
                         <h6 style="color:Red;"><i>Missing</i></h6>
                     <% elsif submission.submitted_date == nil && Date.today < @assignment.due_date %>
                         <h6><i>Not Submitted</i></h6>
                     <% elsif submission.submitted_date != nil && submission.submitted_date >= @assignment.due_date %>
-                        <h6 style="color:Red;"><%= submission.submitted_date %></h6>
+                        <h6 style="color:Red;"><%= submission.submitted_date.strftime('%d %b %Y') %></h6>
                     <% elsif submission.submitted_date != nil && submission.submitted_date < @assignment.due_date %>
                         <h6><%= submission.submitted_date %></h6>
                     <% end %>
@@ -111,3 +126,4 @@
         <% end %>
     </tbody>
 </table>
+<%= javascript_include_tag 'sortable-arrows' %>
