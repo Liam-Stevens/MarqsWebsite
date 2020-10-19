@@ -13,9 +13,9 @@
                     <i class="material-icons">donut_large</i>
                     <h6 style="margin-left: 10px">Current Grade</h6>
                         <% if @grade_value == "N/A" %>
-                            <h6 style="margin-left: auto"><b><%= @grade_value%></b></h6>
+                            <h6 style="margin-left: auto"><b id="grade_tag"><%= @grade_value%></b></h6>
                         <% else %>
-                            <h6 style="margin-left: auto"><b><%= @current_grade%> <%= @grade_value%></b></h6>
+                            <h6 style="margin-left: auto"><b id="grade_tag"><%= @current_grade%> <%= @grade_value%></b></h6>
                         <% end %>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
         <tbody>
             <% @assignments.each_with_index do |assignment,index| %>
-                <tr>
+                <tr class="assignment-row">
                     <%# Assignment Name %>
                     <td>
                         <h6><%= assignment.title %></h6>
@@ -108,13 +108,13 @@
 
                     <%# Weighting %>
                     <td>
-                        <h6><%= (assignment.weighting*100).round.to_s + "%" %></h6>
+                        <h6><data class="weighting" value="<%= (assignment.weighting*100).round.to_s %>"><%= (assignment.weighting*100).round.to_s %></data>%</h6>
                     </td>
 
                     <%# Marks %>
                     <td>
                         <div class="valign-wrapper">
-                            <h6 class="valign-wrapper grade-prediction"><%= number_field("mark", nil, value: @grades[index]) %>/<%= assignment.max_points %></h6>
+                            <h6 class="valign-wrapper grade-prediction predict-grade-div tooltipped" data-position="bottom" data-tooltip="click to test a grade"><p class="predict-grade"><%= @grades[index] %></p>/<p class="predict-grade-max-points"><%= assignment.max_points %></p></h6>
                       
                             <%# Show graph button if there are grades %>
                             <% if !assignment.submissions.empty? %>
@@ -127,9 +127,9 @@
                     <td>
                         <% if assignment.submissions.find_by(student_id: session[:id]) != nil %>
                             <% if assignment.submissions.find_by(student_id: session[:id]).grade != nil %>
-                                <i>Graded</i>
+                                <i class="calculate-grade">Graded</i>
                             <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today >= assignment.due_date %>
-                                <i style="color:Red;">Missing</i>
+                                <i style="color:Red;" class="calculate-grade">Missing</i>
                             <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date == nil && Date.today < assignment.due_date %>
                                 <i>Not Submitted</i>
                             <% elsif assignment.submissions.find_by(student_id: session[:id]).submitted_date != nil && assignment.submissions.find_by(student_id: session[:id]).submitted_date >= assignment.due_date %>
@@ -154,3 +154,4 @@
 
 
 <%= javascript_include_tag 'sortable-arrows' %>
+<%= javascript_include_tag 'predict_grade' %>
