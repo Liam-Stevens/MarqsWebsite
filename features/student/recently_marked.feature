@@ -7,7 +7,6 @@ Background:
     Given the database is seeded
     And I am on the login page
 
-
 Scenario: No marked assignments
     Given I fill in "id" with "1740420"
     And I press "Login"

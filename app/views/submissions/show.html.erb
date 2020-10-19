@@ -95,7 +95,7 @@
                         </td>
                         <%# Remove Comment %>
                         <td>
-                          <a class="delete-dialog red darken-2 btn" data-link="<%= comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission) %>">Remove</a>
+                          <a class="delete-dialog red darken-2 btn" href="#" data-link="<%= comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission) %>">Remove</a>
                         </td>
                       </div>
                     <% end %>
