@@ -62,11 +62,11 @@ function calcAll() {
 function getLetterGrade(num) {
   if (num < 0.5) {
     return 'F';
-  } else if (num < 0.64) {
+  } else if (num < 0.65) {
     return 'P';
   } else if (num < 0.75) {
     return 'C';
-  } else if (num < 0.84) {
+  } else if (num < 0.85) {
     return 'D';
   } else {
     return 'HD';

@@ -15,16 +15,26 @@ class Student < ApplicationRecord
         assignments.each do |assignment|
             submission = assignment.submissions.find_by(student_id: id)
             max_grades.append(assignment.max_points)
-            if (submission == nil)
+            if submission == nil
                 grades.append(0)
                 weightings.append(0)
                 next
             end
             grade = submission.grade
+            date = submission.submitted_date
 
-            if(grade != nil)
+            if grade != nil
                 grades.append(grade)
                 weightings.append(assignment.weighting)
+            elsif date == nil && Date.today >= assignment.due_date
+                grades.append(0)
+                weightings.append(assignment.weighting)
+            elsif date != nil && date >= assignment.due_date
+                grades.append(0)
+                weightings.append(assignment.weighting)
+            else
+                grades.append(0)
+                weightings.append(0)
             end
         end
 
@@ -36,15 +46,16 @@ class Student < ApplicationRecord
             sum_weightings += weightings[index]*100
         end
 
-        if (sum_weightings == 0)
+        if sum_weightings == 0
             current_grade = -1
         else
             current_grade = ((sum_grade/sum_weightings)*100).floor
         end
 
         # Restrict out of bounds values to 0
-        if (current_grade < 0 || current_grade > 100)
+        if current_grade < 0 || current_grade > 100
             current_grade = 0
+            current_grade = current_grade.round(2)
         end
 
         # Return grade value
