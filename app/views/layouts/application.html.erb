@@ -52,6 +52,18 @@
             </div>
         </nav>
 
+        <% if @render_breadcrumb == nil || @render_breadcrumb %>
+            <nav style="background-color: #fe7442 !important;">
+                <div class="container">
+                    <div id="breadcrumb-div" class="nav-wrapper">
+                        <div class="col s12">
+                            <%= render_breadcrumbs :tag => :a, :separator => "" %>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        <% end %>
+
         <%# All errors, assumes flash[:errors] is an array of strings %>
         <% unless flash[:errors].nil? %>
             <% flash[:errors].each do |error| %>
@@ -65,15 +77,6 @@
 
         <%# Container for other elements %>
         <div class="container">
-            <% if @render_breadcrumb == nil || @render_breadcrumb %>
-              <nav style="background-color: #fe7442 !important;">
-                <div id="breadcrumb-div" class="nav-wrapper">
-                  <div class="col s12" style="padding-left:1em">
-                    <%= render_breadcrumbs :tag => :a, :separator => "" %>
-                  </div>
-                </div>
-              </nav>
-            <% end %>
             <%# Flash message (show if not empty) %>
             <% if flash[:notice] %>
                 <div class="center-align" style="margin-top: 2em">
