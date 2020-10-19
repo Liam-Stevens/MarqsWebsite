@@ -13,43 +13,42 @@
 <% else %>
     <%= link_to(button_tag("View Failing Students", class: "orange darken-2 waves-effect waves-light btn"), course_path(@course)+"/failing") %>
 
-    <table>
+    <table id="table-id">
         <thead>
             <tr>
                 <%# Assignment Name %>
-                <th>
+                <th class="sortable">
                     <div class="valign-wrapper">
                         <i class="material-icons">assignment</i>
                         <span style="margin-left: 10px">Assignment Name</span>
+                        <i class="material-icons sortable-arrow">sort</i>
                     </div>
                 </th>
 
                 <%# Due Date %>
-                <th>
+                <th class="sortable">
                     <div class="valign-wrapper">
                         <i class="material-icons">access_time</i>
                         <span style="margin-left: 10px">Due Date</span>
+                        <i class="material-icons sortable-arrow">sort</i>
                     </div>
                 </th>
 
                 <%# Weighting %>
-                <th>
+                <th class="sortable">
                     <div class="valign-wrapper">
                         <i class="material-icons">pie_chart</i>
                         <span style="margin-left: 10px">Weighting</span>
+                        <i class="material-icons sortable-arrow">sort</i>
                     </div>
                 </th>
 
                 <%# Mark %>
-                <th>
+                <th data-sort-method='none'>
                     <div class="valign-wrapper">
                         <i class="material-icons">assessment</i>
                         <span style="margin-left: 10px">Mark</span>
                     </div>
-                </th>
-
-                <%# Details button %>
-                <th>
                 </th>
             </tr>
         </thead>
@@ -63,8 +62,8 @@
                     </td>
 
                     <%# Due Date %>
-                    <td>
-                        <h6><%= assignment.due_date %></h6>
+                    <td data-sort='<%= assignment.due_date.to_time.to_i %>'>
+                        <h6><%= assignment.due_date.strftime('%d %b %Y') %></h6>
                     </td>
 
                     <%# Weighting %>
@@ -86,3 +85,5 @@
         </tbody>
     </table>
 <% end %>
+
+<%= javascript_include_tag 'sortable-arrows' %>
