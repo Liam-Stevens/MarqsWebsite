@@ -7,6 +7,9 @@ module NavigationHelpers
             when /^the login page$/
                 '/login'
 
+            when /^the admin page$/
+                '/admin'
+
             when /^the home page for "(.*)"$/
                 if (Student.exists?($1))
                     student_path($1)
