@@ -95,7 +95,7 @@
                         </td>
                         <%# Remove Comment %>
                         <td>
-                          <%= link_to(button_tag("Remove", class: "red darken-2 waves-effect waves-light btn"), comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission), :method => :delete, :confirm => 'del?') %>
+                          <a class="delete-dialog red darken-2 btn" data-link="<%= comment_path(comment, course_id: params[:course_id], assignment_id: @assignment, submission_id: @submission) %>">Remove</a>
                         </td>
                       </div>
                     <% end %>
@@ -104,3 +104,5 @@
         </tbody>
     </table>
 <% end %>
+
+<%= javascript_include_tag 'proceed_dialog' %>

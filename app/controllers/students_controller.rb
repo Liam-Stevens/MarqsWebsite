@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-    add_breadcrumb "Dashboard", :marker_path
+    add_breadcrumb "Dashboard", :student_path
 
     def show
         # Redirect for wrong URI
