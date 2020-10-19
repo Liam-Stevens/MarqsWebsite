@@ -15,6 +15,12 @@ class SubmissionsController < ApplicationController
             @submission = Submission.find(id)
         end
 
+        # Redirect if not user's submission (and logged in as a student)
+        if !session[:marker] && @submission.student_id != @logged_in_user.id
+            redirect_to student_path @logged_in_user
+            return
+        end
+
         # Get the submission's assignment
         @assignment = @submission.assignment
 
