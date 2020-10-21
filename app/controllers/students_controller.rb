@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
     add_breadcrumb "Dashboard", :student_path
+    before_action :show_session_redirect
 
     def show
         # Pass list of courses

@@ -1,6 +1,14 @@
 include Errors
 
 class AdminController < ApplicationController
+  before_action :check_admin_session
+
+  def check_admin_session
+    if session[:id] != "1000000"
+      redirect_to root_path
+    end 
+  end
+
   def index
     add_breadcrumb "Manager", admin_index_path
   end
