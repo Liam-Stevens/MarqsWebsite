@@ -43,6 +43,18 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def show_session_redirect
+        if params[:id] != session[:id]
+            if session[:id] == "1000000"
+                redirect_to admin_index_path
+            elsif Student.exists?(session[:id])
+                redirect_to student_path(session[:id])
+            elsif Marker.exists?(session[:id])
+                redirect_to marker_path(session[:id])
+            end
+        end
+    end
+
     def get_letter_grade(current_grade)
         case current_grade
             when 0..49

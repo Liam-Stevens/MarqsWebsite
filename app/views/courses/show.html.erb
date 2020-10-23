@@ -114,8 +114,12 @@
                     <%# Marks %>
                     <td>
                         <div class="valign-wrapper">
-                            <h6 class="valign-wrapper grade-prediction predict-grade-div tooltipped" data-position="bottom" data-tooltip="Click to test a grade"><p class="predict-grade"><%= @grades[index] %></p>/<p class="predict-grade-max-points"><%= assignment.max_points %></p></h6>
-                      
+                            <h6 class="valign-wrapper grade-prediction predict-grade-div tooltipped" data-position="bottom" data-tooltip="Click to test a grade">
+                                <p class="predict-grade"><%= @grades[index] %></p>
+                                <p>/</p>
+                                <p class="predict-grade-max-points"><%= assignment.max_points %></p>
+                            </h6>
+
                             <%# Show graph button if there are grades %>
                             <% unless assignment.submissions.empty? %>
                                 <i class="modal-trigger graph-button material-icons grey-text text-lighten-1 right" data-target="graph" data-student="<%= @grades[index] %>" data-id="<%= assignment.id %>" data-title="<%= assignment.title %>" data-type="assignment">info_outlined</i>

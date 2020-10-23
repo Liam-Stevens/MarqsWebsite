@@ -2,7 +2,7 @@ title,due_date,weighting,max_marks,course_id
 Strategic Financial Management,2020-08-21,0.25,132,1064
 Financial Analysis of Tesco and Benedict Co,2020-09-15,0.25,108,1064
 International Financial Strategy,2020-10-14,0.15,100,1064
-Finance Planning,2020-07-28,0.2,119,1064
+Finance Planning,2020-07-28,0.3,119,1064
 Corporate Finance,2020-07-28,0.05,126,1064
 Re-pressurizing Tennis Balls,2020-10-06,0.39,117,1068
 Better Book Crate,2020-08-08,0.01,110,1068
@@ -17,7 +17,7 @@ Exam,2020-10-28,0.05,126,1106
 Architectural Analysis,2020-08-22,0.58,125,1110
 Enterprise Architecture,2020-09-07,0.02,122,1110
 System Reference Guide,2020-08-07,0.15,113,1110
-Design Patterns,2020-08-23,0.7,138,1110
+Design Patterns,2020-08-23,0.12,138,1110
 Course Registration System,2020-10-19,0.13,130,1110
 Theories of Firm Internationalisation,2020-08-28,0.35,145,1123
 Managing risk and knowledge in the internationalisation process,2020-10-23,0.3,114,1123
@@ -40,7 +40,7 @@ Online Quiz,2020-08-10,0.04,144,1239
 Identification of Issues,2020-08-19,0.03,112,1239
 Nurse of the Future,2020-08-16,0.01,154,1239
 Research Paper,2020-07-31,0.2,143,1277
-Journal,2020-08-19,0.3,123,1277
+Journal,2020-08-19,0.2,123,1277
 Stage play,2020-08-17,0.2,163,1277
 Concert report,2020-07-31,0.2,126,1277
 Essay,2020-10-22,0.2,172,1277
@@ -50,7 +50,7 @@ Essay,2020-10-09,0.2,172,1313
 Online quiz,2020-09-15,0.4,163,1313
 Exam,2020-08-29,0.3,100,1313
 Analysis of data,2020-09-04,0.5,101,1346
-Project,2020-08-15,0.3,124,1346
+Project,2020-08-15,0.2,124,1346
 ASSIGNMENT 1,2020-09-18,0.15,117,1346
 ASSIGNMENT 2,2020-08-04,0.1,166,1346
 ASSIGNMENT 3,2020-08-08,0.05,175,1346
@@ -68,7 +68,7 @@ Assignment 1,2020-10-20,0.37,110,1430
 Assignment 2,2020-08-02,0.13,167,1430
 Assignment 3,2020-08-17,0.15,195,1430
 Assignment 4,2020-08-17,0.25,110,1430
-Assignment 5,2020-10-13,0.2,110,1430
+Assignment 5,2020-10-13,0.1,110,1430
 Field Trip report,2020-10-24,0.95,182,1458
 Practical reports,2020-10-14,0.02,107,1458
 Three Slide Field Trip Presentation,2020-08-21,0.01,151,1458

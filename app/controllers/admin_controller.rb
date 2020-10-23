@@ -1,6 +1,14 @@
 include Errors
 
 class AdminController < ApplicationController
+  before_action :check_admin_session
+
+  def check_admin_session
+    if session[:id] != "1000000"
+      redirect_to root_path
+    end
+  end
+
   def index
     add_breadcrumb "Manager", admin_index_path
   end
@@ -47,7 +55,7 @@ class AdminController < ApplicationController
         course.save!
 
         redirect_to admin_index_path
-        add_error("#{course.course_id}: #{course.long_title} added succesfully!")
+        add_error("#{course.course_id}: #{course.long_title} added successfully!")
       else
         add_error("Course already exists")
         redirect_to new_admin_path(:type => "course")
@@ -84,7 +92,7 @@ class AdminController < ApplicationController
         end
 
         redirect_to admin_index_path
-        add_error("#{student.student_id}: #{student.first_name} #{student.last_name} added succesfully!")
+        add_error("#{student.student_id}: #{student.first_name} #{student.last_name} added successfully!")
       else
         add_error("User ID already exists")
         redirect_to new_admin_path(:type => "student")
@@ -106,7 +114,7 @@ class AdminController < ApplicationController
 
         marker.save!
         redirect_to admin_index_path
-        add_error("#{marker.marker_id}: #{marker.first_name} #{marker.last_name} added succesfully!")
+        add_error("#{marker.marker_id}: #{marker.first_name} #{marker.last_name} added successfully!")
       else
         add_error("User ID already exists")
         redirect_to new_admin_path(:type => "marker")
@@ -133,7 +141,7 @@ class AdminController < ApplicationController
         end
 
         redirect_to admin_index_path
-        add_error("#{assignment.title} added succesfully!")
+        add_error("#{assignment.title} added successfully!")
       else
         add_error("Course not Found")
         redirect_to new_admin_path(:type => "assignment")
@@ -184,7 +192,7 @@ class AdminController < ApplicationController
         course.save!
 
         redirect_to edit_admin_path(:type => @type)
-        add_error("Course edited succesfully!")
+        add_error("Course edited successfully!")
       else
         add_error("Course not found")
         redirect_to edit_admin_path(:type => @type)
@@ -227,7 +235,7 @@ class AdminController < ApplicationController
          end
         end
 
-        add_error("Student edited succesfully!")
+        add_error("Student edited successfully!")
         redirect_to edit_admin_path(:type => @type)
       else
         add_error("Student not found")
@@ -249,7 +257,7 @@ class AdminController < ApplicationController
 
         marker.save!
 
-        add_error("Marker edited succesfully!")
+        add_error("Marker edited successfully!")
         redirect_to edit_admin_path(:type => @type)
       else
         add_error("Marker not found")
@@ -266,7 +274,7 @@ class AdminController < ApplicationController
         assignment.max_points = params[:Max_points]
         assignment.save!
 
-        add_error("Assignment edited succesfully!")
+        add_error("Assignment edited successfully!")
         redirect_to edit_admin_path(:type => @type)
       else
         add_error("Assignment not found")

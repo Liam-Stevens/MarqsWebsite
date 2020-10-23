@@ -85,7 +85,7 @@ class AssignmentsController < ApplicationController
     def import
         # Error if not a CSV file
         if params[:grades] == nil || !params[:grades].path.match(".*.csv$")
-            add_error("select CSV file")
+            add_error("Uploaded file does not appear to be a CSV")
             redirect_back(fallback_location: root_path)
             return
         end
@@ -98,7 +98,7 @@ class AssignmentsController < ApplicationController
 
         # Error if file headers are incorrect
         if headers == nil || headers != %w(StudentID Fix-Final-Mark Feedback-Mark Feedback-Comments)
-            add_error("please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
+            add_error("Please set headers to StudentID, Fix-Final-Mark, Feedback-Mark, Feedback-Comments")
             redirect_back(fallback_location: root_path)
             return
         end
