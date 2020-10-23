@@ -5,13 +5,28 @@ $(() => {
 
     if (gradeTag.is('p')) {
       let inputTag = $('<input></input>')
-        .attr('type', 'number')
         .addClass('predict-grade')
         .val(gradeTag.val())
         .focusout(replaceInputBox)
-        .keypress(onEnter);
+        .keypress(onEnter)
+        .on("input", function(e) {
+          //If it's ok then save previous value
+          if (/^\d*\.?\d*$/.test(this.value)) {
+            this.prev = this.value;
+          
+          //If it doesn't match then stay at prev
+          } else if (this.hasOwnProperty("prev")) {
+            M.toast({html: 'Grades must be a non-negative number'});
+            this.value = this.prev;
 
+          //If prev doesn't exist
+          } else {
+            M.toast({html: 'Grades must be a non-negative number'});
+            this.value = "";
+          }
+        });
 
+      
       gradeTag.replaceWith(inputTag);
       inputTag.focus();
     }
@@ -21,6 +36,7 @@ $(() => {
 });
 
 
+//Replaces input box
 function replaceInputBox(e) {
   let cur = $(e.currentTarget)
 
