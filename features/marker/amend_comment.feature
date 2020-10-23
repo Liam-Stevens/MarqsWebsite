@@ -41,4 +41,4 @@ Scenario: Update a comment to blank
     When I fill in "content" with ""
     And I press "Apply Edit"
     Then I should be on the edit comment page for "1"
-    And I should see "Can't change to a blank comment"
+    And I should see "Can't set a blank comment"

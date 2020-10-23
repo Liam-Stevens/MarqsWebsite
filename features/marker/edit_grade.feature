@@ -21,7 +21,7 @@ Scenario: Blank grade
     When I fill in "submission_grade" with ""
     And I press "Update Grade"
     Then I should be on the edit grade page for submission "1"
-    And I should see "Unable to set a blank grade"
+    And I should see "Can't set a blank grade"
 
 Scenario: Negative grade
     When I fill in "submission_grade" with "-1"
