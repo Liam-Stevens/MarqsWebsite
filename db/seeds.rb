@@ -93,6 +93,12 @@ csv.each do |row|
 
     a.save!
 
+    # Fancy
+    if cur % 5 == 0 and cur > 0
+        val = 100.0 * (cur/csv.length.to_f)
+        print "#{val.to_i}%   "
+    end
+
     # For each assignment, create a submission per student.
     students = Course.find(a.course_id).students
     students.each do |student|

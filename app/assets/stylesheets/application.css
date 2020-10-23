@@ -17,6 +17,12 @@
     font-family: "Raleway";
 }
 
+#breadcrumbs {
+    background-color: #fe7442 !important;
+    height: 2.7em;
+    line-height: 2.7em;
+}
+
 .box-pad {
     margin: 1.4em;
 }

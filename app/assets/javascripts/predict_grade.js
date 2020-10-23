@@ -2,7 +2,7 @@ $(() => {
   $(".predict-grade-div").click((e) => {
     let cur = e.currentTarget;
     let gradeTag = $(cur).find(".predict-grade")
-    
+
     if (gradeTag.is('p')) {
       let inputTag = $('<input></input>')
         .attr('type', 'number')
@@ -43,7 +43,7 @@ function onEnter(e) {
 function calcAll() {
   let rows = $(".assignment-row")
     .has(".calculate-grade")
-  
+
   let percentage = 0;
   let fullWeighting = 0
   rows.each((i) => {
@@ -55,7 +55,7 @@ function calcAll() {
     let cur = $(rows[i])
     percentage += (($(cur).find(".weighting").val()/100)/fullWeighting)*(parseInt(cur.find(".predict-grade").text())/parseInt(cur.find(".predict-grade-max-points").text()))
   });
-  
+
   $('#grade_tag').text( (percentage*100).toFixed(2) + "% " + getLetterGrade(percentage));
 }
 
