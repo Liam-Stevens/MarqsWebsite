@@ -20,7 +20,7 @@
     </div>
     <div class="input-field">
       <%= label_tag("Course_ID", "Course ID") %>
-      <%= number_field_tag("Course_ID", nil, class: "validate", required: true) %>
+      <%= number_field_tag("Course_ID", nil, min: 1, class: "validate", required: true) %>
     </div>
     <div class="date-field">
       <%= label_tag("Eff_Date", "Effective Date") %>
