@@ -82,7 +82,7 @@ class CommentsController < ApplicationController
 
         # Redirect back to edit page if comment is empty
         if params[:content].strip.empty?
-            add_error("Can't change to a blank comment")
+            add_error("Can't set a blank comment")
             redirect_to edit_comment_path(@comment, :course_id => @course, :assignment_id => @assignment, :submission_id => @submission)
             return
         end

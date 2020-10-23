@@ -51,10 +51,10 @@ class SubmissionsController < ApplicationController
         # Format string containing submission and marking dates
         @date_string = ""
         if (@submission.submitted_date != nil)
-            @date_string += "Submitted: #{@submission.submitted_date}"
+            @date_string += "Submitted: #{@submission.submitted_date.strftime('%d %b %Y')}"
         end
         if (@submission.marked_date != nil)
-            @date_string += " - Marked: #{@submission.marked_date}"
+            @date_string += " - Marked: #{@submission.marked_date.strftime('%d %b %Y')}"
         end
     end
 
@@ -90,7 +90,7 @@ class SubmissionsController < ApplicationController
     def update
         # Redirect back to same page if blank grade given
         if submission_params[:grade].strip.empty?
-            add_error("Unable to set a blank grade")
+            add_error("Can't set a blank grade")
             redirect_to edit_submission_path(params[:id]) and return
         end
 
