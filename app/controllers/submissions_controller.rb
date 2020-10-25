@@ -96,6 +96,7 @@ class SubmissionsController < ApplicationController
 
         @submission = Submission.find params[:id]
         @submission.grade = submission_params[:grade]
+        @submission.marked_date = Date.today
 
         if @submission.save
             flash[:notice] = "#{@submission.student_id}'s submission was updated"
