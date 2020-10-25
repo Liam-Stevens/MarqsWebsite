@@ -27,10 +27,12 @@ class Assignment < ApplicationRecord
 
             if row["Fix-Final-Mark"] != nil
                 submission.grade = row["Fix-Final-Mark"]
+                submission.marked_date = Date.today
             elsif row["Feedback-Mark"] != nil
                 submission.grade = row["Feedback-Mark"]
+                submission.marked_date = Date.today
             end
-            
+
             unless submission.save
                 submission.errors.messages[:grade].each do |msg|
                     errors.push(row["StudentID"] + ": " + msg)
