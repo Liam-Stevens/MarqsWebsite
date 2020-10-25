@@ -33,7 +33,6 @@ class Assignment < ApplicationRecord
                 submission.marked_date = Date.today
             end
 
-            
             unless submission.save
                 submission.errors.messages[:grade].each do |msg|
                     errors.push(row["StudentID"] + ": " + msg)
